@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ProjectMusicSound.Models.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="wrapper">
+    <div class="ui three item menu">
+        <a class="item active">Editorials</a>
+        <a class="item">Reviews</a>
+        <a class="item">Upcoming Events</a>
+    </div>
+    <div ng-app="myApp">
+        <div ng-controller="myCtrl">
+            <table class="ui compact celled definition table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mã Tài Khoản</th>
+                        <th>Họ Tên</th>
+                        <th>Avatar</th>
+                        <th>Email</th>
+                        <th>Mật Khẩu</th>
+                        <th>Ngày Tạo</th>
+                        <th>Ngày Đăng Nhập</th>
+                        <th>Trạng Thái Tài Khoản</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="list in list">
+                        <td class="collapsing">
+                            <div class="ui fitted slider checkbox">
+                                <input type="checkbox" checked> <label></label>
+                            </div>
+                        </td>
+                        <td>{{list.user_code}}</td>
+                        <td>{{list.user_name}}</td>
+                        <td>{{list.user_img}}</td>
+                        <td>{{list.user_email}}</td>
+                        <td>{{list.user_pass}}</td>
+                        <td>{{list.user_datecreate}}</td>
+                        <td>{{list.user_datelogin}}</td>
+                        <td>{{list.user_bin}}</td>
+                    </tr>
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <th></th>
+                        <th colspan="8">
+                            <div class="ui right floated small primary labeled icon button">
+                                <i class="user icon"></i> Add User
+                            </div>
+                            <div class="ui small button">
+                                Approve
+                            </div>
+                            <div class="ui small  disabled button">
+                                Approve All
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!--    Script sematic checkbox    -->
+<script>
+    $('.test.checkbox').checkbox('attach events', '.toggle.button');
+</script>
+<!--    js Json     -->
+<script src="~/Scripts/Json/Admin/Users.js"></script>

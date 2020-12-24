@@ -1,0 +1,74 @@
+﻿@{
+    var a = "@";
+}
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<link href="~/Content/Semantic-UI-CSS-master/semantic.css" rel="stylesheet" />
+<script src="~/Content/Semantic-UI-CSS-master/semantic.js"></script>
+<script>
+    $('.ui.form')
+        .form({
+            fields: {
+                user_name: {
+                    identifier: 'user_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Họ và tên không cho phép để trống.'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Không được phép nhập dưới 5 kí tự.'
+                        }
+                    ]
+                },
+                user_email: {
+                    identifier: 'user_email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Email không được phép để trống.'
+                        },
+                        {
+                            type: 'email',
+                            prompt: 'Email không hợp lệ.'
+                        }
+                    ]
+                },
+                user_pass: {
+                    identifier: 'user_pass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Mật khẩu không cho phép để trống.'
+                        },
+                        {
+                            type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                            prompt: 'Mật khẩu phải tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt'
+                        }
+                    ]
+                },
+                user_repeat: {
+                    identifier: 'user_repeat',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Xác nhận không cho phép để trống.'
+                        },
+                        {
+                            type: 'match[user_pass]',
+                            prompt: 'Mật khẩu không trùng khớp.'
+                        }
+                    ]
+                },
+
+
+
+
+
+
+
+
+            }
+        })
+        ;
+</script>

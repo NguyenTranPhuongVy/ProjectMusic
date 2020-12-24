@@ -1,0 +1,52 @@
+﻿@model ProjectMusicSound.Models.User
+@{
+    ViewBag.Title = "Đăng Ký";
+}
+@Html.Action("Menu", "View")
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url('../../Content/Layout/img/bg-img/BannerSignp.jpg');">
+    <div class="bradcumbContent">
+        <p>Xin chào bạn!</p>
+        <h2>Đăng Ký</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Login Area Start ##### -->
+<section class="login-area section-padding-100">
+    <div class="container">
+        <form class="ui form segment" method="post">
+            @Html.AntiForgeryToken()
+            <p>Nhập Thông Tin Của Bạn</p>
+            <div class="field">
+                <label>Họ Và Tên</label>
+                <input placeholder="Nhập vào họ và tên" name="user_name" type="text">
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input placeholder="Nhập vào email" name="user_email" type="email">
+            </div>
+            <div class="field">
+                <p style="font-size: medium; color: red">@ViewBag.Checkemail</p>
+            </div>
+            <div class="field">
+                <label>Mật Khẩu</label>
+                <input type="password" name="user_pass" id="user_pass" placeholder="Nhập vào mật khẩu">
+            </div>
+            <div class="field">
+                <label>Xác Nhận Mật Khẩu</label>
+                <input type="password" name="user_repeat" id="user_repeat" placeholder="Xác nhận mật khẩu">
+            </div>
+            <div class="inline field">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="terms">
+                    <label>Tôi đồng ý với các điều khoản và điều kiện</label>
+                </div>
+            </div>
+            <div class="field">
+                <label style="color: lightslategray">Bạn đã có tài khoản? Hãy <a href="@Url.Action("Login", "Users")" style="font-size: 13px">đăng nhập</a> ngay</label>
+            </div>
+            <div class="ui primary submit button">Đăng Ký</div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</section>
+<!-- ##### Login Area End ##### -->
