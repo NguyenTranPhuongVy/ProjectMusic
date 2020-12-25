@@ -18,8 +18,8 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
             {
                 user_code = n.user_code,
                 user_active = n.user_active,
-                user_datecreate = n.user_datecreate,
-                user_datelogin = n.user_datelogin,
+                user_datecreate = n.user_datecreate.Value.ToShortDateString(),
+                user_datelogin = n.user_datelogin.Value.ToShortDateString(),
                 user_email = n.user_email,
                 user_name = n.user_name,
                 user_bin = n.user_bin,

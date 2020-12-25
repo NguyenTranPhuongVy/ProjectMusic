@@ -356,6 +356,9 @@
     <Content Include="Content\Layout\js\jquery\jquery-2.2.4.min.js" />
     <Content Include="Content\Layout\js\plugins\plugins.js" />
     <Content Include="Content\Layout\style.css" />
+    <Content Include="Content\PageList\list.js" />
+    <Content Include="Content\PageList\ui.css" />
+    <Content Include="Content\PageList\ui.js" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.js" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.min.css" />
