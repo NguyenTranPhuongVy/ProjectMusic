@@ -1,130 +1,86 @@
-﻿@model ProjectMusicSound.Models.User
-
+﻿@using ProjectMusicSound.Models
+@model ProjectMusicSound.Models.User
 @{
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
 }
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
+@{
+    List<Role> roles = db.Roles.ToList();
+}
+<div style="color: black" class="mt-3">
+    <i class="caret square left icon"></i>@Html.ActionLink("Trở Về", "Index")
+</div>
+<form method="post" enctype="multipart/form-data" class="ui form segment">
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_name, "", new { @class = "text-danger" })
-            </div>
+    <h4>Thêm Thành Viên</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="field">
+        <label>Họ Tên</label>
+        <input placeholder="Nhập Họ Tên" name="user_name" type="text">
+    </div>
+
+    <div class="field">
+        <label>Hình Ảnh</label>
+        <input placeholder="Chọn Ảnh" name="img" type="file">
+    </div>
+
+    <div class="field">
+        <label>Email</label>
+        <input placeholder="Nhập Email" name="user_email" type="email">
+        <p style="color: red; font-size: medium">@ViewBag.Checkemail</p>
+    </div>
+
+    <div class="field">
+        <label>Mật Khẩu</label>
+        <input type="password" name="user_pass" id="user_pass" placeholder="Nhập vào mật khẩu">
+    </div>
+    <div class="field">
+        <label>Xác Nhận Mật Khẩu</label>
+        <input type="password" name="user_repeat" id="user_repeat" placeholder="Xác nhận mật khẩu">
+    </div>
+
+    <div class="three fields">
+        <div class="field">
+            <label>Trạng Thái Tài Khoản</label>
+            <select class="ui dropdown" name="user_active">
+                <option value="True">Hoạt Động</option>
+                <option value="False">Không Hoạt Động</option>
+            </select>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_img, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_img, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_img, "", new { @class = "text-danger" })
-            </div>
+        <div class="field">
+            <label>Tuỳ Chọn Tài Khoản</label>
+            <select class="ui dropdown" name="user_option">
+                <option value="True">Hoạt Động</option>
+                <option value="False">Không Hoạt Động</option>
+            </select>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_pass, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_pass, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_pass, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_token, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_token, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_token, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_datecreate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_datecreate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_datelogin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_datelogin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_datelogin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.user_active)
-                    @Html.ValidationMessageFor(model => model.user_active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_option, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.user_option)
-                    @Html.ValidationMessageFor(model => model.user_option, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_bin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.user_bin)
-                    @Html.ValidationMessageFor(model => model.user_bin, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.role_id, "role_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("role_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.role_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_code, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_code, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="field">
+            <label>Cho Phép Tài Khoản</label>
+            <select class="ui dropdown" name="user_bin">
+                <option value="False">Hoạt Động</option>
+                <option value="True">Không Hoạt Động</option>
+            </select>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div class="field">
+        <label>Vai Trò</label>
+        <select class="ui dropdown" name="role_id">
+            @foreach (var item in roles)
+            {
+                <option value="@item.role_id">@item.role_name</option>
+            }
+        </select>
+    </div>
+
+    <div class="field">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thêm" class="positive ui button" />
+        </div>
+    </div>
+    <div class="ui error message"></div>
+</form>

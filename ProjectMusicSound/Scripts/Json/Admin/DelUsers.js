@@ -2,7 +2,7 @@
 app.controller('myCtrl', function ($scope, $http) {
     $http({
         method: "GET",
-        url: "/JSonAdmin/UserList"
+        url: "/JSonAdmin/UserDel"
     }).then(function mySuccess(response) {
         //Giả định
         $scope.filteredTodos = []
@@ -23,20 +23,6 @@ app.controller('myCtrl', function ($scope, $http) {
 
             $scope.filteredTodos = $scope.list.slice(begin, end);
         });
-
-        $scope.active = function (id) {
-            $http.get("/Admin/UsersAdmin/Active/" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        };
-
-        $scope.option = function (id) {
-            $http.get("/Admin/UsersAdmin/Option/" + id)
-                .then(function (response) {
-                    $scope.list = response.data;
-                });
-        };
 
     }, function myError(response) {
         $scope.list = response.statusText;

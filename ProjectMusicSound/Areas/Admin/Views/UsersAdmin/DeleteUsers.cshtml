@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ProjectMusicSound.Models.User>
 @{
-    ViewBag.Title = "Người Dùng";
+    ViewBag.Title = "Thùng Rác";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="wrapper">
@@ -86,10 +86,10 @@
                     <tr ng-repeat="list in filteredTodos | filter : textSearch">
                         <td class="collapsing">
                             <div ng-show="list.user_active == true">
-                                <input type="checkbox" checked ng-click="active(list.user_id)">
+                                <input type="checkbox" checked>
                             </div>
                             <div ng-show="list.user_active == false">
-                                <input type="checkbox" ng-click="active(list.user_id)">
+                                <input type="checkbox">
                             </div>
                         </td>
                         <td>
@@ -105,10 +105,10 @@
                         <td>{{list.user_datelogin}}</td>
                         <td>
                             <div ng-show="list.user_option == true">
-                                <input type="checkbox" checked ng-click="option(list.user_id)">
+                                <input type="checkbox" checked>
                             </div>
                             <div ng-show="list.user_option == false">
-                                <input type="checkbox" ng-click="option(list.user_id)">
+                                <input type="checkbox">
                             </div>
                         </td>
                         <td>
@@ -121,20 +121,35 @@
                             </div>
                             <br />
                             <div class="ui icon bottom left pointing dropdown button">
-                                <a href="/Admin/UsersAdmin/Del/{{list.user_id}}" style="color: gray"><i class="trash alternate outline icon"></i></a>
+                                <a data-toggle="modal" data-target="#del-{{list.user_id}}" style="color: gray"><i class="recycle icon"></i></a>
+                            </div>
+                            <!-- Modal Khôi Phục -->
+                            <div class="modal fade" id="del-{{list.user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Khôi Phục Tài Khoản</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có muốn khôi phục lại tài khoản {{list.user_email}} không ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+                                            <a href="/Admin/UsersAdmin/Del/{{list.user_id}}" class="btn btn-primary">Đồng ý</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
                 <tfoot class="full-width">
                     <tr>
-                        <th colspan="8">
-                            <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
-                        </th>
                         <th colspan="10">
-                            <div onclick="location.href = '@Url.Action("Create", "UsersAdmin")'" class="ui right floated small primary labeled icon button">
-                                <i class="user icon"></i> Add User
-                            </div>
+                            <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
                         </th>
                     </tr>
                 </tfoot>
@@ -147,4 +162,4 @@
     $('.test.checkbox').checkbox('attach events', '.toggle.button');
 </script>
 <!--    js Json     -->
-<script src="~/Scripts/Json/Admin/Users.js"></script>
+<script src="~/Scripts/Json/Admin/DelUsers.js"></script>

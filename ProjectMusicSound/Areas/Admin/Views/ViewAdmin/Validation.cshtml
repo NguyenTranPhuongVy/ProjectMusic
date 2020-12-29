@@ -1,1 +1,72 @@
-﻿
+﻿@{ 
+    var a = "@";
+}
+<script>
+    $('.ui.form')
+        .form({
+            fields: {
+                user_name: {
+                    identifier: 'user_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập họ và tên.'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Nhập họ và tên phải tối thiểu 5 ký tự.'
+                        }
+                    ]
+                },
+                user_email: {
+                    identifier: 'user_email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập email.'
+                        },
+                        {
+                            type: 'email',
+                            prompt: 'Email không đúng định dạng.'
+                        }
+                    ]
+                },
+                user_pass: {
+                    identifier: 'user_pass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Mật khẩu không cho phép để trống.'
+                        },
+                        {
+                            type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                            prompt: 'Mật khẩu phải tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt'
+                        }
+                    ]
+                },
+                user_repeat: {
+                    identifier: 'user_repeat',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Xác nhận không cho phép để trống.'
+                        },
+                        {
+                            type: 'match[user_pass]',
+                            prompt: 'Mật khẩu không trùng khớp.'
+                        }
+                    ]
+                },
+
+
+
+
+
+
+
+
+
+            }
+        })
+        ;
+</script>

@@ -13,5 +13,10 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public PartialViewResult Validation()
+        {
+            return PartialView();
+        }
     }
 }
