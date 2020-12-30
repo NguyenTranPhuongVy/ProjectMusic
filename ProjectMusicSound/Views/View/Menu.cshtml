@@ -1,4 +1,10 @@
-﻿<!-- ##### Header Area Start ##### -->
+﻿@using ProjectMusicSound.Models
+@model User
+@{ 
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+}
+<!-- ##### Header Area Start ##### -->
 <header class="header-area">
     <!-- Navbar Area -->
     <div class="oneMusic-main-menu">
@@ -37,7 +43,7 @@
                                         <li><a href="blog.html">News</a></li>
                                         <li><a href="contact.html">Contact</a></li>
                                         <li><a href="elements.html">Elements</a></li>
-                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="@Url.Action("Login", "Users")">Login</a></li>
                                         <li>
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
@@ -66,11 +72,21 @@
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
-                                <!-- Login/Register -->
-                                <div class="login-register-btn mr-50">
-                                    <a href="@Url.Action("Create", "Users")" id="loginBtn">Login / Register</a>
-                                </div>
-
+                                @if (httpCookie != null)
+                                {
+                                    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+                                    <!-- Chào User-->
+                                    <div class="login-register-btn mr-50">
+                                        <a href="#" id="loginBtn">@user.user_name</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <!-- Login/Register -->
+                                    <div class="login-register-btn mr-50">
+                                        <a href="@Url.Action("Create", "Users")" id="loginBtn">Login / Register</a>
+                                    </div>
+                                }
                                 <!-- Cart Button -->
                                 <div class="cart-btn">
                                     <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>

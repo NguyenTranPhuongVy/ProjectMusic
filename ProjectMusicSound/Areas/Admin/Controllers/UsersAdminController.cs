@@ -83,6 +83,8 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "user_id,user_name,user_img,user_email,user_pass,user_token,user_datecreate,user_datelogin,user_active,user_option,user_bin,role_id,user_code")] User user, HttpPostedFileBase img)
         {
+            Random random = new Random();
+            ViewBag.Random = random.Next(0, 1000);
             User us = db.Users.SingleOrDefault(n => n.user_email == user.user_email);
             var fileimg = "";
             var pa = "";
@@ -102,9 +104,9 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
                 {
                     fileimg = Path.GetFileName(img.FileName);
                     //Đưa tên ảnh vào file
-                    pa = Path.Combine(Server.MapPath("~/Images/User"), fileimg);
+                    pa = Path.Combine(Server.MapPath("~/Images/User"), ViewBag.Random + fileimg);
                     img.SaveAs(pa);
-                    user.user_img = img.FileName;
+                    user.user_img = ViewBag.Random + img.FileName;
                 }
                 user.user_token = Guid.NewGuid().ToString();
                 user.user_datecreate = DateTime.Now;
@@ -153,7 +155,11 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
                 var pa = Path.Combine(Server.MapPath("~/Images/User"), fileimg);
                 img.SaveAs(pa);
                 user.user_img = img.FileName;
-            }    
+            }
+            else
+            {
+
+            }
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
             ViewBag.role_id = new SelectList(db.Roles, "role_id", "role_name", user.role_id);

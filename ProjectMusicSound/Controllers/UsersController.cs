@@ -75,12 +75,38 @@ namespace ProjectMusicSound.Controllers
             User user = db.Users.Find(id);
             user.user_code = "MS-" + id;
             db.SaveChanges();
+            HttpCookie httpCookie = new HttpCookie("user_id", id.ToString());
+            httpCookie.Expires.AddDays(10);
+            Response.Cookies.Set(httpCookie);
             return Redirect("/Home/Index");
         }
 
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(FormCollection f)
+        {
+            String sEmail = f["user_email"].ToString();
+            String sPass = f["user_pass"].ToString();
+            User user = db.Users.Where(n => n.user_active == true && n.user_bin == false && n.role_id == 1).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
+            if(user != null)
+            {
+                HttpCookie httpCookie = new HttpCookie("user_id", user.user_id.ToString());
+                httpCookie.Expires.AddDays(10);
+                Response.Cookies.Set(httpCookie);
+                db.Users.Find(user.user_id).user_datelogin = DateTime.Now;
+                db.Users.Find(user.user_id).user_token = Guid.NewGuid().ToString();
+                db.SaveChanges();
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                ViewBag.CheckLogin = "Tài Khoản Không Tồn Tại";
+                return RedirectToAction(Request.UrlReferrer.ToString());
+            }
         }
 
         // GET: Users/Edit/5

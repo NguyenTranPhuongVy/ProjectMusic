@@ -11,8 +11,25 @@
 </section>
 <!-- ##### Breadcumb Area End ##### -->
 <!-- ##### Login Area Start ##### -->
-<section class="login-area section-padding-100">
-    <div class="container">
+<section class="login-area section-padding-100" style="margin-top: -5%">
+    <div class="container" style="width: 50%">
+        <div>
+            <center>
+                <button class="ui facebook button">
+                    <i class="facebook icon"></i>
+                    Facebook
+                </button>
+                <button class="ui twitter button">
+                    <i class="twitter icon"></i>
+                    Twitter
+                </button>
+                <button class="ui google plus button">
+                    <i class="google plus icon"></i>
+                    Google Plus
+                </button>
+            </center>
+        </div>
+        <div class="ui horizontal divider">Hoặc</div>
         <form class="ui form segment" method="post">
             @Html.AntiForgeryToken()
             <p>Nhập Thông Tin Của Bạn</p>
