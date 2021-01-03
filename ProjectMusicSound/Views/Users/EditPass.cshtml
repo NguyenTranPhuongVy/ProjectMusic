@@ -1,0 +1,193 @@
+﻿@using ProjectMusicSound.Models
+@model User
+@{
+    ViewBag.Title = "EditPass";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+}
+<style>
+    .canchinh{
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+</style>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
+<link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
+<!-- partial -->
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+    <!-- Navbar Area -->
+    <div class="oneMusic-main-menu">
+        <div id="sticky-wrapper" class="sticky-wrapper is-sticky" style="height: 85px;">
+            <div class="oneMusic-main-menu" style="width: 1349px; position: fixed; top: 0px; z-index: inherit;">
+                <div class="classy-nav-container breakpoint-off">
+                    <div class="container">
+                        <!-- Menu -->
+                        <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                            <!-- Nav brand -->
+                            <a href="index.html" class="nav-brand"><img src="~/Content/Layout/img/core-img/logo.png" alt=""></a>
+
+                            <!-- Navbar Toggler -->
+                            <div class="classy-navbar-toggler">
+                                <span class="navbarToggler"><span></span><span></span><span></span></span>
+                            </div>
+
+                            <!-- Menu -->
+                            <div class="classy-menu">
+
+                                <!-- Close Button -->
+                                <div class="classycloseIcon">
+                                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                                </div>
+
+                                <!-- Nav Start -->
+                                <div class="classynav">
+                                    <ul>
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="albums-store.html">Albums</a></li>
+                                        <li>
+                                            <a href="#">Pages</a>
+                                            <ul class="dropdown">
+                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="albums-store.html">Albums</a></li>
+                                                <li><a href="event.html">Events</a></li>
+                                                <li><a href="blog.html">News</a></li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                                <li><a href="elements.html">Elements</a></li>
+                                                <li><a href="@Url.Action("Login", "Users")">Login</a></li>
+                                                <li>
+                                                    <a href="#">Dropdown</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="#">Even Dropdown</a></li>
+                                                        <li><a href="#">Even Dropdown</a></li>
+                                                        <li><a href="#">Even Dropdown</a></li>
+                                                        <li>
+                                                            <a href="#">Even Dropdown</a>
+                                                            <ul class="dropdown">
+                                                                <li><a href="#">Deeply Dropdown</a></li>
+                                                                <li><a href="#">Deeply Dropdown</a></li>
+                                                                <li><a href="#">Deeply Dropdown</a></li>
+                                                                <li><a href="#">Deeply Dropdown</a></li>
+                                                                <li><a href="#">Deeply Dropdown</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Even Dropdown</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="event.html">Events</a></li>
+                                        <li><a href="blog.html">News</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                    </ul>
+
+                                    <!-- Login/Register & Cart Button -->
+                                    <div class="login-register-cart-button d-flex align-items-center">
+                                        @if (httpCookie != null)
+                                        {
+                                            <!-- Chào User-->
+                                            <div class="login-register-btn mr-50">
+                                                <a href="#" id="loginBtn">@user.user_name</a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <!-- Login/Register -->
+                                            <div class="login-register-btn mr-50">
+                                                <a href="@Url.Action("Create", "Users")" id="loginBtn">Login / Register</a>
+                                            </div>
+                                        }
+                                        <!-- Cart Button -->
+                                        <div class="cart-btn">
+                                            <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav End -->
+
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="canchinh">
+    <div class="main-panel">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="profile-card">
+
+                            <div class="profile-header">
+
+                                <div class="cover-image">
+                                    <img src="~/Images/User/@user.user_img" class="img img-fluid" style="width: 100%">
+                                </div>
+                                <div class="user-image">
+                                    <img src="~/Images/User/@user.user_img" class="img ">
+                                </div>
+                            </div>
+                            
+                            <div class="profile-content">
+                                <div class="profile-name">@user.user_name</div>
+                                @if (user.role_id == 1)
+                                {
+                                    <div class="profile-designation">Người Dùng</div>
+                                }
+                                <p class="profile-description">Hồ sơ cá nhân.</p>
+                                <ul class="profile-info-list">
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-account"></i>Thay Đổi Thông Tin Cá Nhân</a>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title font-weight-bold">Thay Đổi Mật Khẩu</p>
+                            <form class="ui form segment">
+                                <div class="field">
+                                    <label>Mật Khẩu Cũ</label>
+                                    <input placeholder="Vui Lòng Nhập Mật Khẩu Cũ" name="user_oldpass" type="password">
+                                </div>
+                                <div class="field">
+                                    <label>Mật Khẩu Mới</label>
+                                    <input placeholder="Vui Lòng Nhập Mật Khẩu Mới" name="user_pass" type="password">
+                                </div>
+                                <div class="field">
+                                    <label>Xác Nhận Lại Mật Khẩu</label>
+                                    <input placeholder="Vui Lòng Nhập Mật Khẩu Mới" name="user_repeat" type="password">
+                                </div>
+                                <div class="ui buttons">
+                                    <button type="reset" class="ui button">Huỷ Bỏ</button>
+                                    <div class="or"></div>
+                                    <button class="ui positive submit button">Lưu Thay Đổi</button>
+                                </div>
+                                <div class="ui error message"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <?php include'includes/admin_footer.php' ?>
+        <!-- partial -->
+    </div>
+</div>

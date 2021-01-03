@@ -108,6 +108,14 @@ namespace ProjectMusicSound.Controllers
                 return RedirectToAction(Request.UrlReferrer.ToString());
             }
         }
+        public ActionResult Profile()
+        {
+            return View ();
+        }    
+        public ActionResult EditPass()
+        {
+            return View();
+        }
 
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
