@@ -1,6 +1,6 @@
 ﻿@using ProjectMusicSound.Models
 @model User
-@{ 
+@{
     MusicDataEntities db = new MusicDataEntities();
     HttpCookie httpCookie = Request.Cookies["user_id"];
 }
@@ -76,8 +76,17 @@
                                 {
                                     User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
                                     <!-- Chào User-->
-                                    <div class="login-register-btn mr-50">
-                                        <a href="#" id="loginBtn">@user.user_name</a>
+                                    <div class="classynav">
+                                        <ul>
+                                            <li>
+                                                <a href="#" id="loginBtn">@user.user_name</a>
+                                                <ul class="dropdown">
+                                                    <li><a href="@Url.Action("Profile", "Users", new { id = user.user_id})">Trang Cá Nhân</a></li>
+                                                    <li><a href="@Url.Action("EditPass", "Users", new { id = user.user_id})">Thay Đổi Mật Khẩu</a></li>
+                                                    <li><a href="@Url.Action("LogOut", "Users")">Đăng Xuất</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </div>
                                 }
                                 else

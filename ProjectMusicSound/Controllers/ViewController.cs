@@ -18,5 +18,10 @@ namespace ProjectMusicSound.Controllers
         {
             return PartialView();
         }
+
+        public PartialViewResult MenuUser()
+        {
+            return PartialView();
+        }
     }
 }

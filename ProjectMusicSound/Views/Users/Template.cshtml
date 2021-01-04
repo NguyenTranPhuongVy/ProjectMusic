@@ -1,13 +1,14 @@
 ﻿@using ProjectMusicSound.Models
 @model User
 @{
-    ViewBag.Title = "EditPass";
+    ViewBag.Title = "Template";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
     MusicDataEntities db = new MusicDataEntities();
     HttpCookie httpCookie = Request.Cookies["user_id"];
     User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+    List<Profile> profile = db.Profiles.ToList();
 }
 <style>
     .canchinh {
@@ -51,7 +52,6 @@
                                     <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
                                     <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
                                     <a href="" class="profile-info-list-item"><i class="mdi mdi-account"></i>Thay Đổi Thông Tin Cá Nhân</a>
-
                                 </ul>
                             </div>
                         </div>
@@ -61,29 +61,7 @@
                 <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-title font-weight-bold">Thay Đổi Mật Khẩu</p>
-                            <form action="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="ui form segment" method="post">
-                                <div class="field">
-                                    <label>Mật Khẩu Cũ</label>
-                                    <input placeholder="Nhập Mật Khẩu Cũ" name="user_oldpass" type="password">
-                                    <label style="color: red">@ViewBag.CheckOld</label>
-                                </div>
-                                <div class="field">
-                                    <label>Mật Khẩu Mới</label>
-                                    <input placeholder="Nhập Mật Khẩu Mới" name="user_newpass" type="password">
-                                    <label style="color: red">@ViewBag.CheckNew</label>
-                                </div>
-                                <div class="field">
-                                    <label>Xác Nhận Lại Mật Khẩu</label>
-                                    <input placeholder="Xác Nhận Lại Mật Khẩu" name="user_repeatedit" type="password">
-                                </div>
-                                <div class="ui buttons">
-                                    <button type="reset" class="ui button">Huỷ Bỏ</button>
-                                    <div class="or"></div>
-                                    <button class="ui positive submit button">Lưu Thay Đổi</button>
-                                </div>
-                                <div class="ui error message"></div>
-                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -95,3 +73,5 @@
         <!-- partial -->
     </div>
 </div>
+
+

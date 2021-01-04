@@ -14,6 +14,13 @@ namespace ProjectMusicSound.Models
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Musics = new HashSet<Music>();
+            this.Profiles = new HashSet<Profile>();
+        }
+    
         public int user_id { get; set; }
         public string user_name { get; set; }
         public string user_img { get; set; }
@@ -28,6 +35,10 @@ namespace ProjectMusicSound.Models
         public Nullable<int> role_id { get; set; }
         public string user_code { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Music> Musics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profile> Profiles { get; set; }
         public virtual Role Role { get; set; }
     }
 }

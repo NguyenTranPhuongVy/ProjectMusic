@@ -8,6 +8,7 @@
     MusicDataEntities db = new MusicDataEntities();
     HttpCookie httpCookie = Request.Cookies["user_id"];
     User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+    List<Profile> profile = db.Profiles.ToList();
 }
 <style>
     .canchinh {
@@ -21,105 +22,7 @@
 <link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
 <!-- partial -->
 <!-- ##### Header Area Start ##### -->
-<header class="header-area">
-    <!-- Navbar Area -->
-    <div class="oneMusic-main-menu">
-        <div id="sticky-wrapper" class="sticky-wrapper is-sticky" style="height: 85px;">
-            <div class="oneMusic-main-menu" style="width: 1349px; position: fixed; top: 0px; z-index: inherit;">
-                <div class="classy-nav-container breakpoint-off">
-                    <div class="container">
-                        <!-- Menu -->
-                        <nav class="classy-navbar justify-content-between" id="oneMusicNav">
-
-                            <!-- Nav brand -->
-                            <a href="index.html" class="nav-brand"><img src="~/Content/Layout/img/core-img/logo.png" alt=""></a>
-
-                            <!-- Navbar Toggler -->
-                            <div class="classy-navbar-toggler">
-                                <span class="navbarToggler"><span></span><span></span><span></span></span>
-                            </div>
-
-                            <!-- Menu -->
-                            <div class="classy-menu">
-
-                                <!-- Close Button -->
-                                <div class="classycloseIcon">
-                                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                                </div>
-
-                                <!-- Nav Start -->
-                                <div class="classynav">
-                                    <ul>
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="albums-store.html">Albums</a></li>
-                                        <li>
-                                            <a href="#">Pages</a>
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="albums-store.html">Albums</a></li>
-                                                <li><a href="event.html">Events</a></li>
-                                                <li><a href="blog.html">News</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                                <li><a href="elements.html">Elements</a></li>
-                                                <li><a href="@Url.Action("Login", "Users")">Login</a></li>
-                                                <li>
-                                                    <a href="#">Dropdown</a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="#">Even Dropdown</a></li>
-                                                        <li><a href="#">Even Dropdown</a></li>
-                                                        <li><a href="#">Even Dropdown</a></li>
-                                                        <li>
-                                                            <a href="#">Even Dropdown</a>
-                                                            <ul class="dropdown">
-                                                                <li><a href="#">Deeply Dropdown</a></li>
-                                                                <li><a href="#">Deeply Dropdown</a></li>
-                                                                <li><a href="#">Deeply Dropdown</a></li>
-                                                                <li><a href="#">Deeply Dropdown</a></li>
-                                                                <li><a href="#">Deeply Dropdown</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li><a href="#">Even Dropdown</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="event.html">Events</a></li>
-                                        <li><a href="blog.html">News</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                    </ul>
-
-                                    <!-- Login/Register & Cart Button -->
-                                    <div class="login-register-cart-button d-flex align-items-center">
-                                        @if (httpCookie != null)
-                                        {
-                                            <!-- Chào User-->
-                                            <div class="login-register-btn mr-50">
-                                                <a href="#" id="loginBtn">@user.user_name</a>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <!-- Login/Register -->
-                                            <div class="login-register-btn mr-50">
-                                                <a href="@Url.Action("Create", "Users")" id="loginBtn">Login / Register</a>
-                                            </div>
-                                        }
-                                        <!-- Cart Button -->
-                                        <div class="cart-btn">
-                                            <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Nav End -->
-
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+@Html.Action("MenuUser", "View")
 <div class="canchinh">
     <div class="main-panel">
         <div class="container">
@@ -131,10 +34,10 @@
                             <div class="profile-header">
 
                                 <div class="cover-image">
-                                    <img src="https://cdn.pixabay.com/photo/2019/10/19/14/16/away-4561518_960_720.jpg" class="img img-fluid">
+                                    <img src="~/Images/User/@user.user_img" class="img img-fluid" style="width: 100%">
                                 </div>
                                 <div class="user-image">
-                                    <img src="https://scontent.fslv1-1.fna.fbcdn.net/v/t1.0-1/p240x240/71764978_543119796448430_5969446522109034496_n.jpg?_nc_cat=105&_nc_oc=AQnoaTQx8fxeyzbIbtQyvZXghFdEQl-ds6NQr_13xAXuGmWnigS1zJHTuH8sKv5e9-TSN3KRAuptCtwM-LlwxidP&_nc_ht=scontent.fslv1-1.fna&oh=52752a53e6b91980d3f9bf227064a95d&oe=5E5A25B9" class="img ">
+                                    <img src="~/Images/User/@user.user_img" class="img ">
                                 </div>
                             </div>
 
@@ -149,7 +52,6 @@
                                     <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
                                     <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
                                     <a href="" class="profile-info-list-item"><i class="mdi mdi-account"></i>Thay Đổi Thông Tin Cá Nhân</a>
-
                                 </ul>
                             </div>
                         </div>
@@ -159,18 +61,93 @@
                 <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-title font-weight-bold">About</p>
+                            <p class="card-title font-weight-bold">Giới Thiệu Chung</p>
                             <hr>
-                            <p class="card-description">User Information</p>
+                            <p class="card-description">Thông Tin Cá Nhân</p>
                             <ul class="about">
-                                <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Name:</span><span class="about-item-detail">@user.user_name</span></li>
-                                <li class="about-items"><i class="mdi mdi-mail-ru icon-sm "></i><span class="about-item-name">username:</span><span class="about-item-detail">@user.user_name</span></li>
-                                <li class="about-items"><i class="mdi mdi-lock-outline icon-sm "></i><span class="about-item-name">Password:</span><span class="about-item-detail">@user.user_pass</span></li>
-                                <li class="about-items"><i class="mdi mdi-format-align-left icon-sm "></i><span class="about-item-name">Bio:</span><span class="about-item-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto totam, nemo quidem delectus dolores vero porro inventore perferendis minus perspiciatis.</span></li>
+                                <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Tên Đăng Nhập:</span><span class="about-item-detail">@user.user_name</span><a data-toggle="collapse" href="#name" role="button" aria-expanded="false" aria-controls="name" class="about-item-edit">Edit</a></li>
+                                <li class="collapse" id="name">
+                                    <div class="card card-body">
+                                        <form class="ui form" method="post" action="@Url.Action("EditName", "Users", new { id = user.user_id})">
+                                            <div class="field">
+                                                <label>Tên Đăng Nhập</label>
+                                                <input value="@user.user_name" name="user_name" type="text">
+                                            </div>
+                                            <div class="ui primary submit button">Submit</div>
+                                            <div class="ui error message"></div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <!--End Collapse-->
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-mail-ru icon-sm "></i>
+                                        <span class="about-item-name">Họ Và Tên:</span>
+                                        <span class="about-item-detail">
+                                            @if (item.profile_lastname == null || item.profile_name == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.profile_lastname @item.profile_name
+                                            }
+                                        </span>
+                                        <a href="" class="about-item-edit">Edit</a>
+                                    </li>
+                                }
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-format-align-left icon-sm "></i>
+                                        <span class="about-item-name">Ghi Chú:</span>
+                                        <span class="about-item-detail">
+                                            @if(item.profile_note == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.profile_note
+                                            }
+                                        </span>
+                                        <a href="" class="about-item-edit">Edit</a>
+                                    </li>
+                                }
                             </ul>
-                            <p class="card-description">Contact Information</p>
+                            <p class="card-description">Thông Tin Liên Hệ</p>
                             <ul class="about">
-                                <li class="about-items"><i class="mdi mdi-phone icon-sm "></i><span class="about-item-name">Phone:</span><span class="about-item-detail">+9779861106179</span><a href="" class="about-item-edit">Edit</a></li>
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-phone icon-sm "></i>
+                                        <span class="about-item-name">Số Điện Thoại:</span>
+                                        <span class="about-item-detail">
+                                            @if (item.profile_phone == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.profile_phone
+                                            }
+                                        </span>
+                                        <a data-toggle="collapse" href="#phone" role="button" aria-expanded="false" aria-controls="phone" class="about-item-edit">Edit</a>
+                                    </li>
+                                    <li class="collapse" id="phone">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditPhone", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Số điện thoại</label>
+                                                    <input value="@item.profile_phone" name="profile_phone" type="text">
+                                                </div>
+                                                <div class="ui primary submit button">Submit</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
                                 <li class="about-items"><i class="mdi mdi-map-marker icon-sm "></i><span class="about-item-name">Address:</span><span class="about-item-detail">254 National Highway , Hisar India</span> <a href="" class="about-item-edit">Edit</a></li>
                                 <li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span class="about-item-name">Email:</span><span class="about-item-detail"><a href="">@user.user_email</a></span> <a href="" class="about-item-edit">Edit</a></li>
                                 <li class="about-items"><i class="mdi mdi-web icon-sm "></i><span class="about-item-name">Site:</span><span class="about-item-detail"><a href="google.com">www.google.com</a></span> <a href="" class="about-item-edit">Edit</a></li>

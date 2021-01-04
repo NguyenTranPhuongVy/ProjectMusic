@@ -215,7 +215,16 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Music.cs">
+      <DependentUpon>DataMusic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.cs">
+      <DependentUpon>DataMusic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
+      <DependentUpon>DataMusic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sex.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -590,13 +599,6 @@
     <Content Include="Content\Layout\scss\_responsive.scss" />
     <Content Include="Content\Layout\scss\_theme_color.scss" />
     <Content Include="Content\Layout\style.css.map" />
-    <EntityDeploy Include="Models\DataMusic.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataMusic.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DataMusic.edmx.diagram">
-      <DependentUpon>DataMusic.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\Semantic-UI-CSS-master\.versions" />
     <Content Include="Content\Semantic-UI-CSS-master\LICENSE" />
     <Content Include="Content\Semantic-UI-CSS-master\package.json" />
@@ -664,6 +666,13 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Areas\Admin\Views\UsersAdmin\DeleteUsers.cshtml" />
+    <EntityDeploy Include="Models\DataMusic.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataMusic.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataMusic.edmx.diagram">
+      <DependentUpon>DataMusic.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -804,6 +813,8 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\EditPass.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
+    <Content Include="Views\Users\Template.cshtml" />
+    <Content Include="Views\View\MenuUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

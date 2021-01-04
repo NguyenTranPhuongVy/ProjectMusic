@@ -66,6 +66,12 @@ namespace ProjectMusicSound.Controllers
                 user.role_id = 1;
                 db.SaveChanges();
                 User checkemail = db.Users.SingleOrDefault(n => n.user_email == user.user_email);
+                Profile profile = new Profile()
+                {
+                    user_id = checkemail.user_id
+                };
+                db.Profiles.Add(profile);
+                db.SaveChanges();
                 return RedirectToAction("CreateCode", new { id = checkemail.user_id });
             }
             return View(user);
@@ -108,12 +114,48 @@ namespace ProjectMusicSound.Controllers
                 return RedirectToAction(Request.UrlReferrer.ToString());
             }
         }
-        public ActionResult Profile()
+
+        public ActionResult LogOut()
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            httpCookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Set(httpCookie);
+            return RedirectToAction("Login");
+        }
+        public ActionResult Profile(int ? id)
         {
             return View ();
         }    
-        public ActionResult EditPass()
+        public ActionResult EditPass(int ? id)
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditPass(FormCollection f ,int ? id)
+        {
+            User user = db.Users.Find(id);
+            String sOldPass = f["user_oldpass"].ToString();
+            String sNewPass = f["user_newpass"].ToString();
+            if(sOldPass != user.user_pass)
+            {
+                ViewBag.CheckOld = "Mật Khẩu Không Đúng";
+            }
+            else
+            {
+                if(sNewPass == user.user_pass)
+                {
+                    ViewBag.CheckNew = "Mật Khẩu Không Trùng Với Mật Khẩu Cũ";
+                }
+                else
+                {
+                    user.user_pass = sNewPass;
+                    db.SaveChanges();
+                    HttpCookie httpCookie = new HttpCookie("user_id", user.user_id.ToString());
+                    httpCookie.Expires.AddDays(10);
+                    Response.Cookies.Set(httpCookie);
+                    return Redirect("/Home/Index");
+                }
+            }
             return View();
         }
 
@@ -180,6 +222,37 @@ namespace ProjectMusicSound.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        //Cài Đặt Giao Diện
+        public ActionResult Template()
+        {
+            return View();
+        }
+
+        //Thông Tin Cá Nhân
+        [HttpPost]
+        public ActionResult EditName(FormCollection f, int ? id)
+        {
+            var sName = f["user_name"].ToString();
+            User user = db.Users.Find(id);
+
+            user.user_name = sName;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + id);
+        }
+
+        [HttpPost]
+        public ActionResult EditPhone(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sPhone = f["profile_phone"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.profile_phone = sPhone;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
         }
     }
 }
