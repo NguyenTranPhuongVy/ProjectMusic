@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MusicDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MusicDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Music">
           <Key>
             <PropertyRef Name="music_id" />
@@ -17,10 +17,13 @@
           <Property Name="music_view" Type="int" />
           <Property Name="music_dowload" Type="int" />
           <Property Name="music_love" Type="int" />
-          <Property Name="singer_id" Type="int" />
-          <Property Name="category_id" Type="int" />
-          <Property Name="musician_id" Type="int" />
           <Property Name="user_id" Type="int" />
+          <Property Name="music_linkdow" Type="nvarchar(max)" />
+          <Property Name="music_datecreate" Type="date" />
+          <Property Name="music_dateedit" Type="date" />
+          <Property Name="music_active" Type="bit" />
+          <Property Name="music_bin" Type="bit" />
+          <Property Name="music_option" Type="bit" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -35,6 +38,7 @@
           <Property Name="profile_favorite" Type="nvarchar(max)" />
           <Property Name="sex_id" Type="int" />
           <Property Name="user_id" Type="int" />
+          <Property Name="profile_address" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -153,29 +157,10 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MusicDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Music">
-          <Key>
-            <PropertyRef Name="music_id" />
-          </Key>
-          <Property Name="music_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="music_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="music_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="music_lyric" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="music_time" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="music_view" Type="Int32" />
-          <Property Name="music_dowload" Type="Int32" />
-          <Property Name="music_love" Type="Int32" />
-          <Property Name="singer_id" Type="Int32" />
-          <Property Name="category_id" Type="Int32" />
-          <Property Name="musician_id" Type="Int32" />
-          <Property Name="user_id" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Music_Users" FromRole="Music" ToRole="Users" />
-        </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="profile_id" />
@@ -189,6 +174,7 @@
           <Property Name="profile_favorite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="sex_id" Type="Int32" />
           <Property Name="user_id" Type="Int32" />
+          <Property Name="profile_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sex" Relationship="Self.FK_Profile_Sex" FromRole="Profile" ToRole="Sex" />
           <NavigationProperty Name="User" Relationship="Self.FK_Profile_Users" FromRole="Profile" ToRole="Users" />
         </EntityType>
@@ -238,22 +224,10 @@
           <Property Name="user_bin" Type="Boolean" />
           <Property Name="role_id" Type="Int32" />
           <Property Name="user_code" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Musics" Relationship="Self.FK_Music_Users" FromRole="Users" ToRole="Music" />
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_Users" FromRole="Users" ToRole="Profile" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
+          <NavigationProperty Name="Musics" Relationship="MusicDataModel.FK_Music_Users" FromRole="User" ToRole="Music" />
         </EntityType>
-        <Association Name="FK_Music_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Music" Type="Self.Music" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Music">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Profile_Sex">
           <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
           <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
@@ -291,16 +265,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MusicDataEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Musics" EntityType="Self.Music" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Sexes" EntityType="Self.Sex" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Music_Users" Association="Self.FK_Music_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Music" EntitySet="Musics" />
-          </AssociationSet>
           <AssociationSet Name="FK_Profile_Sex" Association="Self.FK_Profile_Sex">
             <End Role="Sex" EntitySet="Sexes" />
             <End Role="Profile" EntitySet="Profiles" />
@@ -313,31 +282,51 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Musics" EntityType="MusicDataModel.Music" />
+          <AssociationSet Name="FK_Music_Users" Association="MusicDataModel.FK_Music_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Music" EntitySet="Musics" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Music">
+          <Key>
+            <PropertyRef Name="music_id" />
+          </Key>
+          <Property Name="music_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="music_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="music_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="music_lyric" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="music_time" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="music_view" Type="Int32" />
+          <Property Name="music_dowload" Type="Int32" />
+          <Property Name="music_love" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="music_linkdow" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="music_datecreate" Type="DateTime" Precision="0" />
+          <Property Name="music_dateedit" Type="DateTime" Precision="0" />
+          <Property Name="music_active" Type="Boolean" />
+          <Property Name="music_bin" Type="Boolean" />
+          <Property Name="music_option" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="MusicDataModel.FK_Music_Users" FromRole="Music" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Music_Users">
+          <End Type="MusicDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music" Role="Music" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Music">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MusicDataModelStoreContainer" CdmEntityContainer="MusicDataEntities">
-          <EntitySetMapping Name="Musics">
-            <EntityTypeMapping TypeName="MusicDataModel.Music">
-              <MappingFragment StoreEntitySet="Music">
-                <ScalarProperty Name="music_id" ColumnName="music_id" />
-                <ScalarProperty Name="music_name" ColumnName="music_name" />
-                <ScalarProperty Name="music_img" ColumnName="music_img" />
-                <ScalarProperty Name="music_lyric" ColumnName="music_lyric" />
-                <ScalarProperty Name="music_time" ColumnName="music_time" />
-                <ScalarProperty Name="music_view" ColumnName="music_view" />
-                <ScalarProperty Name="music_dowload" ColumnName="music_dowload" />
-                <ScalarProperty Name="music_love" ColumnName="music_love" />
-                <ScalarProperty Name="singer_id" ColumnName="singer_id" />
-                <ScalarProperty Name="category_id" ColumnName="category_id" />
-                <ScalarProperty Name="musician_id" ColumnName="musician_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="MusicDataModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
@@ -350,6 +339,7 @@
                 <ScalarProperty Name="profile_favorite" ColumnName="profile_favorite" />
                 <ScalarProperty Name="sex_id" ColumnName="sex_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="profile_address" ColumnName="profile_address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -399,6 +389,27 @@
                 <ScalarProperty Name="user_bin" ColumnName="user_bin" />
                 <ScalarProperty Name="role_id" ColumnName="role_id" />
                 <ScalarProperty Name="user_code" ColumnName="user_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musics">
+            <EntityTypeMapping TypeName="MusicDataModel.Music">
+              <MappingFragment StoreEntitySet="Music">
+                <ScalarProperty Name="music_option" ColumnName="music_option" />
+                <ScalarProperty Name="music_bin" ColumnName="music_bin" />
+                <ScalarProperty Name="music_active" ColumnName="music_active" />
+                <ScalarProperty Name="music_dateedit" ColumnName="music_dateedit" />
+                <ScalarProperty Name="music_datecreate" ColumnName="music_datecreate" />
+                <ScalarProperty Name="music_linkdow" ColumnName="music_linkdow" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="music_love" ColumnName="music_love" />
+                <ScalarProperty Name="music_dowload" ColumnName="music_dowload" />
+                <ScalarProperty Name="music_view" ColumnName="music_view" />
+                <ScalarProperty Name="music_time" ColumnName="music_time" />
+                <ScalarProperty Name="music_lyric" ColumnName="music_lyric" />
+                <ScalarProperty Name="music_img" ColumnName="music_img" />
+                <ScalarProperty Name="music_name" ColumnName="music_name" />
+                <ScalarProperty Name="music_id" ColumnName="music_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

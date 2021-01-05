@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ProjectMusicSound.Models.Music>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.music_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_lyric)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_view)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_dowload)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_love)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_linkdow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_dateedit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_bin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.music_option)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_lyric)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_view)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_dowload)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_love)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_linkdow)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_dateedit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_bin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.music_option)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.music_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.music_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.music_id })
+        </td>
+    </tr>
+}
+
+</table>

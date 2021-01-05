@@ -254,5 +254,92 @@ namespace ProjectMusicSound.Controllers
             db.SaveChanges();
             return Redirect("/Users/Profile/" + user.user_id);
         }
+
+        [HttpPost]
+        public ActionResult EditLastName(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sLastName = f["profile_lastname"].ToString();
+            var sName = f["profile_name"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.profile_lastname = sLastName;
+            profile.profile_name = sName;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
+        }
+
+        [HttpPost]
+        public ActionResult EditNote(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sNote = f["profile_note"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.profile_note = sNote;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
+        }
+
+        [HttpPost]
+        public ActionResult EditBirth(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sBirth = f["profile_birth"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.profile_birth = DateTime.Parse(sBirth);
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
+        }
+
+        [HttpPost]
+        public ActionResult EditSex(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sSex = f["sex_id"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.sex_id = Int32.Parse(sSex);
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
+        }
+
+        [HttpPost]
+        public ActionResult EditAddress(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sAddress = f["profile_address"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.profile_address = sAddress;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
+        }
+
+        [HttpPost]
+        public ActionResult EditFavorites(FormCollection f, int? id)
+        {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            var sFavorites = f["profile_favorite"].ToString();
+            Profile profile = db.Profiles.Find(id);
+
+            profile.profile_favorite = sFavorites;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + user.user_id);
+        }
+
     }
 }

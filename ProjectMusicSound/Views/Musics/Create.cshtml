@@ -1,0 +1,280 @@
+﻿@using ProjectMusicSound.Models
+@model Music
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+    List<Profile> profile = db.Profiles.ToList();
+}
+
+<style>
+    .canchinh {
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+</style>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
+<link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
+<!-- partial -->
+<!-- ##### Header Area Start ##### -->
+@Html.Action("MenuUser", "View")
+<div class="canchinh">
+    <div class="main-panel">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="profile-card">
+
+                            <div class="profile-header">
+
+                                <div class="cover-image">
+                                    <img src="~/Images/User/@user.user_img" class="img img-fluid" style="width: 100%">
+                                </div>
+                                <div class="user-image">
+                                    <img src="~/Images/User/@user.user_img" class="img ">
+                                </div>
+                            </div>
+
+                            <div class="profile-content">
+                                <div class="profile-name">@user.user_name</div>
+                                @if (user.role_id == 1)
+                                {
+                                    <div class="profile-designation">Người Dùng</div>
+                                }
+                                <p class="profile-description">Hồ sơ cá nhân.</p>
+                                <ul class="profile-info-list">
+                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Đăng Nhạc</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Đăng Video</a>
+                                    <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="ui form">
+                                <h3>Đăng Nhạc</h3>
+                                <div class="field">
+                                    <label>Tiêu Đề <b class="text-danger">*</b></label>
+                                    <p style="font-size: medium">Tiêu đề phải từ 5 - 50 ký tự</p>
+                                    <input placeholder="VD: Attendtion" name="" type="text">
+                                </div>
+                                <div class="field">
+                                    <label>Hình Ảnh <b class="text-danger">*</b></label>
+                                    <input placeholder="Username" name="" type="file">
+                                </div>
+                                <div class="field">
+                                    <label>Lời Bài Hát <b class="text-danger">*</b></label>
+                                    <textarea></textarea>
+                                </div>
+                                <div class="field">
+                                    <label>Thời Lượng <b class="text-danger">*</b></label>
+                                    <input placeholder="Username" name="" type="text">
+                                </div>
+                                <div class="field">
+                                    <label>Link Bài Hát <b class="text-danger">*</b></label>
+                                    <input placeholder="VD: 4:30" name="" type="text">
+                                </div>
+                                <div class="two fields">
+                                    <div class="field">
+                                        <label>Trạng Thái <b class="text-danger">*</b></label>
+                                        <select class="ui dropdown">
+                                            <option value="True">Hoạt Động</option>
+                                            <option value="False">Không Hoạt Động</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <label>Tuỳ Chọn <b class="text-danger">*</b></label>
+                                        <select class="ui dropdown">
+                                            <option value="True">Hoạt Động</option>
+                                            <option value="False">Không Hoạt Động</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="ui primary submit button">Đăng Nhạc</div>
+                                <div class="ui error message"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <?php include'includes/admin_footer.php' ?>
+        <!-- partial -->
+    </div>
+</div>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Music</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_img, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_img, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_img, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_lyric, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_lyric, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_lyric, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_time, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_time, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_time, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_view, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_view, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_view, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_dowload, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_dowload, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_dowload, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_love, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_love, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_love, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.user_id, "user_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_linkdow, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_linkdow, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_linkdow, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_datecreate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_datecreate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_dateedit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.music_dateedit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.music_dateedit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.music_active)
+                    @Html.ValidationMessageFor(model => model.music_active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_bin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.music_bin)
+                    @Html.ValidationMessageFor(model => model.music_bin, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.music_option, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.music_option)
+                    @Html.ValidationMessageFor(model => model.music_option, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

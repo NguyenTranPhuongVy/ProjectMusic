@@ -48,10 +48,10 @@
                                 }
                                 <p class="profile-description">Hồ sơ cá nhân.</p>
                                 <ul class="profile-info-list">
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
-                                    <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-account"></i>Thay Đổi Thông Tin Cá Nhân</a>
-
+                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Đăng Nhạc</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-file-video"></i>Đăng Video</a>
+                                    <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>s
                                 </ul>
                             </div>
                         </div>

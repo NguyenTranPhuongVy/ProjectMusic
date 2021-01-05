@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MusicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
@@ -815,6 +816,11 @@
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Users\Template.cshtml" />
     <Content Include="Views\View\MenuUser.cshtml" />
+    <Content Include="Views\Musics\Create.cshtml" />
+    <Content Include="Views\Musics\Delete.cshtml" />
+    <Content Include="Views\Musics\Details.cshtml" />
+    <Content Include="Views\Musics\Edit.cshtml" />
+    <Content Include="Views\Musics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

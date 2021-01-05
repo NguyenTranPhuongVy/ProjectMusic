@@ -32,12 +32,11 @@
                         <div class="profile-card">
 
                             <div class="profile-header">
-
                                 <div class="cover-image">
                                     <img src="~/Images/User/@user.user_img" class="img img-fluid" style="width: 100%">
                                 </div>
                                 <div class="user-image">
-                                    <img src="~/Images/User/@user.user_img" class="img ">
+                                    <img src="~/Images/User/@user.user_img" class="img">
                                 </div>
                             </div>
 
@@ -49,9 +48,10 @@
                                 }
                                 <p class="profile-description">Hồ sơ cá nhân.</p>
                                 <ul class="profile-info-list">
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Đăng Nhạc</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-file-video"></i>Đăng Video</a>
                                     <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-account"></i>Thay Đổi Thông Tin Cá Nhân</a>
                                 </ul>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             <hr>
                             <p class="card-description">Thông Tin Cá Nhân</p>
                             <ul class="about">
-                                <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Tên Đăng Nhập:</span><span class="about-item-detail">@user.user_name</span><a data-toggle="collapse" href="#name" role="button" aria-expanded="false" aria-controls="name" class="about-item-edit">Edit</a></li>
+                                <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Tên Đăng Nhập:</span><span class="about-item-detail">&nbsp; @user.user_name</span><a data-toggle="collapse" href="#name" role="button" aria-expanded="false" aria-controls="name" class="about-item-edit" style="font-size: medium">Sửa</a></li>
                                 <li class="collapse" id="name">
                                     <div class="card card-body">
                                         <form class="ui form" method="post" action="@Url.Action("EditName", "Users", new { id = user.user_id})">
@@ -73,7 +73,7 @@
                                                 <label>Tên Đăng Nhập</label>
                                                 <input value="@user.user_name" name="user_name" type="text">
                                             </div>
-                                            <div class="ui primary submit button">Submit</div>
+                                            <div class="ui primary submit button">Thay Đổi</div>
                                             <div class="ui error message"></div>
                                         </form>
                                     </div>
@@ -91,10 +91,56 @@
                                             }
                                             else
                                             {
-                                                @item.profile_lastname @item.profile_name
+                                                @item.profile_lastname @:&nbsp;@item.profile_name
                                             }
                                         </span>
-                                        <a href="" class="about-item-edit">Edit</a>
+                                        <a data-toggle="collapse" href="#lastname" role="button" aria-expanded="false" aria-controls="lastname" class="about-item-edit" style="font-size: medium">Sửa</a>
+                                    </li>
+                                    <li class="collapse" id="lastname">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditLastName", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Họ</label>
+                                                    <input value="@item.profile_lastname" name="profile_lastname" type="text">
+                                                </div>
+                                                <div class="field">
+                                                    <label>Tên Đăng Nhập</label>
+                                                    <input value="@item.profile_name" name="profile_name" type="text">
+                                                </div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-heart-box-outline icon-sm "></i>
+                                        <span class="about-item-name">Sở thích:</span>
+                                        <span class="about-item-detail">
+                                            @if (item.profile_favorite == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.profile_favorite
+                                            }
+                                        </span>
+                                        <a data-toggle="collapse" href="#favorites" role="button" aria-expanded="false" aria-controls="favorites" class="about-item-edit" style="font-size: medium" style="font-size: medium">Sửa</a>
+                                    </li>
+                                    <li class="collapse" id="favorites">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditFavorites", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Sở Thích</label>
+                                                    <input value="@item.profile_favorite" name="profile_favorite" type="text">
+                                                </div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
                                     </li>
                                 }
                                 @foreach (var item in profile.Where(n => n.user_id == user.user_id))
@@ -103,7 +149,7 @@
                                         <i class="mdi mdi-format-align-left icon-sm "></i>
                                         <span class="about-item-name">Ghi Chú:</span>
                                         <span class="about-item-detail">
-                                            @if(item.profile_note == null)
+                                            @if (item.profile_note == null)
                                             {
                                                 @:Chưa có dữ liệu
                                             }
@@ -112,7 +158,19 @@
                                                 @item.profile_note
                                             }
                                         </span>
-                                        <a href="" class="about-item-edit">Edit</a>
+                                        <a data-toggle="collapse" href="#note" role="button" aria-expanded="false" aria-controls="note" class="about-item-edit" style="font-size: medium" style="font-size: medium">Sửa</a>
+                                    </li>
+                                    <li class="collapse" id="note">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditNote", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Ghi Chú</label>
+                                                    <input value="@item.profile_note" name="profile_note" type="text">
+                                                </div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
                                     </li>
                                 }
                             </ul>
@@ -130,10 +188,10 @@
                                             }
                                             else
                                             {
-                                                @item.profile_phone
+                                                <a href="tel: @item.profile_phone" style="color: black; font-weight: 400!important">@item.profile_phone</a>
                                             }
                                         </span>
-                                        <a data-toggle="collapse" href="#phone" role="button" aria-expanded="false" aria-controls="phone" class="about-item-edit">Edit</a>
+                                        <a data-toggle="collapse" href="#phone" role="button" aria-expanded="false" aria-controls="phone" class="about-item-edit" style="font-size: medium">Sửa</a>
                                     </li>
                                     <li class="collapse" id="phone">
                                         <div class="card card-body">
@@ -142,23 +200,111 @@
                                                     <label>Số điện thoại</label>
                                                     <input value="@item.profile_phone" name="profile_phone" type="text">
                                                 </div>
-                                                <div class="ui primary submit button">Submit</div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
                                                 <div class="ui error message"></div>
                                             </form>
                                         </div>
                                     </li>
                                 }
-                                <li class="about-items"><i class="mdi mdi-map-marker icon-sm "></i><span class="about-item-name">Address:</span><span class="about-item-detail">254 National Highway , Hisar India</span> <a href="" class="about-item-edit">Edit</a></li>
-                                <li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span class="about-item-name">Email:</span><span class="about-item-detail"><a href="">@user.user_email</a></span> <a href="" class="about-item-edit">Edit</a></li>
-                                <li class="about-items"><i class="mdi mdi-web icon-sm "></i><span class="about-item-name">Site:</span><span class="about-item-detail"><a href="google.com">www.google.com</a></span> <a href="" class="about-item-edit">Edit</a></li>
-                            </ul>
-                            <p class="card-description">Basic Information</p>
-                            <ul class="about">
-                                <li class="about-items"><i class="mdi mdi-cake icon-sm "></i><span class="about-item-name">Birthday:</span><span class="about-item-detail">Aug 3 , 1998</span><a href="" class="about-item-edit">Edit</a></li>
-                                <li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Gender:</span><span class="about-item-detail">Male</span> <a href="" class="about-item-edit">Edit</a></li>
-                                <li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span class="about-item-name">Profession:</span><span class="about-item-detail">Student</span> <a href="" class="about-item-edit">Edit</a></li>
-                                <li class="about-items"><i class="mdi mdi-water icon-sm "></i><span class="about-item-name">Blood Group:</span><span class="about-item-detail">AB+</span> <a href="" class="about-item-edit">Edit</a></li>
-                                <li class="about-items"><i class="mdi mdi-human-male-female icon-sm "></i><span class="about-item-name">Relationship Status:</span><span class="about-item-detail">Single</span> <a href="" class="about-item-edit">Edit</a></li>
+                                @foreach (var item in profile)
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-map-marker icon-sm"></i>
+                                        <span class="about-item-name">Địa Chỉ:</span>
+                                        <span class="about-item-detail">
+                                            @if(item.profile_address == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.profile_address
+                                            }
+                                        </span>
+                                        <a data-toggle="collapse" href="#address" role="button" aria-expanded="false" aria-controls="address" class="about-item-edit" style="font-size: medium">Sửa</a>
+                                    </li>
+                                    <li class="collapse" id="address">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditAddress", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Địa chỉ</label>
+                                                    <input value="@item.profile_address" name="profile_address" type="text">
+                                                </div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                                @foreach (var item in profile)
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-cake icon-sm "></i>
+                                        <span class="about-item-name">Ngày Sinh:</span>
+                                        <span class="about-item-detail">
+                                            @if (item.profile_birth == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.profile_birth.Value.ToShortDateString()
+                                            }
+                                        </span>
+                                        <a data-toggle="collapse" href="#birth" role="button" aria-expanded="false" aria-controls="birth" class="about-item-edit" style="font-size: medium">Sửa</a>
+                                    </li>
+                                    <li class="collapse" id="birth">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditBirth", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Ngày Sinh</label>
+                                                    <input value="@item.profile_birth" name="profile_birth" type="date">
+                                                </div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                                @{
+                                    List<Sex> sexes = db.Sexes.ToList();
+                                }
+                                @foreach (var item in profile)
+                                {
+                                    <li class="about-items">
+                                        <i class="mdi mdi-account icon-sm "></i>
+                                        <span class="about-item-name">Giới Tính:</span>
+                                        <span class="about-item-detail">
+                                            @if (item.sex_id == null)
+                                            {
+                                                @:Chưa có dữ liệu
+                                            }
+                                            else
+                                            {
+                                                @item.Sex.sex_name
+                                            }
+                                        </span>
+                                        <a data-toggle="collapse" href="#sex" role="button" aria-expanded="false" aria-controls="sex" class="about-item-edit" style="font-size: medium">Sửa</a>
+                                    </li>
+                                    <li class="collapse" id="sex">
+                                        <div class="card card-body">
+                                            <form class="ui form" method="post" action="@Url.Action("EditSex", "Users", new { id = item.profile_id})">
+                                                <div class="field">
+                                                    <label>Giới Tính</label>
+                                                    <select class="ui dropdown" name="sex_id">
+                                                        @foreach (var items in sexes)
+                                                        {
+                                                            <option value="@items.sex_id">@items.sex_name</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="ui primary submit button">Thay Đổi</div>
+                                                <div class="ui error message"></div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span class="about-item-name">Email:</span><span class="about-item-detail"><a href="mailto: @user.user_email" style="color: black; font-weight: 400!important">&nbsp; @user.user_email</a></span>
                             </ul>
                         </div>
                     </div>

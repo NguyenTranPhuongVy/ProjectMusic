@@ -22,10 +22,13 @@ namespace ProjectMusicSound.Models
         public Nullable<int> music_view { get; set; }
         public Nullable<int> music_dowload { get; set; }
         public Nullable<int> music_love { get; set; }
-        public Nullable<int> singer_id { get; set; }
-        public Nullable<int> category_id { get; set; }
-        public Nullable<int> musician_id { get; set; }
         public Nullable<int> user_id { get; set; }
+        public string music_linkdow { get; set; }
+        public Nullable<System.DateTime> music_datecreate { get; set; }
+        public Nullable<System.DateTime> music_dateedit { get; set; }
+        public Nullable<bool> music_active { get; set; }
+        public Nullable<bool> music_bin { get; set; }
+        public Nullable<bool> music_option { get; set; }
     
         public virtual User User { get; set; }
     }
