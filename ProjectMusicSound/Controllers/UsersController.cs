@@ -68,7 +68,8 @@ namespace ProjectMusicSound.Controllers
                 User checkemail = db.Users.SingleOrDefault(n => n.user_email == user.user_email);
                 Profile profile = new Profile()
                 {
-                    user_id = checkemail.user_id
+                    user_id = checkemail.user_id,
+                    profile_point = 0
                 };
                 db.Profiles.Add(profile);
                 db.SaveChanges();

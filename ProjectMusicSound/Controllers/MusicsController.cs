@@ -47,7 +47,7 @@ namespace ProjectMusicSound.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, int[] singer)
+        public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, int[] category)
         {
 
             HttpCookie httpCookie = Request.Cookies["user_id"];
@@ -62,14 +62,14 @@ namespace ProjectMusicSound.Controllers
             music.user_id = user.user_id;
             db.SaveChanges();
 
-            foreach(var item in singer)
+            foreach(var item in category)
             {
-                Music_Singer music_Singer = new Music_Singer()
+                Music_Category music_Category = new Music_Category()
                 {
                     music_id = 1,
-                    singer_id = 1
+                    category_id = item
                 };
-                db.Music_Singer.Add(music_Singer);
+                db.Music_Category.Add(music_Category);
             }
             db.SaveChanges();
 
