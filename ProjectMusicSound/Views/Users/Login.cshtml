@@ -42,14 +42,21 @@
                 <label>Mật Khẩu</label>
                 <input type="password" name="user_pass" id="user_pass" placeholder="Nhập vào mật khẩu">
             </div>
-            <div class="field">
-                <label style="color: lightslategray">Bạn chưa có tài khoản? Hãy <a href="@Url.Action("Create", "Users")" style="font-size: 13px">tạo tài khoản</a> ngay</label>
+            <div class="two fields">
+                <div class="field">
+                    <label style="color: lightslategray">Bạn chưa có tài khoản? Hãy <a href="@Url.Action("Create", "Users")" style="font-size: 13px">tạo tài khoản</a> ngay</label>
+                </div>
+                <div class="inline field text-right">
+                    <a href="#" style="font-size: medium">Quên Mật Khẩu?</a>
+                </div>
             </div>
             <div class="ui primary submit button">Đăng Nhập</div>
-            <div class="inline field">
-                <a href="#" style="font-size: medium">Quên Mật Khẩu?</a>
-            </div>
             <div class="ui error message"></div>
+            <div class="field">
+                <label style="color: red; font-size: medium">
+                    @ViewBag.CheckLogin
+                </label>
+            </div>
         </form>
     </div>
 </section>

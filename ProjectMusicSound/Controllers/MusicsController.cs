@@ -47,15 +47,31 @@ namespace ProjectMusicSound.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music)
+        public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, int[] singer)
         {
-            if (ModelState.IsValid)
+
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+
+            db.Musics.Add(music);
+            music.music_datecreate = DateTime.Now;
+            music.music_dateedit = DateTime.Now;
+            music.music_bin = false;
+            music.music_love = 0;
+            music.music_view = 0;
+            music.user_id = user.user_id;
+            db.SaveChanges();
+
+            foreach(var item in singer)
             {
-                db.Musics.Add(music);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Music_Singer music_Singer = new Music_Singer()
+                {
+                    music_id = 1,
+                    singer_id = 1
+                };
+                db.Music_Singer.Add(music_Singer);
             }
+            db.SaveChanges();
 
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_name", music.user_id);
             return View(music);

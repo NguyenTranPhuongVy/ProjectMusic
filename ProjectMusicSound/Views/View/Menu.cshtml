@@ -7,107 +7,65 @@
 <!-- ##### Header Area Start ##### -->
 <header class="header-area">
     <!-- Navbar Area -->
-    <div class="oneMusic-main-menu">
-        <div class="classy-nav-container breakpoint-off">
-            <div class="container">
-                <!-- Menu -->
-                <nav class="classy-navbar justify-content-between" id="oneMusicNav">
-
-                    <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="~/Content/Layout/img/core-img/logo.png" alt=""></a>
-
-                    <!-- Navbar Toggler -->
-                    <div class="classy-navbar-toggler">
-                        <span class="navbarToggler"><span></span><span></span><span></span></span>
-                    </div>
-
-                    <!-- Menu -->
-                    <div class="classy-menu">
-
-                        <!-- Close Button -->
-                        <div class="classycloseIcon">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                        </div>
-
-                        <!-- Nav Start -->
-                        <div class="classynav">
-                            <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="albums-store.html">Albums</a></li>
-                                <li>
-                                    <a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="albums-store.html">Albums</a></li>
-                                        <li><a href="event.html">Events</a></li>
-                                        <li><a href="blog.html">News</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="elements.html">Elements</a></li>
-                                        <li><a href="@Url.Action("Login", "Users")">Login</a></li>
-                                        <li>
-                                            <a href="#">Dropdown</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                                <li>
-                                                    <a href="#">Even Dropdown</a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                        <li><a href="#">Deeply Dropdown</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Even Dropdown</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="event.html">Events</a></li>
-                                <li><a href="blog.html">News</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-
-                            <!-- Login/Register & Cart Button -->
-                            <div class="login-register-cart-button d-flex align-items-center">
-                                @if (httpCookie != null)
-                                {
-                                    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
-                                    <!-- Chào User-->
-                                    <div class="classynav">
-                                        <ul>
-                                            <li>
-                                                <a href="#" id="loginBtn">@user.user_name</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="@Url.Action("Profile", "Users", new { id = user.user_id})">Trang Cá Nhân</a></li>
-                                                    <li><a href="@Url.Action("EditPass", "Users", new { id = user.user_id})">Thay Đổi Mật Khẩu</a></li>
-                                                    <li><a href="@Url.Action("LogOut", "Users")">Đăng Xuất</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <!-- Login/Register -->
-                                    <div class="login-register-btn mr-50">
-                                        <a href="@Url.Action("Create", "Users")" id="loginBtn">Login / Register</a>
-                                    </div>
-                                }
-                                <!-- Cart Button -->
-                                <div class="cart-btn">
-                                    <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+    <div class="oneMusic-main-menu" style="margin-top: -1.5%">
+        <div class="ui inverted segment">
+            <div class="ui inverted secondary menu mt-3">
+                <a class="item">
+                    Home
+                </a>
+                <a class="item">
+                    Messages
+                </a>
+                <a class="item">
+                    Friends
+                </a>
+                <div class="right menu">
+                    <div class="item">
+                        <div class="ui inline dropdown">
+                            @if (httpCookie != null)
+                            {
+                                User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+                                <div class="text">
+                                    <img class="ui avatar image" src="~/Images/User/@user.user_img">@user.user_name
                                 </div>
-                            </div>
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a class="item" href="@Url.Action("Profile", "Users", new { id = user.user_id})">
+                                        <i class="far fa-user-circle"></i><span>  Trang Cá Nhân</span>
+                                    </a>
+                                    <a class="item" href="@Url.Action("EditPass", "Users", new { id = user.user_id})">
+                                        <i class="far fa-user-circle"></i><span>  Đổi Mật Khẩu</span>
+                                    </a>
+                                    <a class="item" href="@Url.Action("LogOut", "Users")">
+                                        <i class="far fa-user-circle"></i><span>  Đăng Xuất</span>
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text">
+                                    <i class="far fa-user-circle"></i><span>  Tài Khoản</span>
+                                </div>
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a class="item" href="@Url.Action("Login", "Users")">
+                                        <i class="far fa-user-circle"></i><span>  Đăng Nhập</span>
+                                    </a>
+                                    <a class="item" href="@Url.Action("Create", "Users")">
+                                        <i class="far fa-user-circle"></i><span>  Đăng Ký</span>
+                                    </a>
+                                </div>
+                            }
                         </div>
-                        <!-- Nav End -->
-
                     </div>
-                </nav>
+                </div>
             </div>
         </div>
     </div>
 </header>
 <!-- ##### Header Area End ##### -->
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>

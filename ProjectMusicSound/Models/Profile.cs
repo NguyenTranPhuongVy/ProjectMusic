@@ -24,6 +24,7 @@ namespace ProjectMusicSound.Models
         public Nullable<int> sex_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public string profile_address { get; set; }
+        public Nullable<int> profile_point { get; set; }
     
         public virtual Sex Sex { get; set; }
         public virtual User User { get; set; }

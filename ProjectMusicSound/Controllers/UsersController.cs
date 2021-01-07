@@ -106,13 +106,13 @@ namespace ProjectMusicSound.Controllers
                 db.Users.Find(user.user_id).user_datelogin = DateTime.Now;
                 db.Users.Find(user.user_id).user_token = Guid.NewGuid().ToString();
                 db.SaveChanges();
-                return Redirect("/Home/Index");
+                return Redirect("/");
             }
             else
             {
                 ViewBag.CheckLogin = "Tài Khoản Không Tồn Tại";
-                return RedirectToAction(Request.UrlReferrer.ToString());
             }
+            return View(user);
         }
 
         public ActionResult LogOut()
@@ -122,7 +122,7 @@ namespace ProjectMusicSound.Controllers
             Response.Cookies.Set(httpCookie);
             return RedirectToAction("Login");
         }
-        public ActionResult Profile(int ? id)
+        public ActionResult Profile(int? id)
         {
             return View ();
         }    

@@ -14,6 +14,14 @@ namespace ProjectMusicSound.Models
     
     public partial class Music
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Music()
+        {
+            this.Music_Author = new HashSet<Music_Author>();
+            this.Music_Category = new HashSet<Music_Category>();
+            this.Music_Singer = new HashSet<Music_Singer>();
+        }
+    
         public int music_id { get; set; }
         public string music_name { get; set; }
         public string music_img { get; set; }
@@ -31,5 +39,11 @@ namespace ProjectMusicSound.Models
         public Nullable<bool> music_option { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Music_Author> Music_Author { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Music_Category> Music_Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Music_Singer> Music_Singer { get; set; }
     }
 }

@@ -5,6 +5,27 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MusicDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="author_id" />
+          </Key>
+          <Property Name="author_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="author_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="author_active" Type="bit" />
+          <Property Name="author_bin" Type="bit" />
+          <Property Name="author_note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="category_active" Type="bit" />
+          <Property Name="category_bin" Type="bit" />
+          <Property Name="category_note" Type="nvarchar(max)" />
+          <Property Name="category_view" Type="int" />
+        </EntityType>
         <EntityType Name="Music">
           <Key>
             <PropertyRef Name="music_id" />
@@ -25,6 +46,30 @@
           <Property Name="music_bin" Type="bit" />
           <Property Name="music_option" Type="bit" />
         </EntityType>
+        <EntityType Name="Music_Author">
+          <Key>
+            <PropertyRef Name="ma_id" />
+          </Key>
+          <Property Name="ma_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="music_id" Type="int" />
+          <Property Name="author_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Music_Category">
+          <Key>
+            <PropertyRef Name="mc_id" />
+          </Key>
+          <Property Name="mc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="music_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Music_Singer">
+          <Key>
+            <PropertyRef Name="ms_id" />
+          </Key>
+          <Property Name="ms_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="music_id" Type="int" />
+          <Property Name="singer_id" Type="int" />
+        </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="profile_id" />
@@ -39,6 +84,7 @@
           <Property Name="sex_id" Type="int" />
           <Property Name="user_id" Type="int" />
           <Property Name="profile_address" Type="nvarchar(max)" />
+          <Property Name="profile_point" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -56,6 +102,16 @@
           </Key>
           <Property Name="sex_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sex_name" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Singer">
+          <Key>
+            <PropertyRef Name="singer_id" />
+          </Key>
+          <Property Name="singer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="singer_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="singer_active" Type="bit" />
+          <Property Name="singer_bin" Type="bit" />
+          <Property Name="singer_note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -85,6 +141,78 @@
           <Property Name="role_id" Type="int" />
           <Property Name="user_code" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <Association Name="FK_Music_Author_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Music_Author" Type="Self.Music_Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="author_id" />
+            </Principal>
+            <Dependent Role="Music_Author">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Author_Music">
+          <End Role="Music" Type="Self.Music" Multiplicity="0..1" />
+          <End Role="Music_Author" Type="Self.Music_Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Author">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Music_Category" Type="Self.Music_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Music_Category">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Category_Music">
+          <End Role="Music" Type="Self.Music" Multiplicity="0..1" />
+          <End Role="Music_Category" Type="Self.Music_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Category">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Singer_Music">
+          <End Role="Music" Type="Self.Music" Multiplicity="0..1" />
+          <End Role="Music_Singer" Type="Self.Music_Singer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Singer">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Singer_Singer">
+          <End Role="Singer" Type="Self.Singer" Multiplicity="0..1" />
+          <End Role="Music_Singer" Type="Self.Music_Singer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Singer">
+              <PropertyRef Name="singer_id" />
+            </Principal>
+            <Dependent Role="Music_Singer">
+              <PropertyRef Name="singer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Music_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Music" Type="Self.Music" Multiplicity="*" />
@@ -134,12 +262,42 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MusicDataModelStoreContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music" EntityType="Self.Music" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Music_Author" EntityType="Self.Music_Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Music_Category" EntityType="Self.Music_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Singer" EntityType="Self.Singer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Music_Author_Author" Association="Self.FK_Music_Author_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Music_Author" EntitySet="Music_Author" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Author_Music" Association="Self.FK_Music_Author_Music">
+            <End Role="Music" EntitySet="Music" />
+            <End Role="Music_Author" EntitySet="Music_Author" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Category_Category" Association="Self.FK_Music_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Music_Category" EntitySet="Music_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Category_Music" Association="Self.FK_Music_Category_Music">
+            <End Role="Music" EntitySet="Music" />
+            <End Role="Music_Category" EntitySet="Music_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Singer_Music" Association="Self.FK_Music_Singer_Music">
+            <End Role="Music" EntitySet="Music" />
+            <End Role="Music_Singer" EntitySet="Music_Singer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Singer_Singer" Association="Self.FK_Music_Singer_Singer">
+            <End Role="Singer" EntitySet="Singer" />
+            <End Role="Music_Singer" EntitySet="Music_Singer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Music_Users" Association="Self.FK_Music_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Music" EntitySet="Music" />
@@ -177,6 +335,7 @@
           <Property Name="profile_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sex" Relationship="Self.FK_Profile_Sex" FromRole="Profile" ToRole="Sex" />
           <NavigationProperty Name="User" Relationship="Self.FK_Profile_Users" FromRole="Profile" ToRole="Users" />
+          <Property Name="profile_point" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -287,6 +446,36 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Music" EntitySet="Musics" />
           </AssociationSet>
+          <EntitySet Name="Authors" EntityType="MusicDataModel.Author" />
+          <EntitySet Name="Categories" EntityType="MusicDataModel.Category" />
+          <EntitySet Name="Music_Author" EntityType="MusicDataModel.Music_Author" />
+          <EntitySet Name="Music_Category" EntityType="MusicDataModel.Music_Category" />
+          <EntitySet Name="Music_Singer" EntityType="MusicDataModel.Music_Singer" />
+          <EntitySet Name="Singers" EntityType="MusicDataModel.Singer" />
+          <AssociationSet Name="FK_Music_Author_Author" Association="MusicDataModel.FK_Music_Author_Author">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Music_Author" EntitySet="Music_Author" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Category_Category" Association="MusicDataModel.FK_Music_Category_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Music_Category" EntitySet="Music_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Author_Music" Association="MusicDataModel.FK_Music_Author_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="Music_Author" EntitySet="Music_Author" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Category_Music" Association="MusicDataModel.FK_Music_Category_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="Music_Category" EntitySet="Music_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Singer_Music" Association="MusicDataModel.FK_Music_Singer_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="Music_Singer" EntitySet="Music_Singer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Singer_Singer" Association="MusicDataModel.FK_Music_Singer_Singer">
+            <End Role="Singer" EntitySet="Singers" />
+            <End Role="Music_Singer" EntitySet="Music_Singer" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Music">
           <Key>
@@ -308,6 +497,9 @@
           <Property Name="music_bin" Type="Boolean" />
           <Property Name="music_option" Type="Boolean" />
           <NavigationProperty Name="User" Relationship="MusicDataModel.FK_Music_Users" FromRole="Music" ToRole="User" />
+          <NavigationProperty Name="Music_Author" Relationship="MusicDataModel.FK_Music_Author_Music" FromRole="Music" ToRole="Music_Author" />
+          <NavigationProperty Name="Music_Category" Relationship="MusicDataModel.FK_Music_Category_Music" FromRole="Music" ToRole="Music_Category" />
+          <NavigationProperty Name="Music_Singer" Relationship="MusicDataModel.FK_Music_Singer_Music" FromRole="Music" ToRole="Music_Singer" />
         </EntityType>
         <Association Name="FK_Music_Users">
           <End Type="MusicDataModel.User" Role="User" Multiplicity="0..1" />
@@ -321,6 +513,142 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="author_id" />
+          </Key>
+          <Property Name="author_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="author_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="author_active" Type="Boolean" />
+          <Property Name="author_bin" Type="Boolean" />
+          <Property Name="author_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Music_Author" Relationship="MusicDataModel.FK_Music_Author_Author" FromRole="Author" ToRole="Music_Author" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="category_active" Type="Boolean" />
+          <Property Name="category_bin" Type="Boolean" />
+          <Property Name="category_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="category_view" Type="Int32" />
+          <NavigationProperty Name="Music_Category" Relationship="MusicDataModel.FK_Music_Category_Category" FromRole="Category" ToRole="Music_Category" />
+        </EntityType>
+        <EntityType Name="Music_Author">
+          <Key>
+            <PropertyRef Name="ma_id" />
+          </Key>
+          <Property Name="ma_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="music_id" Type="Int32" />
+          <Property Name="author_id" Type="Int32" />
+          <NavigationProperty Name="Author" Relationship="MusicDataModel.FK_Music_Author_Author" FromRole="Music_Author" ToRole="Author" />
+          <NavigationProperty Name="Music" Relationship="MusicDataModel.FK_Music_Author_Music" FromRole="Music_Author" ToRole="Music" />
+        </EntityType>
+        <EntityType Name="Music_Category">
+          <Key>
+            <PropertyRef Name="mc_id" />
+          </Key>
+          <Property Name="mc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="music_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="MusicDataModel.FK_Music_Category_Category" FromRole="Music_Category" ToRole="Category" />
+          <NavigationProperty Name="Music" Relationship="MusicDataModel.FK_Music_Category_Music" FromRole="Music_Category" ToRole="Music" />
+        </EntityType>
+        <EntityType Name="Music_Singer">
+          <Key>
+            <PropertyRef Name="ms_id" />
+          </Key>
+          <Property Name="ms_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="music_id" Type="Int32" />
+          <Property Name="singer_id" Type="Int32" />
+          <NavigationProperty Name="Music" Relationship="MusicDataModel.FK_Music_Singer_Music" FromRole="Music_Singer" ToRole="Music" />
+          <NavigationProperty Name="Singer" Relationship="MusicDataModel.FK_Music_Singer_Singer" FromRole="Music_Singer" ToRole="Singer" />
+        </EntityType>
+        <EntityType Name="Singer">
+          <Key>
+            <PropertyRef Name="singer_id" />
+          </Key>
+          <Property Name="singer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="singer_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="singer_active" Type="Boolean" />
+          <Property Name="singer_bin" Type="Boolean" />
+          <Property Name="singer_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Music_Singer" Relationship="MusicDataModel.FK_Music_Singer_Singer" FromRole="Singer" ToRole="Music_Singer" />
+        </EntityType>
+        <Association Name="FK_Music_Author_Author">
+          <End Type="MusicDataModel.Author" Role="Author" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Author" Role="Music_Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="author_id" />
+            </Principal>
+            <Dependent Role="Music_Author">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Category_Category">
+          <End Type="MusicDataModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Category" Role="Music_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Music_Category">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Author_Music">
+          <End Type="MusicDataModel.Music" Role="Music" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Author" Role="Music_Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Author">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Category_Music">
+          <End Type="MusicDataModel.Music" Role="Music" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Category" Role="Music_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Category">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Singer_Music">
+          <End Type="MusicDataModel.Music" Role="Music" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Singer" Role="Music_Singer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Singer">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Singer_Singer">
+          <End Type="MusicDataModel.Singer" Role="Singer" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Singer" Role="Music_Singer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Singer">
+              <PropertyRef Name="singer_id" />
+            </Principal>
+            <Dependent Role="Music_Singer">
+              <PropertyRef Name="singer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -330,6 +658,7 @@
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="MusicDataModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="profile_point" ColumnName="profile_point" />
                 <ScalarProperty Name="profile_id" ColumnName="profile_id" />
                 <ScalarProperty Name="profile_birth" ColumnName="profile_birth" />
                 <ScalarProperty Name="profile_phone" ColumnName="profile_phone" />
@@ -410,6 +739,67 @@
                 <ScalarProperty Name="music_img" ColumnName="music_img" />
                 <ScalarProperty Name="music_name" ColumnName="music_name" />
                 <ScalarProperty Name="music_id" ColumnName="music_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="MusicDataModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="author_note" ColumnName="author_note" />
+                <ScalarProperty Name="author_bin" ColumnName="author_bin" />
+                <ScalarProperty Name="author_active" ColumnName="author_active" />
+                <ScalarProperty Name="author_name" ColumnName="author_name" />
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="MusicDataModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="category_view" ColumnName="category_view" />
+                <ScalarProperty Name="category_note" ColumnName="category_note" />
+                <ScalarProperty Name="category_bin" ColumnName="category_bin" />
+                <ScalarProperty Name="category_active" ColumnName="category_active" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_Author">
+            <EntityTypeMapping TypeName="MusicDataModel.Music_Author">
+              <MappingFragment StoreEntitySet="Music_Author">
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="music_id" ColumnName="music_id" />
+                <ScalarProperty Name="ma_id" ColumnName="ma_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_Category">
+            <EntityTypeMapping TypeName="MusicDataModel.Music_Category">
+              <MappingFragment StoreEntitySet="Music_Category">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="music_id" ColumnName="music_id" />
+                <ScalarProperty Name="mc_id" ColumnName="mc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_Singer">
+            <EntityTypeMapping TypeName="MusicDataModel.Music_Singer">
+              <MappingFragment StoreEntitySet="Music_Singer">
+                <ScalarProperty Name="singer_id" ColumnName="singer_id" />
+                <ScalarProperty Name="music_id" ColumnName="music_id" />
+                <ScalarProperty Name="ms_id" ColumnName="ms_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Singers">
+            <EntityTypeMapping TypeName="MusicDataModel.Singer">
+              <MappingFragment StoreEntitySet="Singer">
+                <ScalarProperty Name="singer_note" ColumnName="singer_note" />
+                <ScalarProperty Name="singer_bin" ColumnName="singer_bin" />
+                <ScalarProperty Name="singer_active" ColumnName="singer_active" />
+                <ScalarProperty Name="singer_name" ColumnName="singer_name" />
+                <ScalarProperty Name="singer_id" ColumnName="singer_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
