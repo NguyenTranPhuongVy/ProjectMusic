@@ -1,112 +1,118 @@
-﻿@model IEnumerable<ProjectMusicSound.Models.Music>
+﻿@using ProjectMusicSound.Models
+@model IEnumerable<ProjectMusicSound.Models.Music>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+    List<Profile> profile = db.Profiles.ToList();
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.music_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_lyric)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_view)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_dowload)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_love)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_linkdow)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_datecreate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_dateedit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_bin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.music_option)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.user_name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_lyric)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_view)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_dowload)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_love)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_linkdow)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_datecreate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_dateedit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_bin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.music_option)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.user_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.music_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.music_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.music_id })
-        </td>
-    </tr>
+@{
+    List<Category> categories = db.Categories.Where(n => n.category_active == true && n.category_bin == false).ToList();
 }
+<style>
+    .canchinh {
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+</style>
+<!------ Include the above in your HEAD tag ---------->
 
-</table>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
+<link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
+<!-- partial -->
+<!-- ##### Header Area Start ##### -->
+@Html.Action("MenuUser", "View")
+<div class="canchinh" ng-app="myApp">
+    <div class="main-panel" ng-controller="myCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="profile-card">
+
+                            <div class="profile-header">
+
+                                <div class="cover-image">
+                                    <img src="~/Images/User/@user.user_img" class="img img-fluid" style="width: 100%">
+                                </div>
+                                <div class="user-image">
+                                    <img src="~/Images/User/@user.user_img" class="img ">
+                                </div>
+                            </div>
+
+                            <div class="profile-content">
+                                <div class="profile-name">@user.user_name</div>
+                                @if (user.role_id == 1)
+                                {
+                                    <div class="profile-designation">Người Dùng</div>
+                                }
+                                @foreach (var item in profile)
+                                {
+                                    if (item.profile_point == null || item.profile_point == 0)
+                                    {
+                                        <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> 0 điểm</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
+                                    }
+                                }
+                                <ul class="profile-info-list">
+                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
+                                    <a href="@Url.Action("Create", "Musics")" class="profile-info-list-item"><i class="mdi mdi-plus-box"></i>Đăng Nhạc</a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 grid-margin stretch-card">
+                    <div class="card-body mb-3" style="border: 1px solid #000000; border-radius: 15px" ng-repeat="listms in filteredTodos | filter : textSearch">
+                        <div class="ui items">
+                            <div class="item">
+                                <a href="#" class="ui small image rounded" style="width: 80px">
+                                    <img src="~/Images/{{listms.music_img}}" style="width: 80px; height: 80px">
+                                </a>
+                                <div class="content">
+                                    <a class="header">{{listms.music_name}}</a>
+                                    <div class="row">
+                                        <div class="description col-lg-6">
+                                            <a><p>Tên Ca SĨ</p></a>
+                                            <a><p>{{listms.music_time}}</p></a>
+                                        </div>
+                                        <div class="description col-lg-6 text-right">
+                                            <button class="ui icon button">
+                                                <i class="cloud icon"></i>
+                                            </button>
+                                            <button class="ui icon button">
+                                                <i class="cloud icon"></i>
+                                            </button>
+                                            <button class="ui icon button">
+                                                <i class="cloud icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <?php include'includes/admin_footer.php' ?>
+            <!-- partial -->
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Json/User/Music.js"></script>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>
+

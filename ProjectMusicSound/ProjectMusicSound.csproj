@@ -191,6 +191,7 @@
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JsonUsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Models\Music.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MusicJson.cs" />
     <Compile Include="Models\Music_Author.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
@@ -2408,6 +2410,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Json\Admin\DelUsers.js" />
     <Content Include="Scripts\Json\Admin\Users.js" />
+    <Content Include="Scripts\Json\User\Music.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -2546,6 +2549,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\JSonAdmin\" />
+    <Folder Include="Views\JsonUsers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
