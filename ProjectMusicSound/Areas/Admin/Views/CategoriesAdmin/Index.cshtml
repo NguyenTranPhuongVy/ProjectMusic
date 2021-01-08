@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ProjectMusicSound.Models.Category>
+
+@{
+    ViewBag.Title = "Danh Sách Thể Loại";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="wrapper">
+    <div class="ui three item menu">
+        <a href="@Url.Action("Index", "CategoriesAdmin")" class="item active">Tất Cả Thể Loại</a>
+        <a href="@Url.Action("DeleteCate", "CategoriesAdmin")" class="item">Thùng Rác</a>
+    </div>
+    <div ng-app="myApp">
+        <div ng-controller="myCtrl">
+            <div class="ui horizontal divider">Tìm Kiếm Theo Từ Khoá</div>
+            <form class="ui form segment">
+                <h3 style="color: #0e607a">Có {{(listcate | filter:textSearch).length}} Người Dùng</h3>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Tìm Theo Mã Tài Khoản</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập mã tìm kiếm: MS-..." ng-model="textSearch.user_code">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Tìm Theo Tên</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập tên cần tìm: ..." ng-model="textSearch.user_name">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <label>Tìm Theo Email</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập email cầm tìm..." ng-model="textSearch.user_email">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Tìm Theo Ngày Tạo</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="date" placeholder="Chọn ngày cần tìm..." ng-model="textSearch.user_datecreate">
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Tìm Theo Ngày Đăng Nhập</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="date" placeholder="Chọn ngày cần tìm..." ng-model="textSearch.user_datelogin">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <table class="ui compact celled definition table text-center">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Tên Thể Loại</th>
+                        <th>Ghi Chú</th>
+                        <th>Lượt Xem</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="listcate in filteredTodos | filter : textSearch">
+                        <td class="collapsing">
+                            <div ng-show="listcate.category_active == true">
+                                <input type="checkbox" checked ng-click="active(listcate.category_id)">
+                            </div>
+                            <div ng-show="listcate.category_active == false">
+                                <input type="checkbox" ng-click="active(listcate.category_id)">
+                            </div>
+                        </td>
+                        <td>
+                            {{listcate.category_name}}
+                        </td>
+                        <td>
+                            {{listcate.category_note}}
+                        </td>
+                        <td>
+                            {{listcate.category_view}}
+                        </td>
+                        <td>
+                            <div class="ui icon bottom left pointing dropdown button mb-2">
+                                <a href="#" style="color: gray"><i class="eye icon"></i></a>
+                            </div>
+                            <br />
+                            <div class="ui icon bottom left pointing dropdown button mb-2">
+                                <a href="/Admin/UsersAdmin/Edit/{{listcate.user_id}}" style="color: gray"><i class="edit outline icon"></i></a>
+                            </div>
+                            <br />
+                            <div class="ui icon bottom left pointing dropdown button">
+                                <a href="/Admin/UsersAdmin/Del/{{listcate.user_id}}" style="color: gray"><i class="trash alternate outline icon"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <th colspan="8">
+                            <pagination ng-model="currentPage" total-items="listcate.length" max-size="maxSize" boundary-links="true"></pagination>
+                        </th>
+                        <th colspan="10">
+                            <div onclick="location.href = '@Url.Action("Create", "UsersAdmin")'" class="ui right floated small primary labeled icon button">
+                                <i class="user icon"></i> Add User
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!--    Script sematic checkbox    -->
+<script>
+    $('.test.checkbox').checkbox('attach events', '.toggle.button');
+</script>
+<!--    js Json     -->
+<script src="~/Scripts/Json/Admin/Category.js"></script>

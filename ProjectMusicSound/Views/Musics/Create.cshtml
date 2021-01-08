@@ -64,7 +64,7 @@
                                 }
                             <ul class="profile-info-list">
                                 <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
-                                <a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
+                                <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
                                 <a href="@Url.Action("Create", "Musics")" class="profile-info-list-item"><i class="mdi mdi-plus-box"></i>Đăng Nhạc</a>
                             </ul>
                             </div>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="field">
                                     <label>Link Bài Hát <b class="text-danger">*</b></label>
-                                    <input name="music_linkdow" type="file">
+                                    <input name="filemp3" type="file">
                                 </div>
                                 <div class="two fields">
                                     <div class="field">

@@ -10,7 +10,7 @@
     List<Profile> profile = db.Profiles.ToList();
 }
 @{
-    List<Category> categories = db.Categories.Where(n => n.category_active == true && n.category_bin == false).ToList();
+    List<Music_Category> music_Categories = db.Music_Category.ToList();
 }
 <style>
     .canchinh {
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-md-8 grid-margin stretch-card">
-                    <div class="card-body mb-3" style="border: 1px solid #000000; border-radius: 15px" ng-repeat="listms in filteredTodos | filter : textSearch">
+                    <div class="card-body mb-3" style="border: 1px solid #000000; border-radius: 5px" ng-repeat="listms in filteredTodos | filter : textSearch">
                         <div class="ui items">
                             <div class="item">
                                 <a href="#" class="ui small image rounded" style="width: 80px">
@@ -80,18 +80,18 @@
                                     <a class="header">{{listms.music_name}}</a>
                                     <div class="row">
                                         <div class="description col-lg-6">
-                                            <a><p>Tên Ca SĨ</p></a>
+                                            <a><p>@user.user_name</p></a>
                                             <a><p>{{listms.music_time}}</p></a>
                                         </div>
                                         <div class="description col-lg-6 text-right">
                                             <button class="ui icon button">
-                                                <i class="cloud icon"></i>
+                                                <i class="fas fa-eye"></i>
                                             </button>
                                             <button class="ui icon button">
-                                                <i class="cloud icon"></i>
+                                                <i class="fas fa-pen"></i>
                                             </button>
                                             <button class="ui icon button">
-                                                <i class="cloud icon"></i>
+                                                <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </div>
                                     </div>

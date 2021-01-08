@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,12 +16,10 @@ namespace ProjectMusicSound.Controllers
         private MusicDataEntities db = new MusicDataEntities();
 
         // GET: Musics
-        public ActionResult Index()
+        public ActionResult Index(int ? id)
         {
-            HttpCookie httpCookie = Request.Cookies["user_id"];
-            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
             var musics = db.Musics.Include(m => m.User);
-            return View(musics.Where(n => n.music_active == true && n.music_bin == false && n.user_id == user.user_id).ToList());
+            return View(musics.Where(n => n.music_active == true && n.music_bin == false && n.user_id == id).ToList());
         }
 
         // GET: Musics/Details/5
@@ -49,27 +48,42 @@ namespace ProjectMusicSound.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, int[] category)
+        public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, int[] category, HttpPostedFileBase filemp3)
         {
 
             HttpCookie httpCookie = Request.Cookies["user_id"];
             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
             Music msi = db.Musics.Where(n => n.user_id == user.user_id).OrderByDescending(n => n.music_datecreate).First();
 
-            db.Musics.Add(music);
+            var mp3 = Path.GetFileName(filemp3.FileName);
+            var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), mp3);
+            if (filemp3 == null)
+            {
+                return View();
+            }
+            else if (System.IO.File.Exists(pathmp3))
+            {
+                ViewBag.Img = "File had exists";
+            }    
+            else
+            {
+                filemp3.SaveAs(pathmp3);
+            }
+            music.music_linkdow = filemp3.FileName;
             music.music_datecreate = DateTime.Now;
             music.music_dateedit = DateTime.Now;
             music.music_bin = false;
             music.music_love = 0;
             music.music_view = 0;
             music.user_id = user.user_id;
+            db.Musics.Add(music);
             db.SaveChanges();
 
             foreach(var item in category)
             {
                 Music_Category music_Category = new Music_Category()
                 {
-                    music_id = msi.user_id,
+                    music_id = msi.music_id,
                     category_id = item
                 };
                 db.Music_Category.Add(music_Category);

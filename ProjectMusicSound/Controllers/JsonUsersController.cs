@@ -11,11 +11,9 @@ namespace ProjectMusicSound.Controllers
     {
         MusicDataEntities db = new MusicDataEntities();
         // GET: JsonUsers
-        public JsonResult MusicList()
+        public JsonResult MusicList(int ? id)
         {
-            HttpCookie httpCookie = Request.Cookies["user_id"];
-            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
-            List<Music> music = db.Musics.Where(n => n.music_active == true && n.music_bin == false && n.user_id == user.user_id).ToList();
+            List<Music> music = db.Musics.Where(n => n.music_active == true && n.music_bin == false && n.user_id == id).ToList();
             List<MusicJson> listms = music.Select(n => new MusicJson 
             { 
                 music_id = n.music_id,

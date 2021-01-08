@@ -53,5 +53,20 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CategoryList()
+        {
+            List<Category> categories = db.Categories.Where(n => n.category_active == true && n.category_bin == false).ToList();
+            List<CategoryJson> listcate = categories.Select(n => new CategoryJson 
+            {
+                category_active = n.category_active,
+                category_bin = n.category_bin,
+                category_id = n.category_id,
+                category_name = n.category_name,
+                category_note = n.category_note,
+                category_view = n.category_view
+            }).ToList();
+            return Json(listcate, JsonRequestBehavior.AllowGet);
+        }
     }
 }

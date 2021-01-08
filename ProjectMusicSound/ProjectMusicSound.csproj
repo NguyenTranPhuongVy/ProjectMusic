@@ -185,6 +185,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\JSonAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersAdminController.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryJson.cs" />
     <Compile Include="Models\DataMusic.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2396,6 +2398,11 @@
     <Content Include="Content\fontawesome-free-5.15.1-web\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\fontawesome-free-5.15.1-web\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fontawesome-free-5.15.1-web\webfonts\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\Index.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2408,6 +2415,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Json\Admin\Category.js" />
     <Content Include="Scripts\Json\Admin\DelUsers.js" />
     <Content Include="Scripts\Json\Admin\Users.js" />
     <Content Include="Scripts\Json\User\Music.js" />
@@ -2549,6 +2557,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\JSonAdmin\" />
+    <Folder Include="Content\LinkMusic\" />
     <Folder Include="Views\JsonUsers\" />
   </ItemGroup>
   <ItemGroup>
