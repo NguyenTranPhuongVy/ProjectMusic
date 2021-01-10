@@ -2403,6 +2403,7 @@
     <Content Include="Areas\Admin\Views\CategoriesAdmin\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CategoriesAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CategoriesAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoriesAdmin\DeleteCate.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2416,6 +2417,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Json\Admin\Category.js" />
+    <Content Include="Scripts\Json\Admin\DelCate.js" />
     <Content Include="Scripts\Json\Admin\DelUsers.js" />
     <Content Include="Scripts\Json\Admin\Users.js" />
     <Content Include="Scripts\Json\User\Music.js" />

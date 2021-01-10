@@ -1,74 +1,58 @@
-﻿@model ProjectMusicSound.Models.Category
+﻿@using ProjectMusicSound.Models
+@model ProjectMusicSound.Models.Category
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
+<div style="color: black" class="mt-3">
+    <i class="caret square left icon"></i>@Html.ActionLink("Trở Về", "Index")
+</div>
+<form method="post" enctype="multipart/form-data" class="ui form segment">
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Category</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.category_id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
-            </div>
+    @Html.HiddenFor(model => model.category_id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h4>Sửa Tài Khoản "@Model.category_name"</h4>
+    <div class="field">
+        <label>Tên Thể Loại</label>
+        <input name="category_name" value="@Model.category_name" type="text" />
+    </div>
+    <div class="field">
+        <label>Ghi Chú</label>
+        @if (Model.category_note == null)
+        {
+            <textarea name="category_note"></textarea>
+        }
+        else
+        {
+            <textarea name="category_note">@Model.category_note</textarea>
+        }
+    </div>
+    <div class="field">
+        <label>Lượt Xem</label>
+        <input name="category_view" value="@Model.category_view" type="text" />
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Trạng Thái Tài Khoản</label>
+            <select class="ui dropdown" name="category_active">
+                <option value="True" @(Model.category_active == true ? "selected" : "")>Hoạt Động</option>
+                <option value="False" @(Model.category_active == false ? "selected" : "")>Không Hoạt Động</option>
+            </select>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.category_active)
-                    @Html.ValidationMessageFor(model => model.category_active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_bin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.category_bin)
-                    @Html.ValidationMessageFor(model => model.category_bin, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_note, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_note, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_view, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_view, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_view, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div class="field">
+            <label>Xoá tạm thời</label>
+            <select class="ui dropdown" name="category_bin">
+                <option value="True" @(Model.category_bin == true ? "selected" : "")>Xoá</option>
+                <option value="False" @(Model.category_bin == false ? "selected" : "")>Hoạt Động</option>
+            </select>
         </div>
     </div>
-}
+    <div class="field">
+        <div class="col-md-offset-2">
+            <input type="submit" value="Lưu Thay Đổi" class="positive ui button" />
+        </div>
+    </div>
+    <div class="ui error message"></div>
+</form>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

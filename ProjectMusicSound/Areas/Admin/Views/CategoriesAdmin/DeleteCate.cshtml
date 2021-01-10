@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<ProjectMusicSound.Models.Category>
-
 @{
-    ViewBag.Title = "Danh Sách Thể Loại";
+    ViewBag.Title = "Thùng Rác";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="wrapper">
@@ -39,10 +38,10 @@
                     <tr ng-repeat="listcate in filteredTodos | filter : textSearch">
                         <td class="collapsing">
                             <div ng-show="listcate.category_active == true">
-                                <input type="checkbox" checked ng-click="activecate(listcate.category_id)">
+                                <input type="checkbox" checked>
                             </div>
                             <div ng-show="listcate.category_active == false">
-                                <input type="checkbox" ng-click="activecate(listcate.category_id)">
+                                <input type="checkbox">
                             </div>
                         </td>
                         <td>
@@ -60,7 +59,7 @@
                             </div>
                             <br />
                             <div class="ui icon bottom left pointing dropdown button">
-                                <a href="/Admin/CategoriesAdmin/Del/{{listcate.category_id}}" style="color: gray"><i class="trash alternate outline icon"></i></a>
+                                <a href="/Admin/CategoriesAdmin/Del/{{listcate.category_id}}" style="color: gray"><i class="recycle icon"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -86,4 +85,4 @@
     $('.test.checkbox').checkbox('attach events', '.toggle.button');
 </script>
 <!--    js Json     -->
-<script src="~/Scripts/Json/Admin/Category.js"></script>
+<script src="~/Scripts/Json/Admin/DelCate.js"></script>

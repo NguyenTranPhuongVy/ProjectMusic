@@ -32,6 +32,7 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult UserDel()
         {
             List<User> user = db.Users.Where(n => n.user_bin == true && n.role_id == 1).ToList();
@@ -56,8 +57,23 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
 
         public JsonResult CategoryList()
         {
-            List<Category> categories = db.Categories.Where(n => n.category_active == true && n.category_bin == false).ToList();
+            List<Category> categories = db.Categories.Where(n => n.category_bin == false).ToList();
             List<CategoryJson> listcate = categories.Select(n => new CategoryJson 
+            {
+                category_active = n.category_active,
+                category_bin = n.category_bin,
+                category_id = n.category_id,
+                category_name = n.category_name,
+                category_note = n.category_note,
+                category_view = n.category_view
+            }).ToList();
+            return Json(listcate, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CategoryDel()
+        {
+            List<Category> categories = db.Categories.Where(n => n.category_bin == true).ToList();
+            List<CategoryJson> listcate = categories.Select(n => new CategoryJson
             {
                 category_active = n.category_active,
                 category_bin = n.category_bin,

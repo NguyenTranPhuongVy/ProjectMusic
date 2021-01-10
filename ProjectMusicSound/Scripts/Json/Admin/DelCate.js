@@ -2,7 +2,7 @@
 app.controller('myCtrl', function ($scope, $http) {
     $http({
         method: "GET",
-        url: "/JSonAdmin/CategoryList"
+        url: "/JSonAdmin/CategoryDel"
     }).then(function mySuccess(response) {
         //Giả định
         $scope.filteredTodos = []
@@ -24,14 +24,14 @@ app.controller('myCtrl', function ($scope, $http) {
             $scope.filteredTodos = $scope.listcate.slice(begin, end);
         });
 
-        $scope.activecate = function (id) {
-            $http.get("/Admin/CategoriesAdmin/Active" + id)
+        $scope.active = function (id) {
+            $http.get("/Admin/CategoriesAdmin/Active/" + id)
                 .then(function (response) {
                     $scope.listcate = response.data;
                 });
         };
 
     }, function myError(response) {
-            $scope.listcate = response.statusText;
+        $scope.listcate = response.statusText;
     });
 });

@@ -17,7 +17,29 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin
         public ActionResult Index()
         {
-            return View(db.Categories.Where(n => n.category_active == true && n.category_bin == false).ToList());
+            return View(db.Categories.Where(n => n.category_bin == false).ToList());
+        }
+
+        public ActionResult Del(int ? id)
+        {
+            Category category = db.Categories.Find(id);
+            category.category_bin = !category.category_bin;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteCate(int ? id)
+        {
+            return View(db.Categories.Where(n => n.category_bin == true).ToList());
+        }
+
+        //Thay đổi trạng thái
+        public JsonResult Active(int? id)
+        {
+            Category category = db.Categories.Find(id);
+            category.category_active = !category.category_active;
+            db.SaveChanges();
+            return Json(category, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Admin/CategoriesAdmin/Details/5
@@ -80,13 +102,9 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "category_id,category_name,category_active,category_bin,category_note,category_view")] Category category)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(category);
+            db.Entry(category).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/CategoriesAdmin/Delete/5
