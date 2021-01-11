@@ -151,9 +151,8 @@ namespace ProjectMusicSound.Controllers
                 {
                     user.user_pass = sNewPass;
                     db.SaveChanges();
-                    HttpCookie httpCookie = new HttpCookie("user_id", user.user_id.ToString());
-                    httpCookie.Expires.AddDays(10);
-                    Response.Cookies.Set(httpCookie);
+                    HttpCookie httpCookie = Request.Cookies["user_id"];
+                    User users = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
                     return Redirect("/Home/Index");
                 }
             }

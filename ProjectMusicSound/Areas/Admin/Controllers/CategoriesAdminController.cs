@@ -34,7 +34,7 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         }
 
         //Thay đổi trạng thái
-        public JsonResult Active(int? id)
+        public JsonResult Active(int ? id)
         {
             Category category = db.Categories.Find(id);
             category.category_active = !category.category_active;

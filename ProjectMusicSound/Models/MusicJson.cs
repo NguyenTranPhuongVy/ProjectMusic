@@ -22,6 +22,7 @@ namespace ProjectMusicSound.Models
         public Nullable<bool> music_active { get; set; }
         public Nullable<bool> music_bin { get; set; }
         public Nullable<bool> music_option { get; set; }
+        public string namesinger { get; set; }
 
         public virtual User User { get; set; }
     }

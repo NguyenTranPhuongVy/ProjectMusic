@@ -18,8 +18,10 @@ namespace ProjectMusicSound.Controllers
         // GET: Musics
         public ActionResult Index(int ? id)
         {
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
             var musics = db.Musics.Include(m => m.User);
-            return View(musics.Where(n => n.music_active == true && n.music_bin == false && n.user_id == id).ToList());
+            return View(musics.Where(n => n.music_active == true && n.music_bin == false && n.user_id == user.user_id).ToList());
         }
 
         // GET: Musics/Details/5
@@ -53,7 +55,6 @@ namespace ProjectMusicSound.Controllers
 
             HttpCookie httpCookie = Request.Cookies["user_id"];
             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
-            Music msi = db.Musics.Where(n => n.user_id == user.user_id).OrderByDescending(n => n.music_datecreate).First();
 
             var mp3 = Path.GetFileName(filemp3.FileName);
             var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), mp3);
@@ -78,8 +79,9 @@ namespace ProjectMusicSound.Controllers
             music.user_id = user.user_id;
             db.Musics.Add(music);
             db.SaveChanges();
+            Music msi = db.Musics.Where(n => n.user_id == user.user_id).OrderByDescending(n => n.music_datecreate).First();
 
-            foreach(var item in category)
+            foreach (var item in category)
             {
                 Music_Category music_Category = new Music_Category()
                 {

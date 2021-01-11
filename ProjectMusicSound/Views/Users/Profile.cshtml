@@ -46,13 +46,9 @@
                                 {
                                     <div class="profile-designation">Người Dùng</div>
                                 }
-                                @foreach (var item in profile)
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
                                 {
-                                    if (item.profile_point == null || item.profile_point == 0)
-                                    {
-                                        <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> 0 điểm</p>
-                                    }
-                                    else
+                                    if (item.profile_point != null)
                                     {
                                         <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
                                     }

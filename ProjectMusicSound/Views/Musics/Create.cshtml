@@ -51,16 +51,9 @@
                                 {
                                     <div class="profile-designation">Người Dùng</div>
                                 }
-                                @foreach (var item in profile)
-                                {
-                                    if (item.profile_point == null || item.profile_point == 0)
-                                    {
-                                        <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> 0 điểm</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
-                                    }
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
+                                { 
+                                    <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
                                 }
                             <ul class="profile-info-list">
                                 <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
@@ -154,8 +147,8 @@
                                     <div class="field">
                                         <label>Tuỳ Chọn <b class="text-danger">*</b></label>
                                         <select name="music_option" class="ui dropdown">
-                                            <option value="True">VIP</option>
-                                            <option value="False">Thường</option>
+                                            <option value="True">Cho Phép Hiển Thị</option>
+                                            <option value="False">Không Hiển Thị</option>
                                         </select>
                                     </div>
                                 </div>

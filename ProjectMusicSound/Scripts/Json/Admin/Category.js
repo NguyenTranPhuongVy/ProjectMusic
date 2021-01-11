@@ -24,7 +24,7 @@ app.controller('myCtrl', function ($scope, $http) {
             $scope.filteredTodos = $scope.listcate.slice(begin, end);
         });
 
-        $scope.activecate = function (id) {
+        $scope.active = function (id) {
             $http.get("/Admin/CategoriesAdmin/Active" + id)
                 .then(function (response) {
                     $scope.listcate = response.data;

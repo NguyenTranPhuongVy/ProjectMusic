@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProjectMusicSound.Models;
 
 namespace ProjectMusicSound.Controllers
 {
     public class ViewController : Controller
     {
+        MusicDataEntities db = new MusicDataEntities();
         // GET: View
         public PartialViewResult Validation()
         {
@@ -22,6 +24,12 @@ namespace ProjectMusicSound.Controllers
         public PartialViewResult MenuUser()
         {
             return PartialView();
+        }
+
+        public PartialViewResult NewHit()
+        {
+            List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_bin == false).OrderByDescending(n => n.music_datecreate).ToList();
+            return PartialView(musics);
         }
     }
 }

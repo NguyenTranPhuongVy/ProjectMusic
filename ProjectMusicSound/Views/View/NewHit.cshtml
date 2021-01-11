@@ -1,0 +1,34 @@
+﻿@using ProjectMusicSound.Models
+@model List<Music>
+@{
+    ViewBag.Title = "NewHit";
+    MusicDataEntities db = new MusicDataEntities();
+    List<Singer> singers = db.Singers.ToList();
+}
+<!-- ***** New Hits Songs ***** -->
+<div class="col-12 col-lg-4" ng-app="myApp" ng-controller="myCtrl">
+    <div class="new-hits-area mb-100">
+        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+            <p>See what’s new</p>
+            <h2>New Hits</h2>
+        </div>
+
+        <!-- Single Top Item -->
+        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms" ng-repeat="list in list">
+            <div class="first-part d-flex align-items-center">
+                <div class="thumbnail">
+                    <img src="~/Images/{{list.music_img}}" alt="">
+                </div>
+                <div class="content-">
+                    <h6>{{list.music_name}}</h6>
+                    <p>{{list.namesinger}}</p>
+                </div>
+            </div>
+            <audio preload="auto" controls>
+                <source src="~/Content/LinkMusic/{{list.music_linkdow}}" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Json/User/MusicShow.js"></script>
