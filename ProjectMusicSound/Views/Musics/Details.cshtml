@@ -1,131 +1,42 @@
-﻿@model ProjectMusicSound.Models.Music
+﻿@using ProjectMusicSound.Models
+@model ProjectMusicSound.Models.Music
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    List<Music_Singer> singers = db.Music_Singer.ToList();
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Music</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.music_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_img)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_lyric)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_lyric)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_view)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_view)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_dowload)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_dowload)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_love)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_love)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_linkdow)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_linkdow)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_datecreate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_datecreate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_dateedit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_dateedit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_active)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_bin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_bin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.music_option)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.music_option)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.user_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.user_name)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-4">
+                <img class="ui small circular image" src="~/Images/@Model.music_img">
+            </div>
+            <div class="col-lg-4">
+                <p>@Model.music_name</p>
+                @if (Model.User.role_id == 1)
+                {
+                    <p>@Model.User.user_name</p>
+                }
+                else
+                {
+                    foreach (var item in singers.Where(n => n.music_id == Model.music_id))
+                    {
+                        <p>@item.Singer.singer_name</p>
+                    }
+                }
+            </div>
+            <div class="col-lg-4">
+                <i class="far fa-heart"></i>
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <audio controls>
+            <source src="/Content/LinkMusic/@Model.music_linkdow">
+        </audio>
+    </div>
+    <div class="col-lg-4"></div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.music_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

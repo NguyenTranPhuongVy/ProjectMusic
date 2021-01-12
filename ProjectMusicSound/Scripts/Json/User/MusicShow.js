@@ -7,5 +7,6 @@ app.controller('myCtrl', function ($scope, $http) {
         $scope.list = response.data;
     }, function myError(response) {
         $scope.list = response.statusText;
+
     });
 });
