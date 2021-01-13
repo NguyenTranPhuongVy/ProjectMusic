@@ -1083,7 +1083,6 @@ img {
   .new-hits-area .single-new-item {
     position: relative;
     z-index: 1;
-    border-bottom: 1px solid #d8d8d8;
     margin-bottom: 10px;
     padding-bottom: 10px; }
     .new-hits-area .single-new-item:last-child {

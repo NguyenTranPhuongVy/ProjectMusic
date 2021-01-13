@@ -77,9 +77,9 @@
                                             <a><p>{{listms.music_time}}</p></a>
                                         </div>
                                         <div class="description col-lg-6 text-right">
-                                            <button class="ui icon button">
+                                            <a href="/Musics/Details/{{listms.music_id}}" class="ui icon button">
                                                 <i class="fas fa-eye"></i>
-                                            </button>
+                                            </a>
                                             <button class="ui icon button">
                                                 <i class="fas fa-pen"></i>
                                             </button>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+                    <pagination ng-model="currentPage" total-items="listms.length" max-size="maxSize" boundary-links="true"></pagination>
                 </div>
             </div>
             <!-- content-wrapper ends -->
@@ -102,10 +102,4 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/Json/User/Music.js"></script>
-<script>
-    $('.ui.dropdown')
-        .dropdown()
-        ;
-</script>
-
+<script src="~/Scripts/Json/User/Musics.js"></script>

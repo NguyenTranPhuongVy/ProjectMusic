@@ -159,8 +159,77 @@
                             prompt: 'Không Được Phép Để Trống.'
                         }
                     ]
-                }
-
+                },
+                music_name: {
+                    identifier: 'music_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Không Được Phép Để Trống.'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Không được phép nhập dưới 5 kí tự.'
+                        }
+                    ]
+                },
+                music_name: {
+                    identifier: 'music_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Không Được Phép Để Trống.'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Không được phép nhập dưới 5 kí tự.'
+                        },
+                        {
+                            type: 'maxLength[50]',
+                            prompt: 'Không được phép vượt quá 50 kí tự.'
+                        }
+                    ]
+                },
+                music_img: {
+                    identifier: 'music_img',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Không Được Phép Để Trống.'
+                        }
+                    ]
+                },
+                category: {
+                    identifier: 'category',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Không Được Phép Để Trống.'
+                        }
+                    ]
+                },
+                music_time: {
+                    identifier: 'music_time',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Không Được Phép Để Trống.'
+                        },
+                        {
+                            type: 'maxLength[15]',
+                            prompt: 'Không được phép vượt quá 15 kí tự.'
+                        }
+                    ]
+                },
+                filemp3: {
+                    identifier: 'filemp3',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Không Được Phép Để Trống.'
+                        }
+                    ]
+                },
 
 
 

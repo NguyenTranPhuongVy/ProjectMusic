@@ -33,6 +33,12 @@
                                     <a class="item" href="@Url.Action("Profile", "Users", new { id = user.user_id})">
                                         <i class="fas fa-user-alt"></i><span>  Trang Cá Nhân</span>
                                     </a>
+                                    <a class="item" href="@Url.Action("Index", "Musics", new { id = user.user_id})">
+                                        <i class="fas fa-compact-disc"></i><span>  Quản Lý Bài Hát</span>
+                                    </a>
+                                    <a class="item" href="@Url.Action("Index", "Musics", new { id = user.user_id})">
+                                        <i class="fas fa-file-video"></i><span>  Quản Lý Video</span>
+                                    </a>
                                     <a class="item" href="@Url.Action("EditPass", "Users", new { id = user.user_id})">
                                         <i class="fas fa-user-edit"></i><span>  Đổi Mật Khẩu</span>
                                     </a>

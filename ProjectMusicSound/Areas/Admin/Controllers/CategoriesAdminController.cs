@@ -67,17 +67,14 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "category_id,category_name,category_active,category_bin,category_note,category_view")] Category category)
         {
-            if (ModelState.IsValid)
-            {
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            db.Categories.Add(category);
+            category.category_view = 0;
+            category.category_bin = false;
+            db.SaveChanges();
 
-            return View(category);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/CategoriesAdmin/Edit/5
