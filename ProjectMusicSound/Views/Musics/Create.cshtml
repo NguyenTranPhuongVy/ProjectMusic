@@ -25,8 +25,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
 <link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
 <!-- partial -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 100px">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url('../../Content/Layout/img/bg-img/b1.jpg');"></div>
+            <!-- Slide Content -->
+        </div>
+    </div>
+</section>
 <!-- ##### Header Area Start ##### -->
-@Html.Action("MenuUser", "View")
 <div class="canchinh">
     <div class="main-panel">
         <div class="container">
@@ -87,7 +96,7 @@
                                 </div>
                                 <div class="field">
                                     <label>Hình Ảnh <b class="text-danger">*</b></label>
-                                    <input name="music_img" type="file">
+                                    <input name="img" type="file">
                                 </div>
                                 <div class="field">
                                     <label>Tên Thể Loại <b class="text-danger">*</b></label>

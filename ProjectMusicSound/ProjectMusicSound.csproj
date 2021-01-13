@@ -2421,6 +2421,7 @@
     <Content Include="Scripts\Json\Admin\DelCate.js" />
     <Content Include="Scripts\Json\Admin\DelUsers.js" />
     <Content Include="Scripts\Json\Admin\Users.js" />
+    <Content Include="Scripts\Json\User\MusicActive.js" />
     <Content Include="Scripts\Json\User\Musics.js" />
     <Content Include="Scripts\Json\User\MusicShow.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -2544,19 +2545,18 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\View\Menu.cshtml" />
     <Content Include="Views\View\Validation.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\EditPass.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Users\Template.cshtml" />
-    <Content Include="Views\View\MenuUser.cshtml" />
     <Content Include="Views\Musics\Create.cshtml" />
     <Content Include="Views\Musics\Delete.cshtml" />
     <Content Include="Views\Musics\Details.cshtml" />
     <Content Include="Views\Musics\Edit.cshtml" />
     <Content Include="Views\Musics\Index.cshtml" />
     <Content Include="Views\View\NewHit.cshtml" />
+    <Content Include="Views\Musics\ActiveDel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,8 +12,8 @@
 }
 <style>
     .canchinh {
-        margin-top: 10%;
-        margin-bottom: 10%;
+        margin-top: 3%;
+        margin-bottom: 5%;
     }
 </style>
 <!------ Include the above in your HEAD tag ---------->
@@ -21,6 +21,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
 <link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
 <!-- partial -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 100px">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url('../../Content/Layout/img/bg-img/b1.jpg');"></div>
+            <!-- Slide Content -->
+        </div>
+    </div>
+</section>
 <!-- ##### Header Area Start ##### -->
 <div class="canchinh">
     <div class="main-panel">
@@ -52,12 +62,12 @@
                                         <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
                                     }
                                 }
-                                <ul class="profile-info-list">
-                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
-                                    <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-file-video"></i>Quản Lý Video</a>
-                                    <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
-                                </ul>
+                            <ul class="profile-info-list">
+                                <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
+                                <a href="" class="profile-info-list-item"><i class="mdi mdi-file-video"></i>Quản Lý Video</a>
+                                <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
+                            </ul>
                             </div>
                         </div>
                     </div>
@@ -77,6 +87,19 @@
                                             <div class="field">
                                                 <label>Tên Đăng Nhập</label>
                                                 <input value="@user.user_name" name="user_name" type="text">
+                                            </div>
+                                            <div class="ui primary submit button">Thay Đổi</div>
+                                            <div class="ui error message"></div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span class="about-item-name">Ảnh đại diện:</span><span class="about-item-detail"></span><a data-toggle="collapse" href="#img" role="button" aria-expanded="false" aria-controls="img" class="about-item-edit" style="font-size: medium">Sửa</a></li>
+                                <li class="collapse" id="img">
+                                    <div class="card card-body">
+                                        <form class="ui form" method="post" action="@Url.Action("EditAvatar", "Users", new { id = user.user_id})">
+                                            <div class="field">
+                                                <label>Chọn Ảnh Đại Diện</label>
+                                                <input name="img" type="file">
                                             </div>
                                             <div class="ui primary submit button">Thay Đổi</div>
                                             <div class="ui error message"></div>

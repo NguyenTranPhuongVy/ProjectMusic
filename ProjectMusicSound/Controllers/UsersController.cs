@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -237,6 +238,22 @@ namespace ProjectMusicSound.Controllers
             User user = db.Users.Find(id);
 
             user.user_name = sName;
+            db.SaveChanges();
+            return Redirect("/Users/Profile/" + id);
+        }
+
+        //Sai
+        [HttpPost]
+        public ActionResult EditAvatar(FormCollection f, int ? id, HttpPostedFileBase img)
+        {
+            Random random = new Random();
+            ViewBag.Random = random.Next(0, 1000);
+            User user = db.Users.Find(id);
+            var fileimg = Path.GetFileName(img.FileName);
+            var pa = Path.Combine(Server.MapPath("~/Images/User"), ViewBag.Random + fileimg);
+            //Đưa tên ảnh vào file
+            img.SaveAs(pa);
+            user.user_img = ViewBag.Random + img.FileName;
             db.SaveChanges();
             return Redirect("/Users/Profile/" + id);
         }

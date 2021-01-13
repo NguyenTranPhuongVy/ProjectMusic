@@ -2,7 +2,7 @@
 app.controller('myCtrl', function ($scope, $http) {
     $http({
         method: "GET",
-        url: "/JsonUsers/MusicList"
+        url: "/JsonUsers/MusicActive"
     }).then(function mySuccess(response) {
         //Giả định
         $scope.filteredTodos = []

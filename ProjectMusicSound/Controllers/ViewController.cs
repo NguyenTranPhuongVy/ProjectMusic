@@ -15,17 +15,6 @@ namespace ProjectMusicSound.Controllers
         {
             return PartialView();
         }
-
-        public PartialViewResult Menu()
-        {
-            return PartialView();
-        }
-
-        public PartialViewResult MenuUser()
-        {
-            return PartialView();
-        }
-
         public PartialViewResult NewHit()
         {
             List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_bin == false).OrderByDescending(n => n.music_datecreate).ToList();

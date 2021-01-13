@@ -1,8 +1,7 @@
 ﻿@using ProjectMusicSound.Models
 @model IEnumerable<ProjectMusicSound.Models.Music>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ActiveDel";
     Layout = "~/Views/Shared/_Layout.cshtml";
     MusicDataEntities db = new MusicDataEntities();
     HttpCookie httpCookie = Request.Cookies["user_id"];
@@ -82,7 +81,7 @@
                         </a>
                     </div>
                     <div class="ui">
-                        @if (Model.Where(n => n.user_id == user.user_id && n.music_option == true && n.music_bin == false).Count() == 0)
+                        @if (Model.Where(n => n.user_id == user.user_id && n.music_option == false && n.music_bin == false).Count() == 0)
                         {
                             <div class="ui message">
                                 <div class="header">
@@ -135,4 +134,4 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/Json/User/Musics.js"></script>
+<script src="~/Scripts/Json/User/MusicActive.js"></script>
