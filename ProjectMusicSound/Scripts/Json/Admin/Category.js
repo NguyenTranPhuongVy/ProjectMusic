@@ -25,7 +25,7 @@ app.controller('myCtrl', function ($scope, $http) {
         });
 
         $scope.active = function (id) {
-            $http.get("/Admin/CategoriesAdmin/Active" + id)
+            $http.get("/Admin/CategoriesAdmin/Active/" + id)
                 .then(function (response) {
                     $scope.listcate = response.data;
                 });
