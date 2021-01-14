@@ -88,6 +88,12 @@
                         <div class="card-body">
                             <form class="ui form" method="post" enctype="multipart/form-data">
                                 @Html.AntiForgeryToken()
+                                @Html.HiddenFor(n => n.music_datecreate)
+                                @Html.HiddenFor(n => n.music_dowload)
+                                @Html.HiddenFor(n => n.music_love)
+                                @Html.HiddenFor(n => n.music_view)
+                                @Html.HiddenFor(n => n.music_img)
+                                @Html.HiddenFor(n => n.music_linkdow)
                                 <h3>Sửa Nhạc</h3>
                                 <div class="field">
                                     <label>Tiêu Đề <b class="text-danger">*</b></label>
@@ -96,7 +102,7 @@
                                 </div>
                                 <div class="field">
                                     <label>Hình Ảnh <b class="text-danger">*</b></label>
-                                    <input name="img" value="img" type="file">
+                                    <input name="img" value="@Model.music_img" type="file">
                                 </div>
                                 <div class="field">
                                     <label>Tên Thể Loại <b class="text-danger">*</b></label>
@@ -118,7 +124,7 @@
                                 </div>
                                 <div class="field">
                                     <label>Link Bài Hát <b class="text-danger">*</b></label>
-                                    <input name="filemp3" value="filemp3" type="file">
+                                    <input name="mp3" value="@Model.music_linkdow" type="file">
                                 </div>
                                 <div class="two fields">
                                     <div class="field">

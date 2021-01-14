@@ -64,7 +64,7 @@
                                 }
                                 <ul class="profile-info-list">
                                     <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
+                                    <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
                                     <a href="@Url.Action("Create", "Musics")" class="profile-info-list-item"><i class="mdi mdi-plus-box"></i>Đăng Nhạc</a>
                                 </ul>
                             </div>
@@ -113,9 +113,9 @@
                                                     <a href="/Musics/Edit/{{listms.music_id}}" class="ui icon button">
                                                         <i class="fas fa-pen"></i>
                                                     </a>
-                                                    <button ng-click="option(listms.music_id)" class="ui icon button">
+                                                    <a href="/Musics/Del/{{listms.music_id}}" class="ui icon button">
                                                         <i class="fas fa-trash-alt"></i>
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

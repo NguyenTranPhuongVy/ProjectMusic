@@ -25,10 +25,11 @@ app.controller('myCtrl', function ($scope, $http) {
         });
 
         $scope.option = function (id) {
-            $http.get("/Musics/Del" + id)
-                .then(function (response) {
-                    $scope.listms = response.data;
-                });
+            //$http.get("/Musics/Del" + id)
+            //    .then(function (response) {
+            //        $scope.listms = response.data;
+            //    });
+            alert("Test");
         };
 
     }, function myError(response) {

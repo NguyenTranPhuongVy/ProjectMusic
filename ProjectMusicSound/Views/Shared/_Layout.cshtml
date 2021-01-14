@@ -35,9 +35,6 @@
         .mau a span{
             color: black;
         }
-        .iconco i{
-            color: black;
-        }
     </style>
 </head>
 
@@ -61,7 +58,7 @@
 
                         <!-- Nav brand -->
                         <a href="index.html" class="nav-brand text-white">
-                            PhuongVy
+                            <i class="fab fa-soundcloud"></i> Sound
                         </a>
 
                         <!-- Navbar Toggler -->
@@ -80,10 +77,12 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="albums-store.html">Albums</a></li>
+                                    <li><a href="albums-store.html"><i class="fas fa-compact-disc"></i> Khám Phá</a></li>
+                                    <li><a href="albums-store.html"><i class="far fa-chart-bar"></i> #...Chart</a></li>
+                                    <li><a href="albums-store.html"><i class="fas fa-podcast"></i> Theo Dõi</a></li>
+                                    <li><a href="albums-store.html"><i class="fas fa-music"></i> Nhạc Mới</a></li>
                                     <li>
-                                        <a href="#">Pages</a>
+                                        <a href="#"><i class="fas fa-icons"></i> Thể Loại</a>
                                         <ul class="dropdown">
                                             <li><a href="index.html">Home</a></li>
                                             <li><a href="albums-store.html">Albums</a></li>
@@ -113,9 +112,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="event.html">Events</a></li>
-                                    <li><a href="blog.html">News</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="event.html"><i class="far fa-star"></i> Top 100</a></li>
+                                    <li><a href="event.html"><i class="fab fa-youtube-square"></i> MV</a></li>
                                 </ul>
 
                                 <!-- Login/Register & Cart Button -->
@@ -154,7 +152,7 @@
                                     else
                                     {
                                         <div class="login-register-btn mr-50">
-                                            <a href="@Url.Action("Login", "Users")" id="loginBtn">Login / Register</a>
+                                            <a href="@Url.Action("Login", "Users")" id="loginBtn"><i class="fas fa-user"></i> Cá Nhân</a>
                                         </div>
                                     }
 

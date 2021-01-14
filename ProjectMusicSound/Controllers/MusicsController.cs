@@ -64,6 +64,11 @@ namespace ProjectMusicSound.Controllers
             HttpCookie httpCookie = Request.Cookies["user_id"];
             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
 
+            var fileimg = Path.GetFileName(img.FileName);
+            //Đưa tên ảnh vào file
+            var pa = Path.Combine(Server.MapPath("~/Images"), fileimg);
+            img.SaveAs(pa);
+
             var mp3 = Path.GetFileName(filemp3.FileName);
             var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), mp3);
 
@@ -79,23 +84,8 @@ namespace ProjectMusicSound.Controllers
             {
                 filemp3.SaveAs(pathmp3);
             }
-
-            Random random = new Random();
-            ViewBag.Random = random.Next(0, 1000);
-            if (img == null)
-            {
-                ViewBag.Checkimg = "Không Có Hình Ảnh";
-                music.music_img = user.user_img;
-            }
-            else
-            {
-                var fileimg = Path.GetFileName(img.FileName);
-                //Đưa tên ảnh vào file
-                var pa = Path.Combine(Server.MapPath("~/Images"), ViewBag.Random + fileimg);
-                img.SaveAs(pa);
-            }
             music.music_linkdow = filemp3.FileName;
-            music.music_img = ViewBag.Random + img.FileName;
+            music.music_img = img.FileName;
             music.music_datecreate = DateTime.Now;
             music.music_dateedit = DateTime.Now;
             music.music_bin = false;
@@ -143,26 +133,33 @@ namespace ProjectMusicSound.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, HttpPostedFileBase filemp3, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, HttpPostedFileBase mp3, HttpPostedFileBase img)
         {
             db.Entry(music).State = EntityState.Modified;
-
-            var mp3 = Path.GetFileName(filemp3.FileName);
-            var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), mp3);
-
-            filemp3.SaveAs(pathmp3);
-
-            Random random = new Random();
-            ViewBag.Random = random.Next(0, 1000);
-
             var fileimg = Path.GetFileName(img.FileName);
             //Đưa tên ảnh vào file
-            var pa = Path.Combine(Server.MapPath("~/Images"), ViewBag.Random + fileimg);
-
+            var pa = Path.Combine(Server.MapPath("~/Images"), fileimg);
             img.SaveAs(pa);
-            music.music_linkdow = filemp3.FileName;
-            music.music_img = ViewBag.Random + img.FileName;
 
+            var filemp3 = Path.GetFileName(mp3.FileName);
+            var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), filemp3);
+
+            if (mp3 == null)
+            {
+                return View();
+            }
+            if (System.IO.File.Exists(pathmp3))
+            {
+                ViewBag.Img = "File had exists";
+            }
+            else
+            {
+                mp3.SaveAs(pathmp3);
+            }
+            music.music_img = img.FileName;
+            music.music_dateedit = DateTime.Now;
+            music.music_linkdow = mp3.FileName;
+            music.music_bin = false;
             db.SaveChanges();
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_name", music.user_id);
             return Redirect("Index");
@@ -204,12 +201,12 @@ namespace ProjectMusicSound.Controllers
         }
 
         //Xoá
-        public JsonResult Del(int ? id)
+        public ActionResult Del(int ? id)
         {
             Music music = db.Musics.Find(id);
-            music.music_option = !music.music_option;
+            music.music_bin = true;
             db.SaveChanges();
-            return Json(music, JsonRequestBehavior.AllowGet);
+            return Redirect("Index");
         }
     }
 }
