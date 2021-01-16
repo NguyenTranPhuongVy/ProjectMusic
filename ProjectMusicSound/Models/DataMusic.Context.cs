@@ -37,5 +37,8 @@ namespace ProjectMusicSound.Models
         public virtual DbSet<Music_Category> Music_Category { get; set; }
         public virtual DbSet<Music_Singer> Music_Singer { get; set; }
         public virtual DbSet<Singer> Singers { get; set; }
+        public virtual DbSet<Version> Versions { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<Pay> Pays { get; set; }
     }
 }

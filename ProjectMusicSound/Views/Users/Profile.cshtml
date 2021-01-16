@@ -9,6 +9,7 @@
     HttpCookie httpCookie = Request.Cookies["user_id"];
     User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
     List<Profile> profile = db.Profiles.ToList();
+    List<Pay> pay = db.Pays.ToList();
 }
 <style>
     .canchinh {
@@ -45,14 +46,14 @@
                                 @if (user.role_id == 1)
                                 {
                                     <div class="profile-designation">Người Dùng</div>
+                                    <div class="profile-designation"> <span class="text-danger">
+                                           @foreach(var item in pay.Where(n=>n.user_id == user.user_id))
+                                           {
+                                               @(user.v_id == 1 ? "Phiên bản: Miển phí" : "Phiên bản: Vip ( HSD: " + item.pay_dateexpiration +")")
+                                           }
+                                           </span></div>
                                 }
-                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
-                                {
-                                    if (item.profile_point != null)
-                                    {
-                                        <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
-                                    }
-                                }
+                                <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @user.user_point điểm <a href="">Đổi quà</a></p>
                                 <ul class="profile-info-list">
                                     <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
                                     <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>

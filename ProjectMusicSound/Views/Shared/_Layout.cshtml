@@ -125,10 +125,13 @@
                                         <div class="login-register-btn mr-50">
                                             <div class="dropdown show">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="content:none !important">
-                                                    <img class="ui avatar image" src="~/Images/User/@user.user_img" style="border: 2px solid #ffffff">
+                                                    <img class="ui avatar image" src="~/Images/User/@user.user_img" style="border: 2px solid @(user.v_id == 1 ? "#ffffff" : "orange")">
                                                     <span>@user.user_name</span>
                                                 </a>
                                                 <div class="dropdown-menu mau" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="">
+                                                        <i class="fas fa-coins" style="color: black"></i><span> Nhiệm vụ kiếm điểm</span>
+                                                    </a>
                                                     <a class="dropdown-item" href="@Url.Action("Profile", "Users", new { id = user.user_id})">
                                                         <i class="fas fa-user-alt" style="color: black"></i><span> Trang Cá Nhân</span>
                                                     </a>
@@ -143,6 +146,12 @@
                                                     </a>
                                                     <a class="dropdown-item" href="@Url.Action("LogOut", "Users")">
                                                         <i class="fas fa-sign-out-alt" style="color: black"></i><span> Đăng Xuất</span>
+                                                    </a>
+                                                    <a class="dropdown-item" href="">
+                                                        <i class="fas fa-coins" style="color: black"></i><span> Đổi quà</span>
+                                                    </a>
+                                                    <a class="dropdown-item" href="/Packages/Index">
+                                                        <i class="fas fa-coins" style="color: black"></i><span> Mua vip</span>
                                                     </a>
                                                 </div>
                                             </div>

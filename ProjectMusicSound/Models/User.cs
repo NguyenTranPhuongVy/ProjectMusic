@@ -19,6 +19,7 @@ namespace ProjectMusicSound.Models
         {
             this.Profiles = new HashSet<Profile>();
             this.Musics = new HashSet<Music>();
+            this.Pays = new HashSet<Pay>();
         }
     
         public int user_id { get; set; }
@@ -34,11 +35,16 @@ namespace ProjectMusicSound.Models
         public Nullable<bool> user_bin { get; set; }
         public Nullable<int> role_id { get; set; }
         public string user_code { get; set; }
+        public Nullable<int> user_point { get; set; }
+        public Nullable<int> v_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Music> Musics { get; set; }
+        public virtual Version Version { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pay> Pays { get; set; }
     }
 }

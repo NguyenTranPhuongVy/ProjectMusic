@@ -27,6 +27,12 @@
         <AssociationConnector Association="MusicDataModel.FK_Music_Category_Music" />
         <AssociationConnector Association="MusicDataModel.FK_Music_Singer_Music" />
         <AssociationConnector Association="MusicDataModel.FK_Music_Singer_Singer" />
+        <EntityTypeShape EntityType="MusicDataModel.Version" Width="1.5" PointX="0.75" PointY="2" />
+        <AssociationConnector Association="MusicDataModel.FK_Users_Version" />
+        <EntityTypeShape EntityType="MusicDataModel.Package" Width="1.5" PointX="6" PointY="27.375" />
+        <EntityTypeShape EntityType="MusicDataModel.Pay" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="MusicDataModel.FK_Pay_Package" />
+        <AssociationConnector Association="MusicDataModel.FK_Pay_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

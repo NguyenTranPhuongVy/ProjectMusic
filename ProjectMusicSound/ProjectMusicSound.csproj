@@ -195,6 +195,8 @@
     <Compile Include="Controllers\JsonUsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusicsController.cs" />
+    <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\PaysController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +240,12 @@
     <Compile Include="Models\Music_Singer.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Package.cs">
+      <DependentUpon>DataMusic.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pay.cs">
+      <DependentUpon>DataMusic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Profile.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
@@ -257,6 +265,9 @@
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserJson.cs" />
+    <Compile Include="Models\Version.cs">
+      <DependentUpon>DataMusic.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -2558,6 +2569,16 @@
     <Content Include="Views\View\NewHit.cshtml" />
     <Content Include="Views\Musics\ActiveDel.cshtml" />
     <Content Include="Views\View\Menu.cshtml" />
+    <Content Include="Views\Packages\Create.cshtml" />
+    <Content Include="Views\Packages\Delete.cshtml" />
+    <Content Include="Views\Packages\Details.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
+    <Content Include="Views\Pays\Create.cshtml" />
+    <Content Include="Views\Pays\Delete.cshtml" />
+    <Content Include="Views\Pays\Details.cshtml" />
+    <Content Include="Views\Pays\Edit.cshtml" />
+    <Content Include="Views\Pays\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

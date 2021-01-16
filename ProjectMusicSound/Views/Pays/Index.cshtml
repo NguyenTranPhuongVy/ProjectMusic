@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ProjectMusicSound.Models.Pay>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pay_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pay_dateexpiration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pay_summoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Package.package_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pay_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pay_dateexpiration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pay_summoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Package.package_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pay_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pay_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pay_id })
+        </td>
+    </tr>
+}
+
+</table>

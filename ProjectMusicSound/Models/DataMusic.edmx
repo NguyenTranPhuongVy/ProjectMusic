@@ -70,6 +70,29 @@
           <Property Name="music_id" Type="int" />
           <Property Name="singer_id" Type="int" />
         </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="package_id" />
+          </Key>
+          <Property Name="package_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="package_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="package_money" Type="money" />
+          <Property Name="package_content" Type="nvarchar" MaxLength="300" />
+          <Property Name="package_datecreate" Type="datetime" />
+          <Property Name="package_active" Type="bit" />
+          <Property Name="package_pin" Type="bit" />
+        </EntityType>
+        <EntityType Name="Pay">
+          <Key>
+            <PropertyRef Name="pay_id" />
+          </Key>
+          <Property Name="pay_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="pakage_id" Type="int" />
+          <Property Name="pay_datecreate" Type="datetime" />
+          <Property Name="pay_dateexpiration" Type="datetime" />
+          <Property Name="pay_summoney" Type="money" />
+        </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="profile_id" />
@@ -140,6 +163,15 @@
           <Property Name="user_bin" Type="bit" />
           <Property Name="role_id" Type="int" />
           <Property Name="user_code" Type="nvarchar" MaxLength="200" />
+          <Property Name="user_point" Type="int" />
+          <Property Name="v_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="v_id" />
+          </Key>
+          <Property Name="v_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="v_name" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <Association Name="FK_Music_Author_Author">
           <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
@@ -225,6 +257,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pay_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
+          <End Role="Pay" Type="Self.Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="package_id" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="pakage_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pay_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pay" Type="Self.Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Profile_Sex">
           <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
           <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
@@ -261,6 +317,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Version">
+          <End Role="Version" Type="Self.Version" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Version">
+              <PropertyRef Name="v_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="v_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MusicDataModelStoreContainer">
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -268,12 +336,15 @@
           <EntitySet Name="Music_Author" EntityType="Self.Music_Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Category" EntityType="Self.Music_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pay" EntityType="Self.Pay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Singer" EntityType="Self.Singer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Version" EntityType="Self.Version" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Music_Author_Author" Association="Self.FK_Music_Author_Author">
             <End Role="Author" EntitySet="Author" />
             <End Role="Music_Author" EntitySet="Music_Author" />
@@ -302,6 +373,14 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Music" EntitySet="Music" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pay_Package" Association="Self.FK_Pay_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Pay" EntitySet="Pay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pay_Users" Association="Self.FK_Pay_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pay" EntitySet="Pay" />
+          </AssociationSet>
           <AssociationSet Name="FK_Profile_Sex" Association="Self.FK_Profile_Sex">
             <End Role="Sex" EntitySet="Sex" />
             <End Role="Profile" EntitySet="Profile" />
@@ -312,6 +391,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
             <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Version" Association="Self.FK_Users_Version">
+            <End Role="Version" EntitySet="Version" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
@@ -386,6 +469,10 @@
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_Users" FromRole="Users" ToRole="Profile" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
           <NavigationProperty Name="Musics" Relationship="MusicDataModel.FK_Music_Users" FromRole="User" ToRole="Music" />
+          <Property Name="user_point" Type="Int32" />
+          <Property Name="v_id" Type="Int32" />
+          <NavigationProperty Name="Version" Relationship="MusicDataModel.FK_Users_Version" FromRole="User" ToRole="Version" />
+          <NavigationProperty Name="Pays" Relationship="MusicDataModel.FK_Pay_Users" FromRole="User" ToRole="Pay" />
         </EntityType>
         <Association Name="FK_Profile_Sex">
           <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
@@ -475,6 +562,21 @@
           <AssociationSet Name="FK_Music_Singer_Singer" Association="MusicDataModel.FK_Music_Singer_Singer">
             <End Role="Singer" EntitySet="Singers" />
             <End Role="Music_Singer" EntitySet="Music_Singer" />
+          </AssociationSet>
+          <EntitySet Name="Versions" EntityType="MusicDataModel.Version" />
+          <AssociationSet Name="FK_Users_Version" Association="MusicDataModel.FK_Users_Version">
+            <End Role="Version" EntitySet="Versions" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Packages" EntityType="MusicDataModel.Package" />
+          <EntitySet Name="Pays" EntityType="MusicDataModel.Pay" />
+          <AssociationSet Name="FK_Pay_Package" Association="MusicDataModel.FK_Pay_Package">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="Pay" EntitySet="Pays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pay_Users" Association="MusicDataModel.FK_Pay_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Pay" EntitySet="Pays" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Music">
@@ -649,6 +751,76 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="v_id" />
+          </Key>
+          <Property Name="v_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="v_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="MusicDataModel.FK_Users_Version" FromRole="Version" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Users_Version">
+          <End Type="MusicDataModel.Version" Role="Version" Multiplicity="0..1" />
+          <End Type="MusicDataModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Version">
+              <PropertyRef Name="v_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="v_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="package_id" />
+          </Key>
+          <Property Name="package_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="package_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="package_money" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="package_content" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="package_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="package_active" Type="Boolean" />
+          <Property Name="package_pin" Type="Boolean" />
+          <NavigationProperty Name="Pays" Relationship="MusicDataModel.FK_Pay_Package" FromRole="Package" ToRole="Pay" />
+        </EntityType>
+        <EntityType Name="Pay">
+          <Key>
+            <PropertyRef Name="pay_id" />
+          </Key>
+          <Property Name="pay_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="pakage_id" Type="Int32" />
+          <Property Name="pay_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="pay_dateexpiration" Type="DateTime" Precision="3" />
+          <Property Name="pay_summoney" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Package" Relationship="MusicDataModel.FK_Pay_Package" FromRole="Pay" ToRole="Package" />
+          <NavigationProperty Name="User" Relationship="MusicDataModel.FK_Pay_Users" FromRole="Pay" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Pay_Package">
+          <End Type="MusicDataModel.Package" Role="Package" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Pay" Role="Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="package_id" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="pakage_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pay_Users">
+          <End Type="MusicDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Pay" Role="Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -705,6 +877,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MusicDataModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="v_id" ColumnName="v_id" />
+                <ScalarProperty Name="user_point" ColumnName="user_point" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_name" ColumnName="user_name" />
                 <ScalarProperty Name="user_img" ColumnName="user_img" />
@@ -800,6 +974,39 @@
                 <ScalarProperty Name="singer_active" ColumnName="singer_active" />
                 <ScalarProperty Name="singer_name" ColumnName="singer_name" />
                 <ScalarProperty Name="singer_id" ColumnName="singer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versions">
+            <EntityTypeMapping TypeName="MusicDataModel.Version">
+              <MappingFragment StoreEntitySet="Version">
+                <ScalarProperty Name="v_name" ColumnName="v_name" />
+                <ScalarProperty Name="v_id" ColumnName="v_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="MusicDataModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="package_pin" ColumnName="package_pin" />
+                <ScalarProperty Name="package_active" ColumnName="package_active" />
+                <ScalarProperty Name="package_datecreate" ColumnName="package_datecreate" />
+                <ScalarProperty Name="package_content" ColumnName="package_content" />
+                <ScalarProperty Name="package_money" ColumnName="package_money" />
+                <ScalarProperty Name="package_name" ColumnName="package_name" />
+                <ScalarProperty Name="package_id" ColumnName="package_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pays">
+            <EntityTypeMapping TypeName="MusicDataModel.Pay">
+              <MappingFragment StoreEntitySet="Pay">
+                <ScalarProperty Name="pay_summoney" ColumnName="pay_summoney" />
+                <ScalarProperty Name="pay_dateexpiration" ColumnName="pay_dateexpiration" />
+                <ScalarProperty Name="pay_datecreate" ColumnName="pay_datecreate" />
+                <ScalarProperty Name="pakage_id" ColumnName="pakage_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="pay_id" ColumnName="pay_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
