@@ -21,7 +21,7 @@ namespace ProjectMusicSound.Controllers
             HttpCookie httpCookie = Request.Cookies["user_id"];
             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
             var musics = db.Musics.Include(m => m.User);
-            return View(musics.Where(n => n.music_active == true && n.music_bin == false && n.music_option == true && n.user_id == user.user_id).ToList());
+            return View(musics.Where(n => n.music_active == true && n.music_bin == false && n.music_option == true && n.user_id == user.user_id).OrderByDescending(n => n.music_datecreate).ToList());
         }
 
         public ActionResult ActiveDel(int ? id)
@@ -29,7 +29,7 @@ namespace ProjectMusicSound.Controllers
             HttpCookie httpCookie = Request.Cookies["user_id"];
             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
             var musics = db.Musics.Include(m => m.User);
-            return View(musics.Where(n => n.music_option == false && n.music_bin == false  && n.user_id == user.user_id).ToList());
+            return View(musics.Where(n => n.music_option == false && n.music_active == true && n.music_bin == false  && n.user_id == user.user_id).OrderByDescending(n => n.music_datecreate).ToList());
         }
 
         // GET: Musics/Details/5
@@ -66,7 +66,7 @@ namespace ProjectMusicSound.Controllers
 
             var fileimg = Path.GetFileName(img.FileName);
             //Đưa tên ảnh vào file
-            var pa = Path.Combine(Server.MapPath("~/Images"), fileimg);
+            var pa = Path.Combine(Server.MapPath("~/Images/"), fileimg);
             img.SaveAs(pa);
 
             var mp3 = Path.GetFileName(filemp3.FileName);
@@ -92,7 +92,9 @@ namespace ProjectMusicSound.Controllers
             music.music_love = 0;
             music.music_view = 0;
             music.music_dowload = 0;
+            music.music_active = true;
             music.user_id = user.user_id;
+             
             db.Musics.Add(music);
             db.SaveChanges();
             Music msi = db.Musics.Where(n => n.user_id == user.user_id).OrderByDescending(n => n.music_datecreate).First();
@@ -106,6 +108,7 @@ namespace ProjectMusicSound.Controllers
                 };
                 db.Music_Category.Add(music_Category);
             }
+
             db.SaveChanges();
 
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_name", music.user_id);
@@ -133,36 +136,33 @@ namespace ProjectMusicSound.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, HttpPostedFileBase mp3, HttpPostedFileBase img)
+        public ActionResult Edit([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, HttpPostedFileBase filemp3edit, HttpPostedFileBase fileimgedit)
         {
             db.Entry(music).State = EntityState.Modified;
-            var fileimg = Path.GetFileName(img.FileName);
-            //Đưa tên ảnh vào file
-            var pa = Path.Combine(Server.MapPath("~/Images"), fileimg);
-            img.SaveAs(pa);
+            HttpCookie httpCookie = Request.Cookies["user_id"];
+            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
 
-            var filemp3 = Path.GetFileName(mp3.FileName);
-            var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), filemp3);
+            if (fileimgedit == null)
+            {
 
-            if (mp3 == null)
-            {
-                return View();
-            }
-            if (System.IO.File.Exists(pathmp3))
-            {
-                ViewBag.Img = "File had exists";
             }
             else
             {
-                mp3.SaveAs(pathmp3);
+                var fileimg = Path.GetFileName(fileimgedit.FileName);
+                var pa = Path.Combine(Server.MapPath("~/Images/"), fileimg);
+                var mp3 = Path.GetFileName(filemp3edit.FileName);
+                var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), mp3);
+                fileimgedit.SaveAs(pa);
+                filemp3edit.SaveAs(pathmp3);
+
+                music.music_linkdow = filemp3edit.FileName;
+                music.music_img = fileimgedit.FileName;
             }
-            music.music_img = img.FileName;
             music.music_dateedit = DateTime.Now;
-            music.music_linkdow = mp3.FileName;
             music.music_bin = false;
             db.SaveChanges();
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_name", music.user_id);
-            return Redirect("Index");
+            return View(music);
         }
 
         // GET: Musics/Delete/5
@@ -206,7 +206,7 @@ namespace ProjectMusicSound.Controllers
             Music music = db.Musics.Find(id);
             music.music_bin = true;
             db.SaveChanges();
-            return Redirect("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

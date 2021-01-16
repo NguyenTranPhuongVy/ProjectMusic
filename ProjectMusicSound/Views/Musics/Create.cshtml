@@ -25,16 +25,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
 <link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
 <!-- partial -->
-<section class="hero-area">
-    <div class="hero-slides owl-carousel">
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 100px">
-            <!-- Slide Img -->
-            <div class="slide-img bg-img" style="background-image: url('../../Content/Layout/img/bg-img/b1.jpg');"></div>
-            <!-- Slide Content -->
-        </div>
-    </div>
-</section>
+@Html.Action("Menu", "View")
 <!-- ##### Header Area Start ##### -->
 <div class="canchinh">
     <div class="main-panel">
@@ -61,14 +52,14 @@
                                     <div class="profile-designation">Người Dùng</div>
                                 }
                                 @foreach (var item in profile.Where(n => n.user_id == user.user_id))
-                                { 
+                                {
                                     <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
                                 }
-                            <ul class="profile-info-list">
-                                <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
-                                <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
-                                <a href="@Url.Action("Create", "Musics")" class="profile-info-list-item"><i class="mdi mdi-plus-box"></i>Đăng Nhạc</a>
-                            </ul>
+                                <ul class="profile-info-list">
+                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                    <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
+                                    <a href="@Url.Action("Create", "Musics")" class="profile-info-list-item"><i class="mdi mdi-plus-box"></i>Đăng Nhạc</a>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -145,21 +136,12 @@
                                     <label>Link Bài Hát <b class="text-danger">*</b></label>
                                     <input name="filemp3" type="file">
                                 </div>
-                                <div class="two fields">
-                                    <div class="field">
-                                        <label>Trạng Thái <b class="text-danger">*</b></label>
-                                        <select name="music_active" class="ui dropdown">
-                                            <option value="True">Hoạt Động</option>
-                                            <option value="False">Không Hoạt Động</option>
-                                        </select>
-                                    </div>
-                                    <div class="field">
-                                        <label>Tuỳ Chọn <b class="text-danger">*</b></label>
-                                        <select name="music_option" class="ui dropdown">
-                                            <option value="True">Cho Phép Hiển Thị</option>
-                                            <option value="False">Không Hiển Thị</option>
-                                        </select>
-                                    </div>
+                                <div class="field">
+                                    <label>Tuỳ Chọn <b class="text-danger">*</b></label>
+                                    <select name="music_option" class="ui dropdown">
+                                        <option value="True">Cho Phép Hiển Thị</option>
+                                        <option value="False">Không Hiển Thị</option>
+                                    </select>
                                 </div>
                                 <div class="ui primary submit button">Đăng Nhạc</div>
                                 <div class="ui error message"></div>

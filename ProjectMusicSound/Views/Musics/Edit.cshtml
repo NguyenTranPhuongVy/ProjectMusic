@@ -24,16 +24,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
 <link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
 <!-- partial -->
-<section class="hero-area">
-    <div class="hero-slides owl-carousel">
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 100px">
-            <!-- Slide Img -->
-            <div class="slide-img bg-img" style="background-image: url('../../Content/Layout/img/bg-img/b1.jpg');"></div>
-            <!-- Slide Content -->
-        </div>
-    </div>
-</section>
+@Html.Action("Menu", "View")
 <!-- ##### Header Area Start ##### -->
 <div class="canchinh">
     <div class="main-panel">
@@ -94,6 +85,7 @@
                                 @Html.HiddenFor(n => n.music_view)
                                 @Html.HiddenFor(n => n.music_img)
                                 @Html.HiddenFor(n => n.music_linkdow)
+                                @Html.HiddenFor(n => n.user_id)
                                 <h3>Sửa Nhạc</h3>
                                 <div class="field">
                                     <label>Tiêu Đề <b class="text-danger">*</b></label>
@@ -102,7 +94,7 @@
                                 </div>
                                 <div class="field">
                                     <label>Hình Ảnh <b class="text-danger">*</b></label>
-                                    <input name="img" value="@Model.music_img" type="file">
+                                    <input name="fileimgedit" value="@Model.music_img" type="file">
                                 </div>
                                 <div class="field">
                                     <label>Tên Thể Loại <b class="text-danger">*</b></label>
@@ -124,25 +116,16 @@
                                 </div>
                                 <div class="field">
                                     <label>Link Bài Hát <b class="text-danger">*</b></label>
-                                    <input name="mp3" value="@Model.music_linkdow" type="file">
+                                    <input name="filemp3edit" value="@Model.music_linkdow" type="file">
                                 </div>
-                                <div class="two fields">
-                                    <div class="field">
-                                        <label>Trạng Thái <b class="text-danger">*</b></label>
-                                        <select name="music_active" class="ui dropdown">
-                                            <option value="True" @(Model.music_active == true ? "selected" : "")>Hoạt Động</option>
-                                            <option value="False" @(Model.music_active == false ? "selected" : "")>Không Hoạt Động</option>
-                                        </select>
-                                    </div>
-                                    <div class="field">
-                                        <label>Tuỳ Chọn <b class="text-danger">*</b></label>
-                                        <select name="music_option" class="ui dropdown">
-                                            <option value="True" @(Model.music_active == true ? "selected" : "")>Cho Phép Hiển Thị</option>
-                                            <option value="False" @(Model.music_active == false ? "selected" : "")>Không Hiển Thị</option>
-                                        </select>
-                                    </div>
+                                <div class="field">
+                                    <label>Tuỳ Chọn <b class="text-danger">*</b></label>
+                                    <select name="music_option" class="ui dropdown">
+                                        <option value="True" @(Model.music_active == true ? "selected" : "")>Cho Phép Hiển Thị</option>
+                                        <option value="False" @(Model.music_active == false ? "selected" : "")>Không Hiển Thị</option>
+                                    </select>
                                 </div>
-                                <div class="ui primary submit button">Đăng Nhạc</div>
+                                <div class="ui primary submit button">Sửa Đổi</div>
                                 <div class="ui error message"></div>
                             </form>
                         </div>

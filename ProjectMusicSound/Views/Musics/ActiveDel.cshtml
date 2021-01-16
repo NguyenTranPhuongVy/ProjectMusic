@@ -22,16 +22,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
 <link href="~/Content/Layout/css/profile.css" rel="stylesheet" />
 <!-- partial -->
-<section class="hero-area">
-    <div class="hero-slides owl-carousel">
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 100px">
-            <!-- Slide Img -->
-            <div class="slide-img bg-img" style="background-image: url('../../Content/Layout/img/bg-img/b1.jpg');"></div>
-            <!-- Slide Content -->
-        </div>
-    </div>
-</section>
+@Html.Action("Menu", "View")
 <!-- ##### Header Area Start ##### -->
 <div class="canchinh" ng-app="myApp">
     <div class="main-panel" ng-controller="myCtrl">
@@ -63,7 +54,7 @@
                                 }
                                 <ul class="profile-info-list">
                                     <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
-                                    <a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
+                                    <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
                                     <a href="@Url.Action("Create", "Musics")" class="profile-info-list-item"><i class="mdi mdi-plus-box"></i>Đăng Nhạc</a>
                                 </ul>
                             </div>
@@ -99,7 +90,7 @@
                                             <img src="~/Images/{{listms.music_img}}" style="width: 80px; height: 80px">
                                         </a>
                                         <div class="content">
-                                            <a href="" class="header">{{listms.music_name}}</a>
+                                            <a href="/Musics/Details/{{listms.music_id}}" class="header">{{listms.music_name}}</a>
                                             <div class="row">
                                                 <div class="description col-lg-6">
                                                     <a><p>@user.user_name</p></a>
