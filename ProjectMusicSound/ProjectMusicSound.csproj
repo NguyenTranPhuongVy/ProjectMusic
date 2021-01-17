@@ -2566,16 +2566,16 @@
     <Content Include="Views\View\NewHit.cshtml" />
     <Content Include="Views\Musics\ActiveDel.cshtml" />
     <Content Include="Views\View\Menu.cshtml" />
-    <Content Include="Views\Packages\Create.cshtml" />
-    <Content Include="Views\Packages\Delete.cshtml" />
-    <Content Include="Views\Packages\Details.cshtml" />
-    <Content Include="Views\Packages\Edit.cshtml" />
-    <Content Include="Views\Packages\Index.cshtml" />
     <Content Include="Views\Pays\Create.cshtml" />
     <Content Include="Views\Pays\Delete.cshtml" />
     <Content Include="Views\Pays\Details.cshtml" />
     <Content Include="Views\Pays\Edit.cshtml" />
     <Content Include="Views\Pays\Index.cshtml" />
+    <Content Include="Views\Packages\Create.cshtml" />
+    <Content Include="Views\Packages\Delete.cshtml" />
+    <Content Include="Views\Packages\Details.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

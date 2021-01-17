@@ -246,14 +246,20 @@ namespace ProjectMusicSound.Controllers
         [HttpPost]
         public ActionResult EditAvatar(FormCollection f, int ? id, HttpPostedFileBase img)
         {
-            Random random = new Random();
-            ViewBag.Random = random.Next(0, 1000);
             User user = db.Users.Find(id);
-            var fileimg = Path.GetFileName(img.FileName);
-            var pa = Path.Combine(Server.MapPath("~/Images/User"), ViewBag.Random + fileimg);
-            //Đưa tên ảnh vào file
-            img.SaveAs(pa);
-            user.user_img = ViewBag.Random + img.FileName;
+            if (img != null)
+            {
+                var fileimg = Path.GetFileName(img.FileName);
+                //Đưa tên ảnh vào file
+                var pa = Path.Combine(Server.MapPath("~/Images/User"), fileimg);
+                img.SaveAs(pa);
+                user.user_img = img.FileName;
+            }
+            else
+            {
+
+            }
+
             db.SaveChanges();
             return Redirect("/Users/Profile/" + id);
         }
