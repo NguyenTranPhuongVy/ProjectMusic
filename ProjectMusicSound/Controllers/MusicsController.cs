@@ -136,27 +136,35 @@ namespace ProjectMusicSound.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, HttpPostedFileBase filemp3edit, HttpPostedFileBase fileimgedit)
+        public ActionResult Edit([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, HttpPostedFileBase imgage, HttpPostedFileBase filemp3edit)
         {
             db.Entry(music).State = EntityState.Modified;
             HttpCookie httpCookie = Request.Cookies["user_id"];
             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
 
-            if (fileimgedit == null)
+            if (imgage != null)
             {
-
+                var fileimg = Path.GetFileName(imgage.FileName);
+                //Đưa tên ảnh vào file
+                var pa = Path.Combine(Server.MapPath("~/Images"), fileimg);
+                imgage.SaveAs(pa);
+                music.music_img = imgage.FileName;
             }
             else
             {
-                var fileimg = Path.GetFileName(fileimgedit.FileName);
-                var pa = Path.Combine(Server.MapPath("~/Images/"), fileimg);
+
+            }
+
+            if(filemp3edit != null)
+            {
                 var mp3 = Path.GetFileName(filemp3edit.FileName);
                 var pathmp3 = Path.Combine(Server.MapPath("~/Content/LinkMusic/"), mp3);
-                fileimgedit.SaveAs(pa);
                 filemp3edit.SaveAs(pathmp3);
-
                 music.music_linkdow = filemp3edit.FileName;
-                music.music_img = fileimgedit.FileName;
+            }
+            else
+            {
+
             }
             music.music_dateedit = DateTime.Now;
             music.music_bin = false;

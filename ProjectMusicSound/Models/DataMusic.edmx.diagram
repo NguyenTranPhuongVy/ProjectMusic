@@ -4,35 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="84cf010920f74907ad397e1a7721338d" Name="Diagram1">
-        <EntityTypeShape EntityType="MusicDataModel.Profile" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicDataModel.Role" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicDataModel.Sex" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicDataModel.sysdiagram" Width="1.5" PointX="5.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicDataModel.User" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+      <Diagram DiagramId="51415994b6dc402991f8b0f40bf4a40b" Name="Diagram1">
+        <EntityTypeShape EntityType="MusicDataModel.Author" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Category" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Music" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Music_Author" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Music_Category" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Music_Singer" Width="1.5" PointX="7.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Package" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Pay" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Profile" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Role" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Sex" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Singer" Width="1.5" PointX="5.25" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.User" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicDataModel.Version" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Author_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Category_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Author_Music" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Category_Music" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Singer_Music" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Music_Singer_Singer" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Pay_Package" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicDataModel.FK_Pay_Users" ManuallyRouted="false" />
         <AssociationConnector Association="MusicDataModel.FK_Profile_Sex" ManuallyRouted="false" />
         <AssociationConnector Association="MusicDataModel.FK_Profile_Users" ManuallyRouted="false" />
         <AssociationConnector Association="MusicDataModel.FK_Users_Role" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MusicDataModel.Music" Width="1.5" PointX="5.25" PointY="11.5" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Users" />
-        <EntityTypeShape EntityType="MusicDataModel.Author" Width="1.5" PointX="5.25" PointY="4.75" />
-        <EntityTypeShape EntityType="MusicDataModel.Category" Width="1.5" PointX="6.25" PointY="18.625" />
-        <EntityTypeShape EntityType="MusicDataModel.Music_Author" Width="1.5" PointX="7.5" PointY="12.875" />
-        <EntityTypeShape EntityType="MusicDataModel.Music_Category" Width="1.5" PointX="8.5" PointY="9.875" />
-        <EntityTypeShape EntityType="MusicDataModel.Music_Singer" Width="1.5" PointX="7.5" PointY="15.875" />
-        <EntityTypeShape EntityType="MusicDataModel.Singer" Width="1.5" PointX="5.25" PointY="22.75" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Author_Author" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Category_Category" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Author_Music" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Category_Music" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Singer_Music" />
-        <AssociationConnector Association="MusicDataModel.FK_Music_Singer_Singer" />
-        <EntityTypeShape EntityType="MusicDataModel.Version" Width="1.5" PointX="0.75" PointY="2" />
-        <AssociationConnector Association="MusicDataModel.FK_Users_Version" />
-        <EntityTypeShape EntityType="MusicDataModel.Package" Width="1.5" PointX="6" PointY="27.375" />
-        <EntityTypeShape EntityType="MusicDataModel.Pay" Width="1.5" PointX="8.25" PointY="0.75" />
-        <AssociationConnector Association="MusicDataModel.FK_Pay_Package" />
-        <AssociationConnector Association="MusicDataModel.FK_Pay_Users" />
+        <AssociationConnector Association="MusicDataModel.FK_Users_Version" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

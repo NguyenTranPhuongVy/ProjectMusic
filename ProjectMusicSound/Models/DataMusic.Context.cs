@@ -25,20 +25,19 @@ namespace ProjectMusicSound.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Profile> Profiles { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Sex> Sexes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Music> Musics { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Music> Musics { get; set; }
         public virtual DbSet<Music_Author> Music_Author { get; set; }
         public virtual DbSet<Music_Category> Music_Category { get; set; }
         public virtual DbSet<Music_Singer> Music_Singer { get; set; }
-        public virtual DbSet<Singer> Singers { get; set; }
-        public virtual DbSet<Version> Versions { get; set; }
         public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<Pay> Pays { get; set; }
+        public virtual DbSet<Profile> Profiles { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Sex> Sexes { get; set; }
+        public virtual DbSet<Singer> Singers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Version> Versions { get; set; }
     }
 }

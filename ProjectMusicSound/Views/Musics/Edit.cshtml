@@ -86,6 +86,7 @@
                                 @Html.HiddenFor(n => n.music_img)
                                 @Html.HiddenFor(n => n.music_linkdow)
                                 @Html.HiddenFor(n => n.user_id)
+                                @Html.HiddenFor(n => n.music_id)
                                 <h3>Sửa Nhạc</h3>
                                 <div class="field">
                                     <label>Tiêu Đề <b class="text-danger">*</b></label>
@@ -94,7 +95,7 @@
                                 </div>
                                 <div class="field">
                                     <label>Hình Ảnh <b class="text-danger">*</b></label>
-                                    <input name="fileimgedit" value="@Model.music_img" type="file">
+                                    <input name="imgage" value="@Model.music_img" type="file">
                                 </div>
                                 <div class="field">
                                     <label>Tên Thể Loại <b class="text-danger">*</b></label>
