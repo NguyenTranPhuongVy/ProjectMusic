@@ -18,58 +18,45 @@
         margin-top: 3%;
         margin-bottom: 5%;
     }
+    
+    .size a{
+        font-size: 11px;
+    }
 </style>
 @Html.Action("Menu", "View")
-@*<div class="row">
-    <div class="col-lg-4">
-        <div class="row">
-            <div class="col-lg-4">
-                <img class="ui small circular image" src="~/Images/@Model.music_img">
-            </div>
-            <div class="col-lg-4">
-                <p>@Model.music_name</p>
+<div class="Chinh">
+    <div class="row container-fluid">
+        <div class="col-lg-8">
+            <div class="ui segment">
+                <div>
+                    <center><img class="ui medium circular image" src="~/Images/@Model.music_img" style="width: 300px; height: 300px"></center>
+                </div>
+                <p class="Font">@Model.music_name</p>
                 @if (Model.User.role_id == 1)
                 {
                     <p>@Model.User.user_name</p>
+                    <div class="extra content">
+                        <span class="left floated like">
+                            <i class="like icon"></i>
+                        </span>
+                        <span class="right floated star">
+                            <i class="ellipsis horizontal icon"></i>
+                        </span>
+                    </div>
                 }
                 else
                 {
                     foreach (var item in singers.Where(n => n.music_id == Model.music_id))
                     {
                         <p>@item.Singer.singer_name</p>
-                    }
-                }
-            </div>
-            <div class="col-lg-4">
-                <i class="far fa-heart"></i>
-                <i class="fas fa-ellipsis-h"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <audio controls>
-            <source src="/Content/LinkMusic/@Model.music_linkdow">
-        </audio>
-    </div>
-    <div class="col-lg-4"></div>
-</div>*@
-<div class="Chinh">
-    <div class="row container-fluid">
-        <div class="col-lg-8">
-            <div class="ui segment">
-                <div>
-                    <center><img class="ui medium circular image" src="~/Images/@Model.music_img"></center>
-                </div>
-                <p class="Font">@Model.music_name</p>
-                @if(Model.User.role_id == 1)
-                {
-                    <p>@Model.User.user_name</p>
-                }
-                else
-                {
-                    foreach(var item in singers.Where(n => n.music_id == Model.music_id))
-                    {
-                        <p>@item.Singer.singer_name</p>
+                        <div class="extra content">
+                            <span class="left floated like">
+                                <i class="like icon"></i>
+                            </span>
+                            <span class="right floated star">
+                                <i class="ellipsis horizontal icon"></i>
+                            </span>
+                        </div>
                     }
                 }
                 <audio controls>
@@ -89,15 +76,118 @@
                     Bình Luận
                 </div>
                 <div class="content">
-                    <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+                    <div class="ui small comments">
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="/images/avatar/small/matt.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Matt</a>
+                                <div class="metadata">
+                                    <span class="date">Today at 5:42PM</span>
+                                </div>
+                                <div class="text">
+                                    How artistic!
+                                </div>
+                                <div class="actions size">
+                                    <a class="reply">Reply</a>
+                                    <a class="save">Save</a>
+                                    <a class="hide">Hide</a>
+                                    <a>
+                                        <i class="expand icon"></i>
+                                        Full-screen
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="/images/avatar/small/elliot.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions size">
+                                    <a class="reply">Reply</a>
+                                    <a class="save">Save</a>
+                                    <a class="hide">Hide</a>
+                                    <a>
+                                        <i class="expand icon"></i>
+                                        Full-screen
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="/images/avatar/small/jenny.jpg">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions size">
+                                            <a class="reply">Reply</a>
+                                            <a class="save">Save</a>
+                                            <a class="hide">Hide</a>
+                                            <a>
+                                                <i class="expand icon"></i>
+                                                Full-screen
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="/images/avatar/small/joe.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions size">
+                                    <a class="reply">Reply</a>
+                                    <a class="save">Save</a>
+                                    <a class="hide">Hide</a>
+                                    <a>
+                                        <i class="expand icon"></i>
+                                        Full-screen
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="ui reply form">
+                            <div class="field">
+                                <textarea></textarea>
+                            </div>
+                            <div class="ui blue labeled submit icon button">
+                                <i class="icon edit"></i> Bình Luận
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="title">
                     <i class="dropdown icon"></i>
-                    Đánh Giá
+                    Đánh Giá & Báo Cáo Vi Phạm
                 </div>
                 <div class="content">
-                    <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
-                    <p>A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                    <p>Đánh giá: <div class="ui star rating" data-rating="0" data-max-rating="5"></div></p>
+                    <p>Báo cáo vi phạm</p>
                 </div>
             </div>
         </div>
@@ -149,4 +239,9 @@
 </script>
 <script>
     $('.tabular.menu .item').tab();
+</script>
+<script>
+    $('.ui.rating')
+        .rating()
+        ;
 </script>
