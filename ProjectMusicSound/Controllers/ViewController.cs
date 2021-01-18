@@ -26,5 +26,6 @@ namespace ProjectMusicSound.Controllers
             List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_bin == false).OrderByDescending(n => n.music_datecreate).Take(6).ToList();
             return PartialView(musics);
         }
+
     }
 }

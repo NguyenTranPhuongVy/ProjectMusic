@@ -175,5 +175,12 @@ namespace ProjectMusicSound.Controllers
             }
             return Redirect("/Users/Profile/" + user.user_id);
         }
+
+        public ActionResult DealVIP(int ? id)
+        {
+            User user = db.Users.Find(id);
+            List<Pay> pays = db.Pays.Where(n => n.user_id == user.user_id).ToList();
+            return View(pays);
+        }
     }
 }

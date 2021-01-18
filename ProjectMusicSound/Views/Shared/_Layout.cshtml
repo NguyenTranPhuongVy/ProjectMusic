@@ -32,8 +32,11 @@
     <link href="~/Content/fontawesome-free-5.15.1-web/css/all.min.css" rel="stylesheet" />
     <script src="~/Content/fontawesome-free-5.15.1-web/js/all.min.js"></script>
     <style>
-        .mau a span{
-            color: black;
+        .mau a{
+            color: black !important;
+            font-weight: normal !important;
+            font-size: 12px !important;
+            font-family: 'Segoe UI';
         }
     </style>
 </head>
@@ -123,40 +126,74 @@
                                     {
                                         User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
                                         <div class="login-register-btn mr-50">
-                                            <div class="dropdown show">
-                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="content:none !important">
+                                            <div class="ui inline dropdown w-100">
+                                                <div class="text">
                                                     <img class="ui avatar image" src="~/Images/User/@user.user_img" style="border: 2px solid @(user.v_id == 1 ? "#ffffff" : "orange")">
-                                                    <span>@user.user_name</span>
-                                                </a>
-                                                <div class="dropdown-menu mau" aria-labelledby="dropdownMenuLink">
-                                                    <a class="dropdown-item" href="">
-                                                        <i class="fas fa-coins" style="color: black"></i><span> Nhiệm vụ kiếm điểm</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="@Url.Action("Profile", "Users", new { id = user.user_id})">
-                                                        <i class="fas fa-user-alt" style="color: black"></i><span> Trang Cá Nhân</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="@Url.Action("Index", "Musics", new { id = user.user_id})">
-                                                        <i class="fas fa-compact-disc" style="color: black"></i><span> Quản Lý Bài Hát</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="@Url.Action("Index", "Musics", new { id = user.user_id})">
-                                                        <i class="fas fa-file-video" style="color: black"></i><span> Quản Lý Video</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="@Url.Action("EditPass", "Users", new { id = user.user_id})">
-                                                        <i class="fas fa-user-edit" style="color: black"></i><span> Đổi Mật Khẩu</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="@Url.Action("LogOut", "Users")">
-                                                        <i class="fas fa-sign-out-alt" style="color: black"></i><span> Đăng Xuất</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="">
-                                                        <i class="fas fa-coins" style="color: black"></i><span> Đổi quà</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="/Packages/Index">
-                                                        <i class="fas fa-coins" style="color: black"></i><span> Mua vip</span>
-                                                    </a>
+                                                    <span style="color: aliceblue">@user.user_name</span>
                                                 </div>
+                                                <i class="dropdown icon" style="color: aliceblue"></i>
+                                                <div class="menu mau">
+                                                    <div class="item">
+                                                        #@user.user_code
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("Profile", "Users", new { id = user.user_id})">
+                                                            <i class="fas fa-user-alt" style="color: black"></i> Trang Cá Nhân
+                                                        </a>
+                                                    </div>
+                                                    <div class="divider"></div>
+                                                    <div class="item">Quản Lý</div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("Index", "Musics", new { id = user.user_id})">
+                                                            <i class="fas fa-compact-disc" style="color: black"></i> Bài Hát
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("Index", "Musics", new { id = user.user_id})">
+                                                            <i class="fas fa-video" style="color: black"></i> Video
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})">
+                                                            <i class="fas fa-user-edit" style="color: black"></i> Đổi Mật Khẩu
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">Giao Dịch</div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("Packages", "Index")">
+                                                            <i class="fas fa-crown" style="color: black"></i> Mua VIP
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("DealVIP", "Pays", new { id = user.user_id })">
+                                                            <i class="fas fa-donate" style="color: black"></i> Lịch Sử Giao Dịch
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">Tích Điểm</div>
+                                                    <div class="item">
+                                                        <a href="">
+                                                            <i class="fas fa-gift" style="color: black"></i> Đổi Quà
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="">
+                                                            <i class="fas fa-coins" style="color: black"></i> Nhiệm Vụ
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="@Url.Action("LogOut", "Users")">
+                                                            <i class="fas fa-sign-out-alt" style="color: black"></i> Đăng Xuất
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    $('.ui.dropdown')
+                                                        .dropdown()
+                                                        ;
+                                                </script>
                                             </div>
                                         </div>
-                                        
+
                                     }
                                     else
                                     {
@@ -219,11 +256,6 @@
     <!-- Active js -->
     <script src="~/Content/Layout/js/active.js"></script>
     <!-- Vali -->
-    <script>
-        $('.ui.dropdown')
-            .dropdown()
-            ;
-    </script>
 </body>
 </html>
 

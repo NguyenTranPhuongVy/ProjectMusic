@@ -1,0 +1,38 @@
+﻿@using ProjectMusicSound.Models
+@model List<Pay>
+@{
+    ViewBag.Title = "DealVIP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+}
+@Html.Action("Menu", "View")
+<div style="margin-top: 2%; height: 450px">
+    <table class="ui teal table text-center">
+        <thead>
+            <tr>
+                <th>Tên Người Dùng</th>
+                <th>Thông Tin Giao Dịch</th>
+                <th>Ngày Giao Dịch</th>
+                <th>Hạn Giao Dịch</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                float money = (float)item.Package.package_money;
+                <tr>
+                    <td>@user.user_name</td>
+                    <td>
+                        <p>Gói dịch vụ: @item.Package.package_name</p>
+                        <p>Giá dịch vụ: @money.ToString("#,000") VNĐ</p>
+                    </td>
+                    <td>@item.pay_datecreate</td>
+                    <td>@item.pay_dateexpiration</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

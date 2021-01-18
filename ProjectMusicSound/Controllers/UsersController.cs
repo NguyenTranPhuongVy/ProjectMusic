@@ -81,7 +81,7 @@ namespace ProjectMusicSound.Controllers
         public RedirectResult CreateCode(int ? id)
         {
             User user = db.Users.Find(id);
-            user.user_code = "MS-" + id;
+            user.user_code = "#MUSC-" + id;
             db.SaveChanges();
             HttpCookie httpCookie = new HttpCookie("user_id", id.ToString());
             httpCookie.Expires.AddDays(10);
