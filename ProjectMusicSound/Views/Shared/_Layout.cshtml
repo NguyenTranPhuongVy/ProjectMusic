@@ -35,7 +35,7 @@
         .mau a{
             color: black !important;
             font-weight: normal !important;
-            font-size: 12px !important;
+            font-size: 15px !important;
             font-family: 'Segoe UI';
         }
     </style>
@@ -60,7 +60,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                        <a href="index.html" class="nav-brand text-white">
+                        <a href="@Url.Action("Index", "Home")" class="nav-brand text-white">
                             <i class="fab fa-soundcloud"></i> Sound
                         </a>
 
@@ -128,7 +128,7 @@
                                         <div class="login-register-btn mr-50">
                                             <div class="ui inline dropdown">
                                                 <div class="text">
-                                                    <img class="ui avatar image" src="~/Images/User/@user.user_img" style="border: 2px solid @(user.v_id == 1 ? "#ffffff" : "orange")">
+                                                    <img class="ui avatar image" src="~/Images/User/@user.user_img" style="border: 2px solid @(user.v_id == 1 ? "#ffffff" : "orange"); width: 30px">
                                                     <span style="color: aliceblue">@user.user_name</span>
                                                 </div>
                                                 <i class="dropdown icon" style="color: aliceblue"></i>
@@ -141,21 +141,21 @@
                                                             <i class="fas fa-user-alt" style="color: black"></i> Trang Cá Nhân
                                                         </a>
                                                     </div>
-                                                    <div class="divider"></div>
-                                                    <div class="item">Quản Lý</div>
-                                                    <div class="item">
-                                                        <a href="@Url.Action("Index", "Musics", new { id = user.user_id})">
-                                                            <i class="fas fa-compact-disc" style="color: black"></i> Bài Hát
-                                                        </a>
-                                                    </div>
-                                                    <div class="item">
-                                                        <a href="@Url.Action("Index", "Musics", new { id = user.user_id})">
-                                                            <i class="fas fa-video" style="color: black"></i> Video
-                                                        </a>
-                                                    </div>
                                                     <div class="item">
                                                         <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})">
                                                             <i class="fas fa-user-edit" style="color: black"></i> Đổi Mật Khẩu
+                                                        </a>
+                                                    </div>
+                                                    <div class="divider"></div>
+                                                    <div class="item">Quản Lý</div>
+                                                    <div class="item">
+                                                        <a href="">
+                                                            <i class="fas fa-compact-disc" style="color: black"></i> Bài Hát Yêu Thích
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <a href="">
+                                                            <i class="fas fa-video" style="color: black"></i> Video Yêu Thích
                                                         </a>
                                                     </div>
                                                     <div class="item">Giao Dịch</div>

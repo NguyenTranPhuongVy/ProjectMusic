@@ -98,8 +98,9 @@
                                 <li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span class="about-item-name">Ảnh đại diện:</span><span class="about-item-detail"></span><a data-toggle="collapse" href="#img" role="button" aria-expanded="false" aria-controls="img" class="about-item-edit" style="font-size: medium">Sửa</a></li>
                                 <li class="collapse" id="img">
                                     <div class="card card-body">
-                                        <form class="ui form" method="post" action="@Url.Action("EditAvatar", "Users", new { id = user.user_id})">
+                                        <form class="ui form" method="post" action="@Url.Action("EditAvatar", "Users"@*, new { id = user.user_id}*@)" enctype="multipart/form-data">
                                             <div class="field">
+                                                <input type="hidden" name="id" value="@user.user_id" />
                                                 <label>Chọn Ảnh Đại Diện</label>
                                                 <input name="img" type="file">
                                             </div>

@@ -109,11 +109,6 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         public ActionResult Edit([Bind(Include = "singer_id,singer_name,singer_active,singer_bin,singer_note")] Singer singer, HttpPostedFileBase img)
         {
             db.Entry(singer).State = EntityState.Modified;
-            Random random = new Random();
-            ViewBag.Random = random.Next(0, 1000);
-            var fileimg = "";
-            var pa = "";
-            db.Singers.Add(singer);
             if (img == null)
             {
                 ViewBag.Checkimg = "Không Có Hình Ảnh";
@@ -121,14 +116,14 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
             }
             else
             {
-                fileimg = Path.GetFileName(img.FileName);
+                var fileimg = Path.GetFileName(img.FileName);
                 //Đưa tên ảnh vào file
-                pa = Path.Combine(Server.MapPath("~/Images/"), ViewBag.Random + fileimg);
+                var pa = Path.Combine(Server.MapPath("~/Images"), ViewBag.Random + fileimg);
                 img.SaveAs(pa);
-                singer.singer_img = ViewBag.Random + img.FileName;
+                singer.singer_img = img.FileName;
             }
             db.SaveChanges();
-            return View(singer);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/SingersAdmin/Delete/5

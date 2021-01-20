@@ -10,16 +10,17 @@
     List<Music_Category> music_Categories = db.Music_Category.ToList();
 }
 <style>
-    .Font{
+    .Font {
         font-size: 26px;
         margin: 0em 0em 0em;
     }
-    .Chinh{
+
+    .Chinh {
         margin-top: 3%;
         margin-bottom: 5%;
     }
-    
-    .size a{
+
+    .size a {
         font-size: 11px;
     }
 </style>
@@ -29,7 +30,7 @@
         <div class="col-lg-8">
             <div class="ui segment">
                 <div>
-                    <center><img class="ui medium circular image" src="~/Images/@Model.music_img" style="width: 300px; height: 300px"></center>
+                    <center><img class="ui medium circular image" src="~/Images/@Model.music_img" style="width: 300px; height: 300px; border: 1px solid #000000"></center>
                 </div>
                 <p class="Font">@Model.music_name</p>
                 @if (Model.User.role_id == 1)
@@ -50,16 +51,27 @@
                     {
                         <p>@item.Singer.singer_name</p>
                         <div class="extra content">
-                            <span class="left floated like">
-                                <i class="like icon"></i>
-                            </span>
+                            <div class="love-icon">
+                                <input type="checkbox" id="like-toggle" />
+                                <label for="like-toggle" class="heart"> </label>
+                                <div class="lines">
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                </div>
+                                <div class="ring"></div>
+                            </div>
+
                             <span class="right floated star">
                                 <i class="ellipsis horizontal icon"></i>
                             </span>
                         </div>
                     }
                 }
-                <audio controls>
+                <audio autoplay controls>
                     <source src="/Content/LinkMusic/@Model.music_linkdow" type="audio/mpeg">
                 </audio>
             </div>
@@ -226,7 +238,7 @@
                     }
                 </div>
                 <div class="ui tab" data-tab="tab-name2">
-                    
+
                 </div>
             </div>
         </div>
