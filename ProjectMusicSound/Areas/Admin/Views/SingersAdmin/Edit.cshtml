@@ -1,0 +1,39 @@
+﻿@model ProjectMusicSound.Models.Singer
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<form method="post" enctype="multipart/form-data" class="ui form">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(n => n.singer_id)
+    @Html.HiddenFor(n => n.singer_img)
+    @Html.HiddenFor(n => n.singer_bin)
+    <div class="ui segment text-left">
+        <div class="field">
+            <label>Tên Ca Sỹ</label>
+            <input value="@Model.singer_name" name="singer_name" type="text">
+        </div>
+        <div class="field">
+            <label>Hình Ảnh</label>
+            <input value="@Model.singer_img" name="img" type="file">
+        </div>
+        <div class="field">
+            <label>Ghi Chú</label>
+            <textarea name="singer_note">@Model.singer_note</textarea>
+        </div>
+        <div class="field">
+            <select name="singer_active">
+                <option value="True" @(Model.singer_active == true ? "selected" : "")>Hoạt Động</option>
+                <option value="False" @(Model.singer_active == false ? "selected" : "")>Không Hoạt Động</option>
+            </select>
+        </div>
+    </div>
+    <div class="ui primary submit button">Thay Đổi</div>
+    <div class="ui error message"></div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

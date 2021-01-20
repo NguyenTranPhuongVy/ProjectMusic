@@ -1,23 +1,24 @@
-﻿@model IEnumerable<ProjectMusicSound.Models.Category>
+﻿@using ProjectMusicSound.Models
+@model List<Singer>
 @{
-    ViewBag.Title = "Thùng Rác";
+    ViewBag.Title = "DelSinger";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="wrapper">
     <div class="ui three item menu">
-        <a href="@Url.Action("Index", "CategoriesAdmin")" class="item active">Tất Cả Thể Loại</a>
-        <a href="@Url.Action("DeleteCate", "CategoriesAdmin")" class="item">Thùng Rác</a>
+        <a href="@Url.Action("Index", "SingersAdmin")" class="item active">Tất Cả Ca Sỹ</a>
+        <a href="@Url.Action("DelSinger", "SingersAdmin")" class="item">Thùng Rác</a>
     </div>
     <div ng-app="myApp">
         <div ng-controller="myCtrl">
             <div class="ui horizontal divider">Tìm Kiếm Theo Từ Khoá</div>
             <form class="ui form segment">
-                <h3 style="color: #0e607a">Có {{(listcate | filter:textSearch).length}} Thể Loại</h3>
+                <h3 style="color: #0e607a">Có {{(list | filter:textSearch).length}} Ca Sỹ</h3>
                 <div class="field">
-                    <label>Tìm Theo Tên Thể Loại</label>
+                    <label>Tìm Theo Tên Ca Sỹ</label>
                     <div class="ui category search">
                         <div class="ui icon input">
-                            <input class="prompt" type="text" placeholder="Nhập thể loại cần tìm: ... " ng-model="textSearch.category_name">
+                            <input class="prompt" type="text" placeholder="Nhập tên cần tìm..." ng-model="textSearch.singer_name">
                             <i class="search icon"></i>
                         </div>
                         <div class="results"></div>
@@ -25,58 +26,60 @@
                 </div>
             </form>
             <table class="ui compact celled definition table text-center">
-                <thead class="text-center">
+                <thead>
                     <tr>
                         <th></th>
-                        <th>Tên Thể Loại</th>
-                        <th>Ghi Chú</th>
-                        <th>Lượt Xem</th>
-                        <th></th>
+                        <th>Mã Ca Sỹ</th>
+                        <th>Tên Ca Sỹ</th>
+                        <th>Avatar</th>
+                        <th>Thao Tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="listcate in filteredTodos | filter : textSearch">
+                    <tr ng-repeat="list in filteredTodos | filter : textSearch">
                         <td class="collapsing">
-                            <div ng-show="listcate.category_active == true">
-                                <input type="checkbox" checked>
+                            <div ng-show="list.singer_active == true">
+                                <input type="checkbox" checked ng-click="active(list.singer_id)">
                             </div>
-                            <div ng-show="listcate.category_active == false">
-                                <input type="checkbox">
+                            <div ng-show="list.singer_active == false">
+                                <input type="checkbox" ng-click="active(list.singer_id)">
                             </div>
                         </td>
                         <td>
-                            {{listcate.category_name}}
+                            {{list.singer_id}}
+                        </td>
+                        <td>{{list.singer_name}}</td>
+                        <td>
+                            <img class="ui medium rounded image" src="~/Images/{{list.singer_img}}" style="width: 50px; height: 50px">
                         </td>
                         <td>
-                            {{listcate.category_note}}
-                        </td>
-                        <td>
-                            {{listcate.category_view}}
-                        </td>
-                        <td>
-                            <a href="/Admin/CategoriesAdmin/Edit/{{listcate.category_id}}" class="ui icon bottom left pointing dropdown button mb-2">
+                            <a class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="eye icon"></i>
+                            </a>
+                            <br />
+                            <a href="/Admin/UsersAdmin/Edit/{{list.user_id}}" class="ui icon bottom left pointing dropdown button mb-2">
                                 <i class="edit outline icon"></i>
                             </a>
                             <br />
-                            <a data-toggle="modal" data-target="#cate-{{listcate.category_id}}" class="ui icon bottom left pointing dropdown button">
+                            <a data-toggle="modal" data-target="#singer-{{list.singer_id}}" class="ui icon bottom left pointing dropdown button">
                                 <i class="recycle icon"></i>
                             </a>
                             <!-- Modal Khôi Phục -->
-                            <div class="modal fade" id="cate-{{listcate.category_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="singer-{{list.singer_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Khôi Phục Thể Loại</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Khôi Phục Tài Khoản</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Bạn có muốn khôi phục lại thể loại {{listcate.category_name}} không ?
+                                            Bạn có muốn khôi phục lại ca sỹ {{list.singer_name}} không ?
                                         </div>
                                         <div class="modal-footer">
                                             <a class="btn btn-secondary" data-dismiss="modal">Đóng</a>
-                                            <a href="/Admin/CategoriesAdmin/Del/{{listcate.category_id}}" class="btn btn-primary">Đồng ý</a>
+                                            <a href="/Admin/SingersAdmin/Del/{{list.singer_id}}" class="btn btn-primary">Đồng ý</a>
                                         </div>
                                     </div>
                                 </div>
@@ -87,13 +90,9 @@
                 <tfoot class="full-width">
                     <tr>
                         <th colspan="4">
-                            <pagination ng-model="currentPage" total-items="listcate.length" max-size="maxSize" boundary-links="true"></pagination>
+                            <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
                         </th>
-                        <th colspan="5">
-                            <div onclick="location.href = '@Url.Action("Create", "UsersAdmin")'" class="ui right floated small primary labeled icon button">
-                                <i class="user icon"></i> Thêm Thể Loại
-                            </div>
-                        </th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
@@ -104,5 +103,4 @@
 <script>
     $('.test.checkbox').checkbox('attach events', '.toggle.button');
 </script>
-<!--    js Json     -->
-<script src="~/Scripts/Json/Admin/DelCate.js"></script>
+<script src="~/Scripts/Json/Admin/DelSinger.js"></script>

@@ -51,12 +51,19 @@
                                 {
                                     <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm</p>
                                 }
-                                <ul class="profile-info-list">
-                                    <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                            <ul class="profile-info-list">
+                                <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
+                                @if (user.v_id == 2 || user.v_id == 3)
+                                {
                                     <a href="@Url.Action("Index", "Musics", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-music"></i>Quản Lý Nhạc</a>
                                     <a href="" class="profile-info-list-item"><i class="mdi mdi-file-video"></i>Quản Lý Video</a>
-                                    <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
-                                </ul>
+                                }
+                                else
+                                {
+
+                                }
+                                <a href="@Url.Action("EditPass", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Thay Đổi Mật Khẩu</a>
+                            </ul>
                             </div>
                         </div>
                     </div>

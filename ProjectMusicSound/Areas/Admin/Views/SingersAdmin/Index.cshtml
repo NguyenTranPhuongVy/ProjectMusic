@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ProjectMusicSound.Models.Singer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="wrapper">
+    <div class="ui three item menu">
+        <a href="@Url.Action("Index", "SingersAdmin")" class="item active">Tất Cả Ca Sỹ</a>
+        <a href="@Url.Action("DelSinger", "SingersAdmin")" class="item">Thùng Rác</a>
+    </div>
+    <div ng-app="myApp">
+        <div ng-controller="myCtrl">
+            <div class="ui horizontal divider">Tìm Kiếm Theo Từ Khoá</div>
+            <form class="ui form segment">
+                <h3 style="color: #0e607a">Có {{(list | filter:textSearch).length}} Ca Sỹ</h3>
+                <div class="field">
+                    <label>Tìm Theo Tên Ca Sỹ</label>
+                    <div class="ui category search">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="Nhập tên cần tìm..." ng-model="textSearch.singer_name">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                </div>
+            </form>
+            <table class="ui compact celled definition table text-center">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mã Ca Sỹ</th>
+                        <th>Tên Ca Sỹ</th>
+                        <th>Avatar</th>
+                        <th>Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="list in filteredTodos | filter : textSearch">
+                        <td class="collapsing">
+                            <div ng-show="list.singer_active == true">
+                                <input type="checkbox" checked ng-click="active(list.singer_id)">
+                            </div>
+                            <div ng-show="list.singer_active == false">
+                                <input type="checkbox" ng-click="active(list.singer_id)">
+                            </div>
+                        </td>
+                        <td>
+                            {{list.singer_id}}
+                        </td>
+                        <td>{{list.singer_name}}</td>
+                        <td>
+                            <img class="ui medium rounded image" src="~/Images/{{list.singer_img}}" style="width: 50px; height: 50px">
+                        </td>
+                        <td>
+                            <a class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="eye icon"></i>
+                            </a>
+                            <br />
+                            <a href="/Admin/SingersAdmin/Edit/{{list.singer_id}}" class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="edit outline icon"></i>
+                            </a>
+                            <br />
+                            <a href="/Admin/SingersAdmin/Del/{{list.singer_id}}" class="ui icon bottom left pointing dropdown button">
+                                <i class="trash alternate outline icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <th colspan="4">
+                            <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+                        </th>
+                        <th>
+                            <div data-toggle="modal" data-target="#cre-CreateSinger" class="ui right floated small primary labeled icon button">
+                                <i class="user icon"></i> Thêm Ca Sỹ
+                            </div>
+                            <!-- Modal Tạo Ca Sỹ -->
+                            <div class="modal fade" id="cre-CreateSinger" tabindex="-1" role="dialog" aria-labelledby="cre-CreateSinger" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thêm Ca Sỹ</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="@Url.Action("Create", "SingersAdmin")" enctype="multipart/form-data" class="ui form">
+                                                <div class="ui segment text-left">
+                                                    <div class="field">
+                                                        <label>Tên Ca Sỹ</label>
+                                                        <input placeholder="Nhập Tên Ca Sỹ" name="singer_name" type="text">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>Hình Ảnh</label>
+                                                        <input name="img" type="file">
+                                                    </div>
+                                                    <div class="field">
+                                                        <label>Ghi Chú</label>
+                                                        <textarea name="singer_note"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">Tạo Mới</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!--    Script sematic checkbox    -->
+<script>
+    $('.test.checkbox').checkbox('attach events', '.toggle.button');
+</script>
+<script>
+    $('.ui.modal')
+        .modal()
+        ;
+</script>
+<script src="~/Scripts/Json/Admin/Singer.js"></script>

@@ -112,17 +112,17 @@
                             </div>
                         </td>
                         <td>
-                            <div class="ui icon bottom left pointing dropdown button mb-2">
-                                <a href="#" style="color: gray"><i class="eye icon"></i></a>
-                            </div>
+                            <a class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="eye icon"></i>
+                            </a>
                             <br />
-                            <div class="ui icon bottom left pointing dropdown button mb-2">
-                                <a href="/Admin/UsersAdmin/Edit/{{list.user_id}}" style="color: gray"><i class="edit outline icon"></i></a>
-                            </div>
+                            <a href="/Admin/UsersAdmin/Edit/{{list.user_id}}" class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="edit outline icon"></i>
+                            </a>
                             <br />
-                            <div class="ui icon bottom left pointing dropdown button">
-                                <a data-toggle="modal" data-target="#del-{{list.user_id}}" style="color: gray"><i class="recycle icon"></i></a>
-                            </div>
+                            <a data-toggle="modal" data-target="#del-{{list.user_id}}" class="ui icon bottom left pointing dropdown button">
+                                <i class="recycle icon"></i>
+                            </a>
                             <!-- Modal Khôi Phục -->
                             <div class="modal fade" id="del-{{list.user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">

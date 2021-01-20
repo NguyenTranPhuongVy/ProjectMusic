@@ -84,5 +84,35 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
             }).ToList();
             return Json(listcate, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult SingerList()
+        {
+            List<Singer> singerlist = db.Singers.Where(n => n.singer_bin == false).ToList();
+            List<SingerJson> list = singerlist.Select(n => new SingerJson 
+            {
+                singer_id = n.singer_id,
+                singer_active = n.singer_active,
+                singer_bin = n.singer_bin,
+                singer_name = n.singer_name,
+                singer_note = n.singer_note,
+                singer_img = n.singer_img
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SingerDel()
+        {
+            List<Singer> singerlist = db.Singers.Where(n => n.singer_bin == true).ToList();
+            List<SingerJson> list = singerlist.Select(n => new SingerJson
+            {
+                singer_id = n.singer_id,
+                singer_active = n.singer_active,
+                singer_bin = n.singer_bin,
+                singer_name = n.singer_name,
+                singer_note = n.singer_note,
+                singer_img = n.singer_img
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

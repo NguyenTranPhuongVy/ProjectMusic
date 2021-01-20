@@ -25,6 +25,7 @@ namespace ProjectMusicSound.Models
         public Nullable<bool> singer_active { get; set; }
         public Nullable<bool> singer_bin { get; set; }
         public string singer_note { get; set; }
+        public string singer_img { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Music_Singer> Music_Singer { get; set; }

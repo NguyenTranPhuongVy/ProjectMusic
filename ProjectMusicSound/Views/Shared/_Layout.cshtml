@@ -126,7 +126,7 @@
                                     {
                                         User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
                                         <div class="login-register-btn mr-50">
-                                            <div class="ui inline dropdown w-100">
+                                            <div class="ui inline dropdown">
                                                 <div class="text">
                                                     <img class="ui avatar image" src="~/Images/User/@user.user_img" style="border: 2px solid @(user.v_id == 1 ? "#ffffff" : "orange")">
                                                     <span style="color: aliceblue">@user.user_name</span>

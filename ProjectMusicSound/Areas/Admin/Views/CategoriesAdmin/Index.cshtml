@@ -10,7 +10,7 @@
         <a href="@Url.Action("DeleteCate", "CategoriesAdmin")" class="item">Thùng Rác</a>
     </div>
     <div ng-app="myApp">
-        <div ng-controller="myCtrl">
+        < ng-controller="myCtrl">
             <div class="ui horizontal divider">Tìm Kiếm Theo Từ Khoá</div>
             <form class="ui form segment">
                 <h3 style="color: #0e607a">Có {{(listcate | filter:textSearch).length}} Thể Loại</h3>
@@ -55,13 +55,13 @@
                             {{listcate.category_view}}
                         </td>
                         <td>
-                            <div class="ui icon bottom left pointing dropdown button mb-2">
-                                <a href="/Admin/CategoriesAdmin/Edit/{{listcate.category_id}}" style="color: gray"><i class="edit outline icon"></i></a>
-                            </div>
+                            <a href="/Admin/CategoriesAdmin/Edit/{{listcate.category_id}}" class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="edit outline icon"></i>
+                            </a>
                             <br />
-                            <div class="ui icon bottom left pointing dropdown button">
-                                <a href="/Admin/CategoriesAdmin/Del/{{listcate.category_id}}" style="color: gray"><i class="trash alternate outline icon"></i></a>
-                            </div>
+                            <a href="/Admin/CategoriesAdmin/Del/{{listcate.category_id}}" class="ui icon bottom left pointing dropdown button">
+                                <i class="trash alternate outline icon"></i>
+                            </a>
                         </td>
                     </tr>
                 </tbody>

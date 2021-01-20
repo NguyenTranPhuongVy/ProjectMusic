@@ -32,6 +32,7 @@
         <AssociationConnector Association="MusicDataModel.FK_Profile_Users" ManuallyRouted="false" />
         <AssociationConnector Association="MusicDataModel.FK_Users_Role" ManuallyRouted="false" />
         <AssociationConnector Association="MusicDataModel.FK_Users_Version" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MusicDataModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
