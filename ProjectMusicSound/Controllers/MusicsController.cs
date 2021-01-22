@@ -170,7 +170,7 @@ namespace ProjectMusicSound.Controllers
             music.music_bin = false;
             db.SaveChanges();
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_name", music.user_id);
-            return View(music);
+            return RedirectToAction("Index");
         }
 
         // GET: Musics/Delete/5
