@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ProjectMusicSound.Models.Album>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.album_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_dateedit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_view)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_love)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_bin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_dateedit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_view)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_love)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_bin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.album_img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.album_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.album_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.album_id })
+        </td>
+    </tr>
+}
+
+</table>

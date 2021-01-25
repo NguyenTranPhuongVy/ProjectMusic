@@ -40,5 +40,8 @@ namespace ProjectMusicSound.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Version> Versions { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Album> Albums { get; set; }
+        public virtual DbSet<Album_Category> Album_Category { get; set; }
+        public virtual DbSet<Music_Ablum> Music_Ablum { get; set; }
     }
 }

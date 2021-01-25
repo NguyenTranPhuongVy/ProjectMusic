@@ -20,6 +20,7 @@ namespace ProjectMusicSound.Models
             this.Music_Author = new HashSet<Music_Author>();
             this.Music_Category = new HashSet<Music_Category>();
             this.Music_Singer = new HashSet<Music_Singer>();
+            this.Music_Ablum = new HashSet<Music_Ablum>();
         }
     
         public int music_id { get; set; }
@@ -45,5 +46,7 @@ namespace ProjectMusicSound.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Music_Singer> Music_Singer { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Music_Ablum> Music_Ablum { get; set; }
     }
 }

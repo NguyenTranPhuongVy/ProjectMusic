@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MusicDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="album_id" />
+          </Key>
+          <Property Name="album_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="album_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="album_datecreate" Type="date" />
+          <Property Name="album_dateedit" Type="date" />
+          <Property Name="album_view" Type="int" />
+          <Property Name="album_love" Type="int" />
+          <Property Name="album_active" Type="bit" />
+          <Property Name="album_bin" Type="bit" />
+          <Property Name="album_note" Type="nvarchar(max)" />
+          <Property Name="album_img" Type="nvarchar(max)" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Album_Category">
+          <Key>
+            <PropertyRef Name="ac_id" />
+          </Key>
+          <Property Name="ac_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="album_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+        </EntityType>
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="author_id" />
@@ -45,6 +69,14 @@
           <Property Name="music_active" Type="bit" />
           <Property Name="music_bin" Type="bit" />
           <Property Name="music_option" Type="bit" />
+        </EntityType>
+        <EntityType Name="Music_Ablum">
+          <Key>
+            <PropertyRef Name="ma_id" />
+          </Key>
+          <Property Name="ma_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="music_id" Type="int" />
+          <Property Name="album_id" Type="int" />
         </EntityType>
         <EntityType Name="Music_Author">
           <Key>
@@ -174,6 +206,66 @@
           <Property Name="v_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="v_name" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <Association Name="FK_Album_Category_Album">
+          <End Role="Album" Type="Self.Album" Multiplicity="0..1" />
+          <End Role="Album_Category" Type="Self.Album_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="Album_Category">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Album_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Album_Category" Type="Self.Album_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Album_Category">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Album_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Ablum_Album">
+          <End Role="Album" Type="Self.Album" Multiplicity="0..1" />
+          <End Role="Music_Ablum" Type="Self.Music_Ablum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="Music_Ablum">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Ablum_Music">
+          <End Role="Music" Type="Self.Music" Multiplicity="0..1" />
+          <End Role="Music_Ablum" Type="Self.Music_Ablum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Ablum">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Music_Author_Author">
           <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
           <End Role="Music_Author" Type="Self.Music_Author" Multiplicity="*" />
@@ -331,9 +423,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MusicDataModelStoreContainer">
+          <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Album_Category" EntityType="Self.Album_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music" EntityType="Self.Music" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Music_Ablum" EntityType="Self.Music_Ablum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Author" EntityType="Self.Music_Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Category" EntityType="Self.Music_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" Schema="dbo" store:Type="Tables" />
@@ -346,6 +441,26 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Version" EntityType="Self.Version" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Album_Category_Album" Association="Self.FK_Album_Category_Album">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Album_Category" EntitySet="Album_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Album_Category_Category" Association="Self.FK_Album_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Album_Category" EntitySet="Album_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Album_Users" Association="Self.FK_Album_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Album" EntitySet="Album" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Ablum_Album" Association="Self.FK_Music_Ablum_Album">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Music_Ablum" EntitySet="Music_Ablum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Ablum_Music" Association="Self.FK_Music_Ablum_Music">
+            <End Role="Music" EntitySet="Music" />
+            <End Role="Music_Ablum" EntitySet="Music_Ablum" />
+          </AssociationSet>
           <AssociationSet Name="FK_Music_Author_Author" Association="Self.FK_Music_Author_Author">
             <End Role="Author" EntitySet="Author" />
             <End Role="Music_Author" EntitySet="Music_Author" />
@@ -425,6 +540,7 @@
           <Property Name="category_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="category_view" Type="Int32" />
           <NavigationProperty Name="Music_Category" Relationship="Self.FK_Music_Category_Category" FromRole="Category" ToRole="Music_Category" />
+          <NavigationProperty Name="Album_Category" Relationship="MusicDataModel.FK_Album_Category_Category" FromRole="Category" ToRole="Album_Category" />
         </EntityType>
         <EntityType Name="Music">
           <Key>
@@ -449,6 +565,7 @@
           <NavigationProperty Name="Music_Category" Relationship="Self.FK_Music_Category_Music" FromRole="Music" ToRole="Music_Category" />
           <NavigationProperty Name="Music_Singer" Relationship="Self.FK_Music_Singer_Music" FromRole="Music" ToRole="Music_Singer" />
           <NavigationProperty Name="User" Relationship="Self.FK_Music_Users" FromRole="Music" ToRole="Users" />
+          <NavigationProperty Name="Music_Ablum" Relationship="MusicDataModel.FK_Music_Ablum_Music" FromRole="Music" ToRole="Music_Ablum" />
         </EntityType>
         <EntityType Name="Music_Author">
           <Key>
@@ -579,6 +696,7 @@
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_Users" FromRole="Users" ToRole="Profile" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
           <NavigationProperty Name="Version" Relationship="Self.FK_Users_Version" FromRole="Users" ToRole="Version" />
+          <NavigationProperty Name="Albums" Relationship="MusicDataModel.FK_Album_Users" FromRole="User" ToRole="Album" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -812,6 +930,29 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="MusicDataModel.sysdiagram" />
+          <EntitySet Name="Albums" EntityType="MusicDataModel.Album" />
+          <EntitySet Name="Album_Category" EntityType="MusicDataModel.Album_Category" />
+          <EntitySet Name="Music_Ablum" EntityType="MusicDataModel.Music_Ablum" />
+          <AssociationSet Name="FK_Album_Category_Album" Association="MusicDataModel.FK_Album_Category_Album">
+            <End Role="Album" EntitySet="Albums" />
+            <End Role="Album_Category" EntitySet="Album_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Album_Users" Association="MusicDataModel.FK_Album_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Album" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Ablum_Album" Association="MusicDataModel.FK_Music_Ablum_Album">
+            <End Role="Album" EntitySet="Albums" />
+            <End Role="Music_Ablum" EntitySet="Music_Ablum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Album_Category_Category" Association="MusicDataModel.FK_Album_Category_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Album_Category" EntitySet="Album_Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_Ablum_Music" Association="MusicDataModel.FK_Music_Ablum_Music">
+            <End Role="Music" EntitySet="Musics" />
+            <End Role="Music_Ablum" EntitySet="Music_Ablum" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -823,6 +964,105 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="album_id" />
+          </Key>
+          <Property Name="album_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="album_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="album_datecreate" Type="DateTime" Precision="0" />
+          <Property Name="album_dateedit" Type="DateTime" Precision="0" />
+          <Property Name="album_view" Type="Int32" />
+          <Property Name="album_love" Type="Int32" />
+          <Property Name="album_active" Type="Boolean" />
+          <Property Name="album_bin" Type="Boolean" />
+          <Property Name="album_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="album_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="Album_Category" Relationship="MusicDataModel.FK_Album_Category_Album" FromRole="Album" ToRole="Album_Category" />
+          <NavigationProperty Name="User" Relationship="MusicDataModel.FK_Album_Users" FromRole="Album" ToRole="User" />
+          <NavigationProperty Name="Music_Ablum" Relationship="MusicDataModel.FK_Music_Ablum_Album" FromRole="Album" ToRole="Music_Ablum" />
+        </EntityType>
+        <EntityType Name="Album_Category">
+          <Key>
+            <PropertyRef Name="ac_id" />
+          </Key>
+          <Property Name="ac_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="album_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <NavigationProperty Name="Album" Relationship="MusicDataModel.FK_Album_Category_Album" FromRole="Album_Category" ToRole="Album" />
+          <NavigationProperty Name="Category" Relationship="MusicDataModel.FK_Album_Category_Category" FromRole="Album_Category" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Music_Ablum">
+          <Key>
+            <PropertyRef Name="ma_id" />
+          </Key>
+          <Property Name="ma_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="music_id" Type="Int32" />
+          <Property Name="album_id" Type="Int32" />
+          <NavigationProperty Name="Album" Relationship="MusicDataModel.FK_Music_Ablum_Album" FromRole="Music_Ablum" ToRole="Album" />
+          <NavigationProperty Name="Music" Relationship="MusicDataModel.FK_Music_Ablum_Music" FromRole="Music_Ablum" ToRole="Music" />
+        </EntityType>
+        <Association Name="FK_Album_Category_Album">
+          <End Type="MusicDataModel.Album" Role="Album" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Album_Category" Role="Album_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="Album_Category">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Album_Users">
+          <End Type="MusicDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Album" Role="Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Ablum_Album">
+          <End Type="MusicDataModel.Album" Role="Album" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Ablum" Role="Music_Ablum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="Music_Ablum">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Album_Category_Category">
+          <End Type="MusicDataModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Album_Category" Role="Album_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Album_Category">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Music_Ablum_Music">
+          <End Type="MusicDataModel.Music" Role="Music" Multiplicity="0..1" />
+          <End Type="MusicDataModel.Music_Ablum" Role="Music_Ablum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music">
+              <PropertyRef Name="music_id" />
+            </Principal>
+            <Dependent Role="Music_Ablum">
+              <PropertyRef Name="music_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1010,6 +1250,41 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="MusicDataModel.Album">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="album_img" ColumnName="album_img" />
+                <ScalarProperty Name="album_note" ColumnName="album_note" />
+                <ScalarProperty Name="album_bin" ColumnName="album_bin" />
+                <ScalarProperty Name="album_active" ColumnName="album_active" />
+                <ScalarProperty Name="album_love" ColumnName="album_love" />
+                <ScalarProperty Name="album_view" ColumnName="album_view" />
+                <ScalarProperty Name="album_dateedit" ColumnName="album_dateedit" />
+                <ScalarProperty Name="album_datecreate" ColumnName="album_datecreate" />
+                <ScalarProperty Name="album_name" ColumnName="album_name" />
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Album_Category">
+            <EntityTypeMapping TypeName="MusicDataModel.Album_Category">
+              <MappingFragment StoreEntitySet="Album_Category">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+                <ScalarProperty Name="ac_id" ColumnName="ac_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_Ablum">
+            <EntityTypeMapping TypeName="MusicDataModel.Music_Ablum">
+              <MappingFragment StoreEntitySet="Music_Ablum">
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+                <ScalarProperty Name="music_id" ColumnName="music_id" />
+                <ScalarProperty Name="ma_id" ColumnName="ma_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

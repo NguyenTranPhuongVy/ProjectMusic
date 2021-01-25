@@ -20,6 +20,7 @@ namespace ProjectMusicSound.Models
             this.Musics = new HashSet<Music>();
             this.Pays = new HashSet<Pay>();
             this.Profiles = new HashSet<Profile>();
+            this.Albums = new HashSet<Album>();
         }
     
         public int user_id { get; set; }
@@ -46,5 +47,7 @@ namespace ProjectMusicSound.Models
         public virtual ICollection<Profile> Profiles { get; set; }
         public virtual Role Role { get; set; }
         public virtual Version Version { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Album> Albums { get; set; }
     }
 }

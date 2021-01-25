@@ -8,6 +8,8 @@
     List<Music_Singer> singers = db.Music_Singer.ToList();
     List<Music> musics = db.Musics.ToList();
     List<Music_Category> music_Categories = db.Music_Category.ToList();
+    List<Album> albums = db.Albums.ToList();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
 }
 <style>
     .Font {
@@ -23,6 +25,8 @@
     .size a {
         font-size: 11px;
     }
+
+    
 </style>
 @Html.Action("Menu", "View")
 <div class="Chinh">
@@ -38,11 +42,99 @@
                     <p>@Model.User.user_name</p>
                     <div class="extra content">
                         <span class="left floated like">
-                            <i class="like icon"></i>
+                            <a href="#" style="color: black"><i class="like icon"></i></a>
                         </span>
-                        <span class="right floated star">
+                        <div class="ui left pointing dropdown" data-tooltip="Xem thêm" data-inverted="">
                             <i class="ellipsis horizontal icon"></i>
-                        </span>
+                            <div class="menu">
+                                <div class="container-fluid mt-2">
+                                    <div class="ui items">
+                                        <div class="item">
+                                            <div class="image">
+                                                <img class="ui top rounded aligned tiny image" src="~/Images/@Model.music_img" style="border: 1px solid #000000; width: 40px; height: 40px">
+                                            </div>
+                                            <div class="content" style="margin-left: -50% !important">
+                                                <a class="header" style="font-size: 14px">@Model.music_name</a>
+                                                <div class="meta">
+                                                    <span style="font-size: 13px">@Model.User.user_name</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui inverted segment">
+                                        <div class="row text-center">
+                                            <div class="col-md-4">
+                                                <a><i class="fas fa-download"></i></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a><i class="fas fa-link"></i></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a><i class="fas fa-ban"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item mt-2 ui left pointing dropdown icon">
+                                    <span class="description"><i class="fas fa-chevron-right"></i></span>
+                                    <i class="fas fa-plus"></i>
+                                    <label>&nbsp;&nbsp; Thêm vào playlist</label>
+                                    <div class="menu">
+                                        <div class="ui container-fluid fluid category search mt-2">
+                                            <div class="ui icon input">
+                                                <input class="prompt" type="text" placeholder="Search animals...">
+                                                <i class="search icon"></i>
+                                            </div>
+                                            <div class="results"></div>
+                                        </div>
+                                        <div class="item" data-toggle="modal" data-target="#createAlbum" data-backdrop="false">
+                                            <span>
+                                                <?xml version="1.0" encoding="iso-8859-1" ?>
+                                                <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                                                <svg version="1.1" id="Capa_1" height="25" width="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                     viewBox="0 0 511.997 511.997" style="enable-background:new 0 0 511.997 511.997;" xml:space="preserve">
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="25.9986" y1="257.9989" x2="485.9986" y2="257.9989" gradientTransform="matrix(1 0 0 -1 0 513.9975)">
+                                                <stop offset="0" style="stop-color:#80D8FF" />
+
+
+
+                                                <stop offset="1" style="stop-color:#EA80FC" />
+
+
+
+</linearGradient>
+<path style="fill:url(#SVGID_1_);" d="M356.187,255.999c0,11.047-8.971,20.002-20.038,20.002h-60.113v60.006
+	c0,11.047-8.971,20.002-20.038,20.002c-11.067,0-20.038-8.955-20.038-20.002v-60.006h-60.111c-11.067,0-20.038-8.955-20.038-20.002
+	c0-11.047,8.971-20.002,20.038-20.002h60.113v-60.006c0-11.047,8.971-20.002,20.038-20.002c11.067,0,20.038,8.955,20.038,20.002
+	v60.006h60.113C347.216,235.997,356.187,244.952,356.187,255.999z M485.999,157.348v197.3c0,20.913-11.271,40.4-29.414,50.856
+	l-171.171,98.65c-18.147,10.459-40.685,10.457-58.83,0l-171.17-98.65c-18.144-10.455-29.415-29.942-29.415-50.855v-197.3
+	c0-20.913,11.271-40.4,29.414-50.856l171.171-98.65c18.143-10.457,40.685-10.457,58.83,0l171.17,98.65
+	C474.728,116.948,485.999,136.435,485.999,157.348z M445.924,157.348c0-6.667-3.593-12.879-9.377-16.213l-171.171-98.65
+	c-5.784-3.334-12.973-3.333-18.753,0l-171.172,98.65c-5.784,3.333-9.377,9.546-9.377,16.213v197.3
+	c0,6.667,3.593,12.879,9.377,16.212l171.171,98.65c5.784,3.334,12.971,3.334,18.753,0l171.172-98.65
+	c5.784-3.333,9.377-9.546,9.377-16.212L445.924,157.348L445.924,157.348z" />
+
+
+
+</svg>
+                                            </span>
+                                            <label style="color: #000000; font-weight: normal">&nbsp;&nbsp; Tạo playlist mới</label>
+                                        </div>
+                                        @if (httpCookie != null)
+                                        {
+                                            User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+                                            foreach (var item in albums.Where(n => n.user_id == user.user_id && user.role_id == 1))
+                                            {
+                                                <div class="item">
+                                                    <img src="https://img.icons8.com/windows/50/000000/playlist.png" style="width: 25px; height: 25px" />
+                                                    @item.album_name
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
                 else
@@ -51,22 +143,11 @@
                     {
                         <p>@item.Singer.singer_name</p>
                         <div class="extra content">
-                            <div class="love-icon">
-                                <input type="checkbox" id="like-toggle" />
-                                <label for="like-toggle" class="heart"> </label>
-                                <div class="lines">
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                </div>
-                                <div class="ring"></div>
-                            </div>
-
+                            <span class="left floated like">
+                                <a href="#" style="color: black"><i class="like icon"></i></a>
+                            </span>
                             <span class="right floated star">
-                                <i class="ellipsis horizontal icon"></i>
+                                <a href="#" style="color: black"><i class="ellipsis horizontal icon"></i></a>
                             </span>
                         </div>
                     }
@@ -74,6 +155,101 @@
                 <audio autoplay controls>
                     <source src="/Content/LinkMusic/@Model.music_linkdow" type="audio/mpeg">
                 </audio>
+                <!-- Modal Create Album -->
+
+                @if (httpCookie != null)
+                {
+                    <div class="modal fade" id="createAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Tạo Playlist</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="@Url.Action("Create", "Albums")" method="post" enctype="multipart/form-data" class="ui form">
+                                        <div class="field">
+                                            <label>Tên Album</label>
+                                            <input placeholder="Nhập vào tên album" name="album_name" type="text" />
+                                        </div>
+                                        <div class="field">
+                                            <label>Hình Ảnh</label>
+                                            <p class="text-danger small">* Có thể không chọn hình ảnh</p>
+                                            <input name="imgAlbum" type="file" />
+                                        </div>
+                                        <div class="field text-right">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary">Tạo playlist</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="modal fade" id="createAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bạn Chưa Đăng Nhập</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <h2 class="ui header text-center">Đăng Nhập Bằng</h2>
+                                        <center>
+                                            <button class="ui facebook button">
+                                                <i class="facebook icon"></i>
+                                                Facebook
+                                            </button>
+                                            <button class="ui twitter button">
+                                                <i class="twitter icon"></i>
+                                                Twitter
+                                            </button>
+                                            <button class="ui google plus button">
+                                                <i class="google plus icon"></i>
+                                                Google Plus
+                                            </button>
+                                        </center>
+                                    </div>
+                                    <div class="ui horizontal divider">Hoặc</div>
+                                    <form action="@Url.Action("Login", "Users")" method="post" class="ui form segment">
+                                        <p>Nhập Tài Khoản Của Bạn</p>
+                                        <div class="field">
+                                            <label>Email</label>
+                                            <input placeholder="Nhập vào email" name="user_email" type="email">
+                                        </div>
+                                        <div class="field">
+                                            <label>Mật Khẩu</label>
+                                            <input type="password" name="user_pass" id="user_pass" placeholder="Nhập vào mật khẩu">
+                                        </div>
+                                        <div class="two fields">
+                                            <div class="field">
+                                                <label style="color: lightslategray">Bạn chưa có tài khoản? Hãy <a href="@Url.Action("Create", "Users")" style="font-size: 13px">tạo tài khoản</a> ngay</label>
+                                            </div>
+                                            <div class="inline field text-right">
+                                                <a href="#" style="font-size: medium">Quên Mật Khẩu?</a>
+                                            </div>
+                                        </div>
+                                        <div class="ui primary submit button">Đăng Nhập</div>
+                                        <div class="ui error message"></div>
+                                        <div class="field">
+                                            <label style="color: red; font-size: medium">
+                                                @ViewBag.CheckLogin
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
             <div class="ui styled accordion w-100">
                 <div class="active title">
@@ -256,4 +432,9 @@
     $('.ui.rating')
         .rating()
         ;
+</script>
+<script>
+    $('.ui.dropdown')
+  .dropdown()
+;
 </script>

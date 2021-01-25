@@ -1,0 +1,99 @@
+﻿@model ProjectMusicSound.Models.Album
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Album</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.album_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_dateedit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_dateedit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_love)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_love)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_bin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_bin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.album_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.album_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.album_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
