@@ -46,7 +46,7 @@ namespace ProjectMusicSound.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "album_id,album_name,album_datecreate,album_dateedit,album_view,album_love,album_active,album_bin,album_note,album_img,user_id")] Album album, HttpPostedFileBase imgAlbum)
+        public ActionResult Create([Bind(Include = "album_id,album_name,album_datecreate,album_dateedit,album_view,album_love,album_active,album_bin,album_note,album_img,user_id")] Album album, HttpPostedFileBase imgAlbum, int [] musicAlbum)
         {
             Random random = new Random();
             ViewBag.Random = random.Next(0, 1000);
@@ -76,12 +76,37 @@ namespace ProjectMusicSound.Controllers
                 album.album_img = ViewBag.Random + imgAlbum.FileName;
             }
 
-
-
             db.SaveChanges();
 
+            foreach(var item in musicAlbum)
+            {
+                Music_Ablum music_Ablum = new Music_Ablum()
+                {
+                    music_id = item,
+                    album_id = album.album_id,
+                };
+                db.Music_Ablum.Add(music_Ablum);
+            }
+            db.SaveChanges();
+            
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_name", album.user_id);
-            return View(album);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [HttpPost]
+        public ActionResult AddPlaylist(int ? id, int [] musicAlbum)
+        {
+            foreach(var item in musicAlbum)
+            {
+                Music_Ablum music_Ablum = new Music_Ablum()
+                {
+                    music_id = id,
+                    album_id = item,
+                };
+                db.Music_Ablum.Add(music_Ablum);
+            }
+            db.SaveChanges();
+            return View();
         }
 
         // GET: Albums/Edit/5

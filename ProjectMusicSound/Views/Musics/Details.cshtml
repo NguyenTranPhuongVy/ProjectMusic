@@ -123,12 +123,15 @@
                                         @if (httpCookie != null)
                                         {
                                             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
-                                            foreach (var item in albums.Where(n => n.user_id == user.user_id && user.role_id == 1))
+                                            foreach (var item in albums.Where(n => n.user_id == user.user_id && user.role_id == 1).OrderByDescending(n => n.album_datecreate).Take(5))
                                             {
-                                                <div class="item">
-                                                    <img src="https://img.icons8.com/windows/50/000000/playlist.png" style="width: 25px; height: 25px" />
-                                                    @item.album_name
-                                                </div>
+                                                <form action="@Url.Action("AddPlaylist", "Albums", new { id = Model.music_id})" method="post">
+                                                    <input name="musicAlbum" value="@item.album_id" type="hidden"/>
+                                                    <div class="item submit">
+                                                        <img src="https://img.icons8.com/windows/50/000000/playlist.png" style="width: 25px; height: 25px" />
+                                                        @item.album_name
+                                                    </div>
+                                                </form>
                                             }
                                         }
                                     </div>
@@ -170,6 +173,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form action="@Url.Action("Create", "Albums")" method="post" enctype="multipart/form-data" class="ui form">
+                                        <input name="musicAlbum" value="@Model.music_id" type="hidden"/>
                                         <div class="field">
                                             <label>Tên Album</label>
                                             <input placeholder="Nhập vào tên album" name="album_name" type="text" />
