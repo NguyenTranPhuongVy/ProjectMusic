@@ -1,0 +1,131 @@
+﻿@model ProjectMusicSound.Models.Music
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Music</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.music_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_lyric)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_lyric)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_dowload)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_dowload)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_love)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_love)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_linkdow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_linkdow)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_dateedit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_dateedit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_bin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_bin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.music_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.music_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.music_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

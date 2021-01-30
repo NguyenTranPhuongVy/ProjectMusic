@@ -1,0 +1,142 @@
+﻿@using ProjectMusicSound.Models
+@model List<Music>
+@{
+    ViewBag.Title = "DelMusic";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+}
+<div class="wrapper">
+    <div class="ui three item menu">
+        <a href="@Url.Action("Index", "MusicsAdmin")" class="item">Tất Cả Bài Hát Admin</a>
+        <a href="@Url.Action("MusicUser", "MusicsAdmin")" class="item">Tất Cả Bài Hát Người Dùng</a>
+        <a href="@Url.Action("DelMusic", "MusicsAdmin")" class="item active">Thùng Rác</a>
+    </div>
+    <div ng-app="myApp">
+        <div ng-controller="myCtrl">
+            <div class="ui horizontal divider">Tìm Kiếm Theo Từ Khoá</div>
+            <form class="ui form segment">
+                <h3 style="color: #0e607a">Có {{(list | filter:textSearch).length}} Bài Hát</h3>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Tìm Theo Tên</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập tên cần tìm: ..." ng-model="textSearch.music_name">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Tìm Theo Tên</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập tên người dùng cần tìm: ..." ng-model="textSearch.nameCreate">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <table class="ui compact celled definition table text-center">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mã Bài Hát</th>
+                        <th>Tên Bài Hát</th>
+                        <th>Avatar</th>
+                        <th>Tên Người Tạo</th>
+                        <th>Ngày Tạo</th>
+                        <th>Ngày Sửa</th>
+                        <th>Tuỳ Chọn</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="list in filteredTodos | filter : textSearch">
+                        <td class="collapsing">
+                            <div ng-show="list.music_active == true">
+                                <input type="checkbox" checked ng-click="active(list.music_id)">
+                            </div>
+                            <div ng-show="list.music_active == false">
+                                <input type="checkbox" ng-click="active(list.music_id)">
+                            </div>
+                        </td>
+                        <td>
+                            #Code{{list.music_id}}
+                        </td>
+                        <td>{{list.music_name}}</td>
+                        <td>
+                            <img class="ui medium rounded image" src="~/Images/{{list.music_img}}" style="width: 50px; height: 50px">
+                        </td>
+                        <td>
+                            {{list.nameCreate}}
+                        </td>
+                        <td>{{list.music_datecreate}}</td>
+                        <td>{{list.music_dateedit}}</td>
+                        <td>
+                            <div ng-show="list.music_option == true">
+                                <input type="checkbox" checked ng-click="option(list.music_id)">
+                            </div>
+                            <div ng-show="list.music_option == false">
+                                <input type="checkbox" ng-click="option(list.music_id)">
+                            </div>
+                        </td>
+                        <td>
+                            <a class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="eye icon"></i>
+                            </a>
+                            <br />
+                            <a href="/Admin/UsersAdmin/Edit/{{list.music_id}}" class="ui icon bottom left pointing dropdown button mb-2">
+                                <i class="edit outline icon"></i>
+                            </a>
+                            <br />
+                            <a data-toggle="modal" data-target="#del-{{list.music_id}}" class="ui icon bottom left pointing dropdown button">
+                                <i class="recycle icon"></i>
+                            </a>
+                            <!-- Modal Khôi Phục -->
+                            <div class="modal fade" id="del-{{list.music_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Khôi Phục Tài Khoản</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có muốn khôi phục lại tài khoản {{list.music_name}} không ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-secondary" data-dismiss="modal">Đóng</a>
+                                            <a href="/Admin/MusicsAdmin/MusicDelete/{{list.music_id}}" class="btn btn-primary">Đồng ý</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="full-width">
+                    <tr>
+                        <th colspan="6">
+                            <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+                        </th>
+                        <th colspan="8">
+                            <div onclick="location.href = '@Url.Action("Create", "MusicAdmin")'" class="ui right floated small primary labeled icon button">
+                                <i class="user icon"></i> Thêm Nhạcs
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!--    Script sematic checkbox    -->
+<script>
+    $('.test.checkbox').checkbox('attach events', '.toggle.button');
+</script>
+<!--    js Json     -->
+<script src="~/Scripts/Json/Admin/DelMusic.js"></script>

@@ -1,0 +1,46 @@
+﻿@using ProjectMusicSound.Models
+@model List<Album>
+<section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading style-2">
+                    <p>Hôm nay nghe gì</p>
+                    <h2>What’s New Album</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- Single Album Area -->
+            @foreach (var item in Model.Where(n => n.User.role_id == 2))
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
+                        <div class="album-thumb">
+                            <img class="ui medium rounded image" src="~/Images/@item.album_img" alt="@item.album_name" style="width: 177px; height: 177px">
+                            <!-- Album Price -->
+                            <div class="album-price">
+                                <p>$0.90</p>
+                            </div>
+                        </div>
+                        <div class="album-info">
+                            <a href="#">
+                                <h5>@item.album_name</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="load-more-btn text-center wow fadeInUp" data-wow-delay="300ms">
+                    <a href="#" class="btn oneMusic-btn">Load More <i class="fa fa-angle-double-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

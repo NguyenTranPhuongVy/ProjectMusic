@@ -82,7 +82,7 @@
                                     <div class="menu">
                                         <div class="ui container-fluid fluid category search mt-2">
                                             <div class="ui icon input">
-                                                <input class="prompt" type="text" placeholder="Search animals...">
+                                                <input class="prompt" type="text" placeholder="Search animals..." />
                                                 <i class="search icon"></i>
                                             </div>
                                             <div class="results"></div>
@@ -98,7 +98,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
                                                 <stop offset="1" style="stop-color:#EA80FC" />
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -116,6 +140,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 </svg>
                                             </span>
                                             <label style="color: #000000; font-weight: normal">&nbsp;&nbsp; Tạo playlist mới</label>
@@ -125,13 +161,33 @@
                                             User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
                                             foreach (var item in albums.Where(n => n.user_id == user.user_id && user.role_id == 1).OrderByDescending(n => n.album_datecreate).Take(5))
                                             {
-                                                <form action="@Url.Action("AddPlaylist", "Albums", new { id = Model.music_id})" method="post">
-                                                    <input name="musicAlbum" value="@item.album_id" type="hidden"/>
-                                                    <div class="item submit">
-                                                        <img src="https://img.icons8.com/windows/50/000000/playlist.png" style="width: 25px; height: 25px" />
-                                                        @item.album_name
+                                                <div data-toggle="modal" data-target="#addPlaylist-@item.album_id" data-backdrop="false" class="item submit">
+                                                    <img src="https://img.icons8.com/windows/50/000000/playlist.png" style="width: 25px; height: 25px" />
+                                                    @item.album_name
+                                                </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="addPlaylist-@item.album_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Bạn muốn thêm nhạc vào playlist @item.album_name</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="@Url.Action("AddPlaylist", "Albums", new { id = Model.music_id})" method="post">
+                                                                    <input name="musicAlbum" value="@item.album_id" type="hidden" />
+                                                                    <div class="field text-right">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                        <button type="submit" class="btn btn-primary">Đồng ý</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </form>
+                                                </div>
+                                                <!--End Modal-->
                                             }
                                         }
                                     </div>

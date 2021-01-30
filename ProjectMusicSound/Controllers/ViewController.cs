@@ -27,5 +27,11 @@ namespace ProjectMusicSound.Controllers
             return PartialView(musics);
         }
 
+        public PartialViewResult NewAlbum()
+        {
+            List<Album> albums = db.Albums.Where(n => n.album_active == true && n.album_bin == false).OrderByDescending(n => n.album_datecreate).Take(12).ToList();
+            return PartialView(albums);
+        }
+
     }
 }

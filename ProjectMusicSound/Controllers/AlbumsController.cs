@@ -106,7 +106,7 @@ namespace ProjectMusicSound.Controllers
                 db.Music_Ablum.Add(music_Ablum);
             }
             db.SaveChanges();
-            return View();
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: Albums/Edit/5

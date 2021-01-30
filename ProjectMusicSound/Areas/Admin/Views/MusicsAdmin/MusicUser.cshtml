@@ -1,0 +1,135 @@
+﻿@using ProjectMusicSound.Models
+@model List<Music>
+@{
+    ViewBag.Title = "MusicUser";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="wrapper">
+    <div class="ui three item menu">
+        <a href="@Url.Action("Index", "MusicsAdmin")" class="item">Tất Cả Bài Hát Admin</a>
+        <a href="@Url.Action("MusicUser", "MusicsAdmin")" class="item active">Tất Cả Bài Hát Người Dùng</a>
+        <a href="@Url.Action("DelMusic", "MusicsAdmin")" class="item">Thùng Rác</a>
+    </div>
+    <div ng-app="myApp">
+        <div ng-controller="myCtrl">
+            <div class="ui horizontal divider">Tìm Kiếm Theo Từ Khoá</div>
+            <form class="ui form segment">
+                <h3 style="color: #0e607a">Có {{(list | filter:textSearch).length}} Bài Hát</h3>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Tìm Theo Tên</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập tên cần tìm: ..." ng-model="textSearch.music_name">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Tìm Theo Tên</label>
+                        <div class="ui category search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" placeholder="Nhập tên người dùng cần tìm: ..." ng-model="textSearch.nameCreate">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <center>
+                <table class="ui compact celled definition table text-center">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Mã Bài Hát</th>
+                            <th>Tên Bài Hát</th>
+                            <th>Avatar</th>
+                            <th>Tên Người Tạo</th>
+                            <th>Tên Ca Sĩ</th>
+                            <th>Album</th>
+                            <th>Thể Loại</th>
+                            <th>Ngày Tạo</th>
+                            <th>Ngày Sửa</th>
+                            <th>Tuỳ Chọn</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="list in filteredTodos | filter : textSearch">
+                            <td class="collapsing">
+                                <div ng-show="list.music_active == true">
+                                    <input type="checkbox" checked ng-click="active(list.music_id)">
+                                </div>
+                                <div ng-show="list.music_active == false">
+                                    <input type="checkbox" ng-click="active(list.music_id)">
+                                </div>
+                            </td>
+                            <td>
+                                #Code{{list.music_id}}
+                            </td>
+                            <td>{{list.music_name}}</td>
+                            <td>
+                                <img class="ui medium rounded image" src="~/Images/{{list.music_img}}" style="width: 50px; height: 50px">
+                            </td>
+                            <td>
+                                {{list.nameCreate}}
+                            </td>
+                            <td>
+                                {{list.listarrsing}}
+                            </td>
+                            <td>
+                                {{list.listarral}}
+                            </td>
+                            <td>
+                                {{list.listarr}}
+                            </td>
+                            <td>{{list.music_datecreate}}</td>
+                            <td>{{list.music_dateedit}}</td>
+                            <td>
+                                <div ng-show="list.music_option == true">
+                                    <input type="checkbox" checked ng-click="option(list.music_id)">
+                                </div>
+                                <div ng-show="list.music_option == false">
+                                    <input type="checkbox" ng-click="option(list.music_id)">
+                                </div>
+                            </td>
+                            <td>
+                                <a class="ui icon bottom left pointing dropdown button mb-2">
+                                    <i class="eye icon"></i>
+                                </a>
+                                <br />
+                                <a href="/Admin/UsersAdmin/Edit/{{list.music_id}}" class="ui icon bottom left pointing dropdown button mb-2">
+                                    <i class="edit outline icon"></i>
+                                </a>
+                                <br />
+                                <a href="/Admin/MusicsAdmin/MusicDelete/{{list.music_id}}" class="ui icon bottom left pointing dropdown button">
+                                    <i class="trash alternate outline icon"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="full-width">
+                        <tr>
+                            <th colspan="9">
+                                <pagination ng-model="currentPage" total-items="list.length" max-size="maxSize" boundary-links="true"></pagination>
+                            </th>
+                            <th colspan="12">
+                                <div onclick="location.href = '@Url.Action("Create", "UsersAdmin")'" class="ui right floated small primary labeled icon button">
+                                    <i class="user icon"></i> Add User
+                                </div>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </center>
+        </div>
+    </div>
+</div>
+<!--    Script sematic checkbox    -->
+<script>
+    $('.test.checkbox').checkbox('attach events', '.toggle.button');
+</script>
+<!--    js Json     -->
+<script src="~/Scripts/Json/Admin/MusicUs.js"></script>
