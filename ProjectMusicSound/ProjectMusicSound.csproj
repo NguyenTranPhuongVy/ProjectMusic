@@ -210,6 +210,7 @@
     <Compile Include="Models\Album.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlbumJson.cs" />
     <Compile Include="Models\Album_Category.cs">
       <DependentUpon>DataMusic.tt</DependentUpon>
     </Compile>
@@ -2627,6 +2628,7 @@
     <Content Include="Views\Albums\Edit.cshtml" />
     <Content Include="Views\Albums\Index.cshtml" />
     <Content Include="Views\View\NewAlbum.cshtml" />
+    <Content Include="Views\View\AlbumView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

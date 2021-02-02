@@ -65,7 +65,7 @@ namespace ProjectMusicSound.Controllers
 
         public JsonResult MusicShow()
         {
-            List<Music> music = db.Musics.Where(n => n.music_active == true && n.music_bin == false).OrderByDescending(n => n.music_datecreate).Take(6).ToList();
+            List<Music> music = db.Musics.Where(n => n.music_active == true && n.music_bin == false && n.User.role_id == 2).OrderByDescending(n => n.music_datecreate).Take(6).ToList();
             List<MusicJson> list = music.Select(n => new MusicJson
             {
                 music_id = n.music_id,
@@ -84,6 +84,26 @@ namespace ProjectMusicSound.Controllers
                 music_view = n.music_view,
                 user_id = n.user_id,
                 namesinger = n.User.user_name
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult MusicAlbum()
+        {
+            List<Album> albums = db.Albums.Where(n => n.album_active == true && n.album_bin == false && n.User.role_id == 2).OrderByDescending(n => n.album_datecreate).Take(12).ToList();
+            List<AlbumJson> list = albums.Select(n => new AlbumJson
+            {
+                album_active = n.album_active,
+                album_bin = n.album_bin,
+                album_datecreate = n.album_datecreate.ToString(),
+                album_dateedit = n.album_dateedit.ToString(),
+                album_id = n.album_id,
+                album_img = n.album_img,
+                album_love = n.album_love,
+                album_name = n.album_name,
+                album_note = n.album_note,
+                album_view = n.album_view,
+                user_id = n.user_id
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
