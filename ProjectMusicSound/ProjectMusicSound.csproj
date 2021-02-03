@@ -2469,6 +2469,7 @@
     <Content Include="Scripts\Json\Admin\MusicUs.js" />
     <Content Include="Scripts\Json\Admin\Singer.js" />
     <Content Include="Scripts\Json\Admin\Users.js" />
+    <Content Include="Scripts\Json\User\AlbumNew.js" />
     <Content Include="Scripts\Json\User\MusicActive.js" />
     <Content Include="Scripts\Json\User\Musics.js" />
     <Content Include="Scripts\Json\User\MusicShow.js" />

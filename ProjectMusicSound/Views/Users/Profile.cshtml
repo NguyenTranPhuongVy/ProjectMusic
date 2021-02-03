@@ -55,7 +55,10 @@
                                         </div>
                                     </div>
                                 }
-                                <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @user.user_point điểm &nbsp;&nbsp; <a href="">Đổi quà</a></p>
+                                @foreach (var item in profile.Where(n => n.user_id == user.user_id))
+                                {
+                                    <p class="profile-description text-center" style="font-size: 15px"><i class="fas fa-sun"></i> @item.profile_point điểm &nbsp; <a href="">Đổi quà</a></p>
+                                }
                                 <ul class="profile-info-list">
                                     <a href="@Url.Action("Profile", "Users", new { id = user.user_id})" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Xem Trang Cá Nhân</a>
                                     @if (user.v_id == 2 || user.v_id == 3)

@@ -88,7 +88,7 @@ namespace ProjectMusicSound.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult MusicAlbum()
+        public JsonResult NewAlbum()
         {
             List<Album> albums = db.Albums.Where(n => n.album_active == true && n.album_bin == false && n.User.role_id == 2).OrderByDescending(n => n.album_datecreate).Take(12).ToList();
             List<AlbumJson> list = albums.Select(n => new AlbumJson
