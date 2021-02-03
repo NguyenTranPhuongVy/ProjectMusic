@@ -6,7 +6,7 @@
     List<Music_Singer> music_Singers = db.Music_Singer.ToList();
 }
 <!-- ***** New Hits Songs ***** -->
-<div class="col-12 col-lg-4">
+<div class="col-12 col-lg-4" ng-controller="myNewHit">
     <div class="new-hits-area mb-100">
         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
             <p>Hôm nay nghe gì?</p>
@@ -14,22 +14,16 @@
         </div>
 
         <!-- Single Top Item -->
-        @foreach (var item in Model)
-        {
-            <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
-                <div class="first-part d-flex align-items-center">
-                    <div class="thumbnail">
-                        <img src="~/Images/@item.music_img" style="width: 73px; height: 73px" alt="@item.music_name">
-                    </div>
-                    <div class="content-">
-                        <a href="@Url.Action("Details", "Musics", new { id = item.music_id})" style="color: black"><h6>@item.music_name</h6></a>
-                        @foreach (var items in music_Singers.Where(n => n.music_id == item.music_id))
-                        {
-                            <p>@items.Singer.singer_name</p>
-                        }
-                    </div>
+        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms" ng-repeat="list in list">
+            <div class="first-part d-flex align-items-center">
+                <div class="thumbnail">
+                    <img src="~/Images/{{list.music_img}}" style="width: 73px; height: 73px" alt="{{list.music_name}}">
+                </div>
+                <div class="content-">
+                    <a href="/Musics/Details/{{list.music_id}}" style="color: black"><h6>{{list.music_name}}</h6></a>
+                    <p>{{list.listarrsing}}</p>
                 </div>
             </div>
-        }
+        </div>
     </div>
 </div>

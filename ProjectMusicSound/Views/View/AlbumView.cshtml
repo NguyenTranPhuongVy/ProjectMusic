@@ -1,6 +1,6 @@
 ﻿@using ProjectMusicSound.Models
 @model List<Album>
-<section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100">
+<section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100" ng-controller="myView">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -13,25 +13,22 @@
         <div class="row">
 
             <!-- Single Album Area -->
-            @foreach (var item in Model)
-            {
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                    <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
-                        <div class="album-thumb">
-                            <img class="ui medium rounded image" src="~/Images/@item.album_img" alt="@item.album_name" style="width: 177px; height: 177px">
-                            <!-- Album Price -->
-                            <div class="album-price">
-                                <p>$0.90</p>
-                            </div>
-                        </div>
-                        <div class="album-info">
-                            <a href="#">
-                                <h5>@item.album_name</h5>
-                            </a>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2" ng-repeat="list in list">
+                <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
+                    <div class="album-thumb">
+                        <img class="ui medium rounded image" src="~/Images/{{list.album_img}}" alt="{{list.album_name}}" style="width: 177px; height: 177px">
+                        <!-- Album Price -->
+                        <div class="album-price">
+                            <p>$0.90</p>
                         </div>
                     </div>
+                    <div class="album-info">
+                        <a href="#">
+                            <h5>{{list.album_name}}</h5>
+                        </a>
+                    </div>
                 </div>
-            }
+            </div>
         </div>
 
         <div class="row">

@@ -2469,10 +2469,9 @@
     <Content Include="Scripts\Json\Admin\MusicUs.js" />
     <Content Include="Scripts\Json\Admin\Singer.js" />
     <Content Include="Scripts\Json\Admin\Users.js" />
-    <Content Include="Scripts\Json\User\AlbumNew.js" />
     <Content Include="Scripts\Json\User\MusicActive.js" />
     <Content Include="Scripts\Json\User\Musics.js" />
-    <Content Include="Scripts\Json\User\MusicShow.js" />
+    <Content Include="Scripts\Json\User\Show.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
