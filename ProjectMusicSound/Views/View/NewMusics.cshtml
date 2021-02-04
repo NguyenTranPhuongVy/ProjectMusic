@@ -1,0 +1,35 @@
+﻿@using ProjectMusicSound.Models
+@{
+    ViewBag.Title = "NewMusics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Action("Menu", "View")
+<div class="container-fluid">
+    <div class="mt-30">
+        <h1 class="ui header">
+            Mới Phát Hành <i class="fas fa-play-circle"></i>
+            <div class="sub header">Cập nhật lần cuối lúc: </div>
+        </h1>
+    </div>
+    <div class="mt-15">
+        <a href="">
+            <img class="ui small image" src="~/Images/album.jpg" style="width: 100%; height: 90px">
+        </a>
+    </div>
+    <div class="ui divided items">
+        <div class="item">
+            <div class="ui tiny image">
+                <img src="/images/wireframe/image.png">
+            </div>
+            <div class="middle aligned content">
+                <div class="extra">
+                    <p class="ui right floated">
+                        Buy tickets
+                    </p>
+                    <p class="ui">Limited</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

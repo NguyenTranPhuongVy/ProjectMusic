@@ -23,7 +23,7 @@ namespace ProjectMusicSound.Controllers
 
         public PartialViewResult NewHit()
         {
-            List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_bin == false && n.User.role_id == 2).OrderByDescending(n => n.music_datecreate).Take(6).ToList();
+            List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_option == true && n.music_bin == false && n.User.role_id == 2).OrderByDescending(n => n.music_datecreate).Take(6).ToList();
             return PartialView(musics);
         }
 
@@ -37,6 +37,17 @@ namespace ProjectMusicSound.Controllers
         {
             List<Album> albums = db.Albums.Where(n => n.album_active == true && n.album_bin == false && n.User.role_id == 2).OrderByDescending(n => n.album_view).Take(12).ToList();
             return PartialView(albums);
+        }
+
+        public ActionResult Top100()
+        {
+            return View();
+        }
+
+        public ActionResult NewMusics()
+        {
+            List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_option == true && n.music_bin == false && n.User.role_id == 2).OrderByDescending(n => n.music_view).Take(100).ToList();
+            return View(musics);
         }
     }
 }
