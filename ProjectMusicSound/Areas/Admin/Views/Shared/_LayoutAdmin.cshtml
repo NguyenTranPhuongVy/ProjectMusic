@@ -12,6 +12,11 @@
 =========================================================
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  -->
+@using ProjectMusicSound.Models
+@{
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -90,9 +95,13 @@
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#pablo">
-                                <span class="no-icon">Account</span>
-                            </a>
+                            @if (httpCookie != null)
+                            {
+                                User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+                                <a class="nav-link" href="#pablo">
+                                    <span class="no-icon">@user.user_name</span>
+                                </a>
+                            }
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

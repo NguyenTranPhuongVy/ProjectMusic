@@ -1,146 +1,104 @@
-﻿@model ProjectMusicSound.Models.Music
+﻿@using ProjectMusicSound.Models
+@model ProjectMusicSound.Models.Music
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
 }
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Music</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_name, "", new { @class = "text-danger" })
-            </div>
+@{
+    List<Category> categories = db.Categories.Where(n => n.category_active == true && n.category_bin == false).ToList();
+    List<Singer> singers = db.Singers.Where(n => n.singer_active == true && n.singer_bin == false).ToList();
+    List<Album> albums = db.Albums.Where(n => n.album_active == true && n.album_bin == false && n.User.role_id == 2).ToList();
+    List<Author> authors = db.Authors.Where(n => n.author_bin == false && n.author_active == true).ToList();
+}
+<form class="ui form segment" method="post" enctype="multipart/form-data">
+    <p>Thêm Bài Hát</p>
+    <div class="field">
+        <label>Tên Bài Hát</label>
+        <input placeholder="Nhập vào tên bài hát..." name="music_name" type="text">
+    </div>
+    <div class="field">
+        <label>Hình Ảnh</label>
+        <input name="img" type="file">
+    </div>
+    <div class="field">
+        <label>Link Nhạc</label>
+        <input name="filemp3" type="file">
+    </div>
+    <div class="field">
+        <label>Lời Bài Hát</label>
+        <textarea name="music_lyric"></textarea>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label>Thể Loại <b class="text-danger">*</b></label>
+            <p style="font-size: medium">Có thể chọn nhiều thể loại</p>
+            <select name="category" multiple="" class="ui fluid dropdown">
+                <option value="">---Chọn Thể Loại---</option>
+                @foreach (var item in categories)
+                {
+                    <option value="@item.category_id">@item.category_name</option>
+                }
+            </select>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_img, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_img, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_img, "", new { @class = "text-danger" })
-            </div>
+        <div class="field">
+            <label>Ca Sĩ <b class="text-danger">*</b></label>
+            <p style="font-size: medium">Có thể chọn nhiều ca sĩ</p>
+            <select name="singer" multiple="" class="ui fluid dropdown">
+                <option value="">---Chọn Ca Sĩ---</option>
+                @foreach (var item in singers)
+                {
+                    <option value="@item.singer_id">@item.singer_name</option>
+                }
+            </select>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_lyric, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_lyric, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_lyric, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_time, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_view, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_view, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_view, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_dowload, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_dowload, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_dowload, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_love, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_love, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_love, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_id, "user_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_linkdow, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_linkdow, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_linkdow, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_datecreate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_datecreate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_dateedit, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.music_dateedit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.music_dateedit, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.music_active)
-                    @Html.ValidationMessageFor(model => model.music_active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_bin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.music_bin)
-                    @Html.ValidationMessageFor(model => model.music_bin, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.music_option, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.music_option)
-                    @Html.ValidationMessageFor(model => model.music_option, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        @*<div class="field">
+            <label>Nhạc Sĩ <b class="text-danger">*</b></label>
+            <p style="font-size: medium">Có thể chọn nhiều nhạc sĩ</p>
+            <select name="author" multiple="" class="ui fluid dropdown">
+                <option value="">---Chọn Nhạc Sĩ---</option>
+                @foreach (var item in authors)
+                {
+                    <option value="@item.author_id">@item.author_name</option>
+                }
+            </select>
+        </div>*@
+        <div class="field">
+            <label>Album <b class="text-danger">*</b></label>
+            <p style="font-size: medium">Có thể chọn nhiều nhạc sĩ</p>
+            <select name="album" multiple="" class="ui fluid dropdown">
+                <option value="">---Chọn Album---</option>
+                @foreach (var item in albums)
+                {
+                    <option value="@item.album_id">@item.album_name</option>
+                }
+            </select>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div class="two fields">
+        <div class="field">
+            <label>Trạng Thái Nhạc</label>
+            <select name="music_active">
+                <option value="true">Cho phép hiển thị</option>
+                <option value="false">Không hiển thị</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Tuỳ Chọn Nhạc</label>
+            <select name="music_option">
+                <option value="true">Hiển thị người dùng</option>
+                <option value="false">Không hiển thị</option>
+            </select>
+        </div>
+    </div>
+    <div class="ui primary submit button">Submit</div>
+    <div class="ui error message"></div>
+</form>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>

@@ -100,7 +100,8 @@ namespace ProjectMusicSound.Controllers
             String sEmail = f["user_email"].ToString();
             String sPass = f["user_pass"].ToString();
             User user = db.Users.Where(n => n.user_active == true && n.user_bin == false && n.role_id == 1).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
-            if(user != null)
+            User userad = db.Users.Where(n => n.user_active == true && n.user_bin == false && n.role_id == 2).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
+            if (user != null)
             {
                 HttpCookie httpCookie = new HttpCookie("user_id", user.user_id.ToString());
                 httpCookie.Expires.AddDays(10);
@@ -110,6 +111,16 @@ namespace ProjectMusicSound.Controllers
                 db.SaveChanges();
                 return Redirect("/");
             }
+            else if(userad != null)
+            {
+                HttpCookie httpCookie = new HttpCookie("user_id", userad.user_id.ToString());
+                httpCookie.Expires.AddDays(10);
+                Response.Cookies.Set(httpCookie);
+                db.Users.Find(userad.user_id).user_datelogin = DateTime.Now;
+                db.Users.Find(userad.user_id).user_token = Guid.NewGuid().ToString();
+                db.SaveChanges();
+                return Redirect("/Admin/HomeAdmin/Index");
+            }    
             else
             {
                 ViewBag.CheckLogin = "Tài Khoản Không Tồn Tại";
