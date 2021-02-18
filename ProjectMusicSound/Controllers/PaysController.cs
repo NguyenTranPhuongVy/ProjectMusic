@@ -21,6 +21,11 @@ namespace ProjectMusicSound.Controllers
             return View(pays.ToList());
         }
 
+        public ActionResult Payment()
+        {
+            return View();
+        }
+
         // GET: Pays/Details/5
         public ActionResult Details(int? id)
         {
