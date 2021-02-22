@@ -44,6 +44,8 @@ namespace ProjectMusicSound.Controllers
             {
                 return HttpNotFound();
             }
+            music.music_view = music.music_view + 1;
+            db.SaveChanges();
             return View(music);
         }
 

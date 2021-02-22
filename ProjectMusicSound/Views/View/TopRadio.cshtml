@@ -1,11 +1,11 @@
 ﻿@using ProjectMusicSound.Models
-@model List<Album>
-<section class="oneMusic-buy-now-area has-fluid section-padding-100" ng-controller="myView">
+@model List<Music>
+<section class="oneMusic-buy-now-area bg-gray has-fluid section-padding-100" ng-controller="myRadio">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="section-heading style-2">
-                    <h2>Playlist Nghe Là Thích</h2>
+                    <h2>Top Radio</h2>
                 </div>
             </div>
         </div>
@@ -16,15 +16,15 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-2" ng-repeat="list in list">
                 <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
                     <div class="album-thumb">
-                        <img class="ui medium rounded image" src="~/Images/{{list.album_img}}" alt="{{list.album_name}}" style="width: 177px; height: 177px">
+                        <img class="ui medium rounded image" src="~/Images/{{list.music_img}}" alt="{{list.music_name}}" style="width: 177px; height: 177px">
                         <!-- Album Price -->
                         <div class="album-price">
-                            <p>$0.90</p>
+                            <p>{{list.music_view}}</p>
                         </div>
                     </div>
                     <div class="album-info">
-                        <a href="#">
-                            <h5>{{list.album_name}}</h5>
+                        <a href="/Musics/Details/{{list.music_id}}">
+                            <h5>{{list.music_name}}</h5>
                         </a>
                     </div>
                 </div>
@@ -40,3 +40,4 @@
         </div>
     </div>
 </section>
+

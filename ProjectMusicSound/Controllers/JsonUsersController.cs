@@ -164,5 +164,30 @@ namespace ProjectMusicSound.Controllers
             }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult RadioUser()
+        {
+            List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_bin == false && n.User.role_id == 1).OrderByDescending(n => n.music_datecreate).Take(12).ToList();
+            List<MusicJson> list = musics.Select(n => new MusicJson
+            {
+                music_active = n.music_active,
+                music_bin = n.music_bin,
+                music_datecreate = n.music_datecreate.ToString(),
+                music_dateedit = n.music_dateedit.ToString(),
+                music_dowload = n.music_dowload,
+                music_id = n.music_id,
+                music_img = n.music_img,
+                music_linkdow = n.music_linkdow,
+                music_love = n.music_love,
+                music_lyric = n.music_lyric,
+                music_name = n.music_name,
+                music_option = n.music_option,
+                music_time = n.music_time,
+                music_view = n.music_view,
+                nameCreate = n.User.user_name
+            }
+            ).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

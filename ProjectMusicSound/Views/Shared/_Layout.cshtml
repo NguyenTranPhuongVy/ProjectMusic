@@ -2,6 +2,15 @@
 @{
     MusicDataEntities db = new MusicDataEntities();
     HttpCookie httpCookie = Request.Cookies["user_id"];
+    if(httpCookie != null)
+    {
+        User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+        if(DateTime.Now.ToString("dd/MM/yyy") == user.user_deadline.Value.ToString("dd/MM/yyy"))
+        {
+            user.v_id = 1;
+            db.SaveChanges();
+        }
+    }
 }
 <!DOCTYPE html>
 <html lang="en">

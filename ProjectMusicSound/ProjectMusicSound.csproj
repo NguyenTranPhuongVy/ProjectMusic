@@ -49,7 +49,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -198,8 +198,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonUsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MoMoSecurity.cs" />
     <Compile Include="Controllers\MusicsController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\PaymentRequest.cs" />
     <Compile Include="Controllers\PaysController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
@@ -1984,6 +1986,7 @@
     <Content Include="Content\Layout\css\chart.css" />
     <Content Include="Content\Layout\css\classy-nav.css" />
     <Content Include="Content\Layout\css\font-awesome.min.css" />
+    <Content Include="Content\Layout\css\gift.css" />
     <Content Include="Content\Layout\css\Login.css" />
     <Content Include="Content\Layout\css\magnific-popup.css" />
     <Content Include="Content\Layout\css\one-music-icon.css" />
@@ -2473,7 +2476,7 @@
     <Content Include="Scripts\Json\Admin\Users.js" />
     <Content Include="Scripts\Json\User\MusicActive.js" />
     <Content Include="Scripts\Json\User\Musics.js" />
-    <Content Include="Scripts\Json\User\Show.js" />
+    <Content Include="Scripts\Json\User\ShowIndex.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -2633,7 +2636,10 @@
     <Content Include="Views\View\AlbumView.cshtml" />
     <Content Include="Views\View\Top100.cshtml" />
     <Content Include="Views\View\NewMusics.cshtml" />
-    <Content Include="Views\Pays\Payment.cshtml" />
+    <Content Include="Views\View\ChartsMusic.cshtml" />
+    <Content Include="Views\View\TopRadio.cshtml" />
+    <Content Include="Views\Pays\ReturnUrl.cshtml" />
+    <Content Include="Views\Pays\ChangeGift.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,3 +33,16 @@ app.controller('myView', function ($scope, $http) {
 
     });
 });
+
+//TopRadio
+app.controller('myRadio', function ($scope, $http) {
+    $http({
+        method: "GET",
+        url: "/JsonUsers/RadioUser"
+    }).then(function mySuccess(response) {
+        $scope.list = response.data;
+    }, function myError(response) {
+        $scope.list = response.statusText;
+
+    });
+});

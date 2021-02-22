@@ -1,0 +1,48 @@
+﻿@using ProjectMusicSound.Models
+@{
+    ViewBag.Title = "ReturnUrl";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+    List<Profile> profiles = db.Profiles.ToList();
+}
+@Html.Action("Menu", "View")
+<div style="margin-top: 2%; margin-bottom: 28%">
+    @if (ViewBag.Mes == "Thanh toán thành công")
+    {
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Thanh toán thành công
+            </div>
+            <p>
+                Chờ cập nhật...
+            </p>
+        </div>
+        <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+
+    }
+    else
+    {
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                Thanh toán thất bại
+            </div>
+            <p>
+                Chờ cập nhật...
+            </p>
+        </div>
+    }
+    
+</div>
+<script>
+        setTimeout(function () {
+            window.location.href = '/Users/Profile/@user.user_id';
+
+        }, 3000);
+</script>
+

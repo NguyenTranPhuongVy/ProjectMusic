@@ -113,6 +113,8 @@
           <Property Name="package_datecreate" Type="datetime" />
           <Property Name="package_active" Type="bit" />
           <Property Name="package_pin" Type="bit" />
+          <Property Name="pakage_price" Type="int" />
+          <Property Name="pakege_deadline" Type="datetime" />
         </EntityType>
         <EntityType Name="Pay">
           <Key>
@@ -198,6 +200,7 @@
           <Property Name="user_code" Type="nvarchar" MaxLength="200" />
           <Property Name="user_point" Type="int" />
           <Property Name="v_id" Type="int" />
+          <Property Name="user_deadline" Type="datetime" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -422,6 +425,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Version1">
+          <End Role="Version" Type="Self.Version" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Version">
+              <PropertyRef Name="v_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="v_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MusicDataModelStoreContainer">
           <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Album_Category" EntityType="Self.Album_Category" Schema="dbo" store:Type="Tables" />
@@ -510,6 +525,10 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Version" Association="Self.FK_Users_Version">
+            <End Role="Version" EntitySet="Version" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Version1" Association="Self.FK_Users_Version1">
             <End Role="Version" EntitySet="Version" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
@@ -609,6 +628,8 @@
           <Property Name="package_active" Type="Boolean" />
           <Property Name="package_pin" Type="Boolean" />
           <NavigationProperty Name="Pays" Relationship="Self.FK_Pay_Package" FromRole="Package" ToRole="Pay" />
+          <Property Name="pakage_price" Type="Int32" />
+          <Property Name="pakege_deadline" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Pay">
           <Key>
@@ -697,6 +718,7 @@
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
           <NavigationProperty Name="Version" Relationship="Self.FK_Users_Version" FromRole="Users" ToRole="Version" />
           <NavigationProperty Name="Albums" Relationship="MusicDataModel.FK_Album_Users" FromRole="User" ToRole="Album" />
+          <Property Name="user_deadline" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -1143,6 +1165,8 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="MusicDataModel.Package">
               <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="pakege_deadline" ColumnName="pakege_deadline" />
+                <ScalarProperty Name="pakage_price" ColumnName="pakage_price" />
                 <ScalarProperty Name="package_id" ColumnName="package_id" />
                 <ScalarProperty Name="package_name" ColumnName="package_name" />
                 <ScalarProperty Name="package_money" ColumnName="package_money" />
@@ -1216,6 +1240,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MusicDataModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_deadline" ColumnName="user_deadline" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_name" ColumnName="user_name" />
                 <ScalarProperty Name="user_img" ColumnName="user_img" />

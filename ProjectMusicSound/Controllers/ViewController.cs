@@ -49,5 +49,16 @@ namespace ProjectMusicSound.Controllers
             List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_option == true && n.music_bin == false && n.User.role_id == 2).OrderByDescending(n => n.music_view).Take(100).ToList();
             return View(musics);
         }
+
+        public PartialViewResult ChartsMusic()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult TopRadio()
+        {
+            List<Music> musics = db.Musics.Where(n => n.music_active == true && n.music_bin == false && n.User.role_id == 1).OrderByDescending(n => n.music_datecreate).Take(12).ToList();
+            return PartialView(musics);
+        }
     }
 }

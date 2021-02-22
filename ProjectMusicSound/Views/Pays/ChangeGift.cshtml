@@ -1,0 +1,66 @@
+﻿@using ProjectMusicSound.Models
+@{
+    ViewBag.Title = "ChangeGift";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MusicDataEntities db = new MusicDataEntities();
+    HttpCookie httpCookie = Request.Cookies["user_id"];
+    User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
+    List<Package> packages = db.Packages.ToList();
+}
+@Html.Action("Menu", "View")
+<link href="~/Content/Layout/css/gift.css" rel="stylesheet" />
+<div class="mt-3 container-fluid" style="margin-bottom: 10%">
+    <div class="ui medium header">Đổi VIP</div>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-1">
+                    <h3>VIP 1</h3>
+                    <p>
+                        Tích luỹ 300 điểm quy đổi để sử dụng VIP 1 ngày.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-2">
+                    <h3>VIP 7</h3>
+                    <p>Tích luỹ 2500 điểm để sử dụng VIP 7 ngày</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-3">
+                    <h3>VIP 30</h3>
+                    <p>Tích luỹ 15000 điểm để sử dụng VIP 30 ngày</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui medium header">Đổi Qùa</div>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-1">
+                    <h3>VIP 1</h3>
+                    <p>
+                        Tích luỹ 300 điểm quy đổi để sử dụng VIP 1 ngày.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-2">
+                    <h3>VIP 7</h3>
+                    <p>Tích luỹ 2500 điểm để sử dụng VIP 7 ngày</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-3">
+                    <h3>VIP 30</h3>
+                    <p>Tích luỹ 15000 điểm để sử dụng VIP 30 ngày</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

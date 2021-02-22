@@ -38,6 +38,7 @@ namespace ProjectMusicSound.Models
         public string user_code { get; set; }
         public Nullable<int> user_point { get; set; }
         public Nullable<int> v_id { get; set; }
+        public Nullable<System.DateTime> user_deadline { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Music> Musics { get; set; }
