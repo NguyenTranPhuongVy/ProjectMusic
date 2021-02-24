@@ -6,61 +6,155 @@
     HttpCookie httpCookie = Request.Cookies["user_id"];
     User user = db.Users.Find(int.Parse(httpCookie.Value.ToString()));
     List<Package> packages = db.Packages.ToList();
+    List<Profile> profiles = db.Profiles.ToList();
 }
+<link href="~/Content/Layout/css/GiftCard.css" rel="stylesheet" />
+<style>
+    h1 {
+        text-align: left;
+        position: relative;
+        line-height: 2;
+    }
+
+        h1:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            top: auto;
+            left: 0;
+            bottom: 0;
+            background-color: #dfdfdf;
+        }
+
+        h1:after {
+            content: "";
+            position: absolute;
+            width: 10%;
+            height: 3px;
+            top: auto;
+            left: 0;
+            bottom: 0;
+            background-color: orange;
+        }
+
+</style>
 @Html.Action("Menu", "View")
-<link href="~/Content/Layout/css/gift.css" rel="stylesheet" />
-<div class="mt-3 container-fluid" style="margin-bottom: 10%">
-    <div class="ui medium header">Đổi VIP</div>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-1">
-                    <h3>VIP 1</h3>
-                    <p>
-                        Tích luỹ 300 điểm quy đổi để sử dụng VIP 1 ngày.
-                    </p>
+@*<div class="mt-3 container-fluid" style="margin-bottom: 10%">
+        <div class="ui medium header">Đổi VIP</div>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-1">
+                        <h3>VIP 1</h3>
+                        <p>
+                            Tích luỹ 300 điểm quy đổi để sử dụng VIP 1 ngày.
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-2">
-                    <h3>VIP 7</h3>
-                    <p>Tích luỹ 2500 điểm để sử dụng VIP 7 ngày</p>
+                <div class="col-md-4">
+                    <div class="card card-2">
+                        <h3>VIP 7</h3>
+                        <p>Tích luỹ 2500 điểm để sử dụng VIP 7 ngày</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-3">
-                    <h3>VIP 30</h3>
-                    <p>Tích luỹ 15000 điểm để sử dụng VIP 30 ngày</p>
+                <div class="col-md-4">
+                    <div class="card card-3">
+                        <h3>VIP 30</h3>
+                        <p>Tích luỹ 15000 điểm để sử dụng VIP 30 ngày</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="ui medium header">Đổi Qùa</div>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-1">
+                        <h3>VIP 1</h3>
+                        <p>
+                            Tích luỹ 300 điểm quy đổi để sử dụng VIP 1 ngày.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-2">
+                        <h3>VIP 7</h3>
+                        <p>Tích luỹ 2500 điểm để sử dụng VIP 7 ngày</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-3">
+                        <h3>VIP 30</h3>
+                        <p>Tích luỹ 15000 điểm để sử dụng VIP 30 ngày</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div style="margin-bottom: 17%">
+    <div class="container-fluid mt-3">
+        @foreach (var item in profiles.Where(n => n.user_id == user.user_id))
+        {
+            <h1>Số điểm của bạn: @item.profile_point <i class="fas fa-sun"></i></h1>
+        }
     </div>
-    <div class="ui medium header">Đổi Qùa</div>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
-    <div class="container">
+    <div class="container mt-2">
         <div class="row">
-            <div class="col-md-4">
-                <div class="card card-1">
-                    <h3>VIP 1</h3>
-                    <p>
-                        Tích luỹ 300 điểm quy đổi để sử dụng VIP 1 ngày.
-                    </p>
-                </div>
+            <div class="col-lg-4">
+                <figure class="snip1249">
+                    <div class="image">
+                        <i class="ion-ios-star-outline"></i>
+                    </div>
+                    <figcaption>
+                        <h3>VIP 1</h3>
+                        <p>Tích đủ 500 điểm để đổi 1 ngày sử dụng VIP</p>
+                        <div class="price">
+                            500 <i class="fas fa-sun"></i>
+                        </div>
+                        <a href="#" class="add-to-cart">Quy Đổi Điểm</a>
+                    </figcaption>
+                </figure>
             </div>
-            <div class="col-md-4">
-                <div class="card card-2">
-                    <h3>VIP 7</h3>
-                    <p>Tích luỹ 2500 điểm để sử dụng VIP 7 ngày</p>
-                </div>
+            <div class="col-lg-4">
+                <figure class="snip1249">
+                    <div class="image">
+                        <i class="ion-ios-star-outline"></i>
+                    </div>
+                    <figcaption>
+                        <h3>VIP 7</h3>
+                        <p>Tích đủ 2500 điểm để đổi 7 ngày sử dụng VIP</p>
+                        <div class="price">
+                            2500 <i class="fas fa-sun"></i>
+                        </div>
+                        <a href="#" class="add-to-cart">Quy Đổi Điểm</a>
+                    </figcaption>
+                </figure>
             </div>
-            <div class="col-md-4">
-                <div class="card card-3">
-                    <h3>VIP 30</h3>
-                    <p>Tích luỹ 15000 điểm để sử dụng VIP 30 ngày</p>
-                </div>
+            <div class="col-lg-4">
+                <figure class="snip1249">
+                    <div class="image">
+                        <i class="ion-ios-star-outline"></i>
+                    </div>
+                    <figcaption>
+                        <h3>VIP 30</h3>
+                        <p>Tích đủ 15000 điểm để quy đổi 30 ngày sử dụng VIP</p>
+                        <div class="price">
+                            15000 <i class="fas fa-sun"></i>
+                        </div>
+                        <a href="#" class="add-to-cart">Quy Đổi Điểm</a>
+                    </figcaption>
+                </figure>
             </div>
         </div>
     </div>
 </div>
-
+<script>
+    $(".hover").mouseleave(
+        function () {
+            $(this).removeClass("hover");
+        }
+    );
+</script>

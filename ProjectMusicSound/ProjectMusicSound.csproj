@@ -1986,7 +1986,7 @@
     <Content Include="Content\Layout\css\chart.css" />
     <Content Include="Content\Layout\css\classy-nav.css" />
     <Content Include="Content\Layout\css\font-awesome.min.css" />
-    <Content Include="Content\Layout\css\gift.css" />
+    <Content Include="Content\Layout\css\GiftCard.css" />
     <Content Include="Content\Layout\css\Login.css" />
     <Content Include="Content\Layout\css\magnific-popup.css" />
     <Content Include="Content\Layout\css\one-music-icon.css" />
@@ -2226,8 +2226,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\6020a18d66b6a7a93140111bb846920d.jpg" />
+    <Content Include="Images\Banner\Vip7.jpg" />
     <Content Include="Images\Banner\banner100.jpg" />
     <Content Include="Images\Banner\logomomo.png" />
+    <Content Include="Images\Banner\vip-3.jpg" />
+    <Content Include="Images\Banner\vip1.png" />
     <Content Include="Images\Charlie_Puth_-_Attention_%28Official_Single_Cover%29.png" />
     <Content Include="Images\album.jpg" />
     <Content Include="Images\User\userImg.png" />

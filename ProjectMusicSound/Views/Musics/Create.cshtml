@@ -16,7 +16,7 @@
 
 <style>
     .canchinh {
-        margin-top: 10%;
+        margin-top: 3%;
         margin-bottom: 10%;
     }
 </style>
@@ -74,79 +74,69 @@
                             Lưu ý:
                         </div>
                         <p>Lượt view <b>1000</b> tích <b>10 điểm</b>.</p>
-                        <p><b>1000 điểm</b> đổi được <b>1 ngày VIP</b>.</p>
+                        <p><b>500 điểm</b> đổi được <b>1 ngày VIP</b>.</p>
                     </div>
                     <div class="card">
-                        <div class="card-body">
-                            <form class="ui form" method="post" enctype="multipart/form-data">
-                                <h3>Đăng Nhạc</h3>
-                                <div class="field">
-                                    <label>Tiêu Đề <b class="text-danger">*</b></label>
-                                    <p style="font-size: medium">Tiêu đề phải từ 5 - 50 ký tự</p>
-                                    <input placeholder="VD: Attendtion" name="music_name" type="text">
-                                </div>
-                                <div class="field">
-                                    <label>Hình Ảnh <b class="text-danger">*</b></label>
-                                    <input name="img" type="file">
-                                </div>
-                                <div class="field">
-                                    <label>Tên Thể Loại <b class="text-danger">*</b></label>
-                                    <p style="font-size: medium">Có thể chọn nhiều thể loại</p>
-                                    <select name="category" multiple="" class="ui fluid dropdown">
-                                        <option value="">---Chọn Thể Loại---</option>
-                                        @foreach (var item in categories)
-                                        {
-                                            <option value="@item.category_id">@item.category_name</option>
-                                        }
-                                    </select>
-                                </div>
-                                <!--<div class="three fields">-->
-                                @*<div class="field">
-                                        <label>Tên Ca Sĩ <b class="text-danger">*</b></label>
-                                        <p style="font-size: medium">Có thể chọn nhiều ca sĩ</p>
-                                        <select name="singer" multiple="" class="ui fluid dropdown">
-                                            <option value="">---Chọn Tên Ca Sĩ---</option>
-                                            @foreach (var item in singers)
+                        @if (user.v_id == 2 || user.v_id == 3)
+                        {
+                            <div class="card-body">
+                                <form class="ui form" method="post" enctype="multipart/form-data">
+                                    <h3>Đăng Nhạc</h3>
+                                    <div class="field">
+                                        <label>Tiêu Đề <b class="text-danger">*</b></label>
+                                        <p style="font-size: medium">Tiêu đề phải từ 5 - 50 ký tự</p>
+                                        <input placeholder="VD: Attendtion" name="music_name" type="text">
+                                    </div>
+                                    <div class="field">
+                                        <label>Hình Ảnh <b class="text-danger">*</b></label>
+                                        <input name="img" type="file">
+                                    </div>
+                                    <div class="field">
+                                        <label>Tên Thể Loại <b class="text-danger">*</b></label>
+                                        <p style="font-size: medium">Có thể chọn nhiều thể loại</p>
+                                        <select name="category" multiple="" class="ui fluid dropdown">
+                                            <option value="">---Chọn Thể Loại---</option>
+                                            @foreach (var item in categories)
                                             {
-                                                <option value="@item.singer_id">@item.singer_name</option>
+                                                <option value="@item.category_id">@item.category_name</option>
                                             }
                                         </select>
-                                    </div>*@
-                                @*<div class="field">
-                                        <label>Tên Nhạc Sĩ <b class="text-danger">*</b></label>
-                                        <p style="font-size: medium">Có thể chọn nhiều nhạc sĩ</p>
-                                        <select name="author" multiple="" class="ui fluid dropdown">
-                                            <option value="">---Chọn Tên Nhạc Sĩ---</option>
-                                            @foreach (var item in authors)
-                                            {
-                                                <option value="@item.author_id">@item.author_name</option>
-                                            }
+                                    </div>
+                                    <div class="field">
+                                        <label>Lời Bài Hát <b class="text-danger">*</b></label>
+                                        <textarea name="music_lyric"></textarea>
+                                    </div>
+                                    <div class="field">
+                                        <label>Thời Lượng <b class="text-danger">*</b></label>
+                                        <input placeholder="VD: 4:30" name="music_time" type="text">
+                                    </div>
+                                    <div class="field">
+                                        <label>Link Bài Hát <b class="text-danger">*</b></label>
+                                        <input name="filemp3" type="file">
+                                    </div>
+                                    <div class="field">
+                                        <label>Tuỳ Chọn <b class="text-danger">*</b></label>
+                                        <select name="music_option" class="ui dropdown">
+                                            <option value="True">Cho Phép Hiển Thị</option>
+                                            <option value="False">Không Hiển Thị</option>
                                         </select>
-                                    </div>*@
-                                <!--</div>-->
-                                <div class="field">
-                                    <label>Lời Bài Hát <b class="text-danger">*</b></label>
-                                    <textarea name="music_lyric"></textarea>
+                                    </div>
+                                    <div class="ui primary submit button">Đăng Nhạc</div>
+                                    <div class="ui error message"></div>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="ui error message">
+                                <div class="header">
+                                    Bạn Có Thể Đăng Nhạc Khi Có Tài Khoản VIP
                                 </div>
-                                <div class="field">
-                                    <label>Thời Lượng <b class="text-danger">*</b></label>
-                                    <input placeholder="VD: 4:30" name="music_time" type="text">
-                                </div>
-                                <div class="field">
-                                    <label>Link Bài Hát <b class="text-danger">*</b></label>
-                                    <input name="filemp3" type="file">
-                                </div>
-                                <div class="field">
-                                    <label>Tuỳ Chọn <b class="text-danger">*</b></label>
-                                    <select name="music_option" class="ui dropdown">
-                                        <option value="True">Cho Phép Hiển Thị</option>
-                                        <option value="False">Không Hiển Thị</option>
-                                    </select>
-                                </div>
-                                <div class="ui primary submit button">Đăng Nhạc</div>
-                                <div class="ui error message"></div>
-                            </form>
-                        </div>
+                                <ul class="list">
+                                    <li>Bạn có thể nâng cấp VIP ngay  <a style="font-family: 'Segoe UI'; font-size: 14px" href="@Url.Action("Index", "Packages")">tại đây.</a></li>
+                                </ul>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
