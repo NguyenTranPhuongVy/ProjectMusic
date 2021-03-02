@@ -83,6 +83,7 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "music_id,music_name,music_img,music_lyric,music_time,music_view,music_dowload,music_love,user_id,music_linkdow,music_datecreate,music_dateedit,music_active,music_bin,music_option")] Music music, int[] category, int[] singer, int[] album, int[] author, HttpPostedFileBase filemp3, HttpPostedFileBase img)
         {
 
@@ -142,24 +143,31 @@ namespace ProjectMusicSound.Areas.Admin.Controllers
                 db.Music_Singer.Add(music_Singer);
             }  
             
-            foreach (var item in album)
+            if(album != null)
             {
-                Music_Ablum music_Ablum = new Music_Ablum()
+                foreach (var item in album)
                 {
-                    music_id = music.music_id,
-                    album_id = item
-                };
-                db.Music_Ablum.Add(music_Ablum);
+                    Music_Ablum music_Ablum = new Music_Ablum()
+                    {
+                        music_id = music.music_id,
+                        album_id = item
+                    };
+                    db.Music_Ablum.Add(music_Ablum);
+                }
             }
 
-            //foreach(var item in author)
-            //{
-            //    Music_Author music_Author = new Music_Author()
-            //    {
-            //        music_id = music.music_id,
-            //        author_id = item
-            //    };
-            //}    
+            if(author != null)
+            {
+                foreach (var item in author)
+                {
+                    Music_Author music_Author = new Music_Author()
+                    {
+                        music_id = music.music_id,
+                        author_id = item
+                    };
+                    db.Music_Author.Add(music_Author);
+                }
+            }
 
             db.SaveChanges();
 

@@ -50,6 +50,10 @@
     <link href="~/Content/PageList/ui.css" rel="stylesheet" />
     <script src="~/Content/PageList/ui.js"></script>
     <script src="~/Content/PageList/list.js"></script>
+
+
+    <!--Ckeditor-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body>
@@ -152,6 +156,13 @@
             demo.showNotification();
 
         });
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 </body>
 </html>

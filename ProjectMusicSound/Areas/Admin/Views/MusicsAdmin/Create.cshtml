@@ -30,7 +30,7 @@
     </div>
     <div class="field">
         <label>Lời Bài Hát</label>
-        <textarea name="music_lyric"></textarea>
+        <textarea id="editor" name="music_lyric"></textarea>
     </div>
     <div class="three fields">
         <div class="field">
@@ -55,17 +55,17 @@
                 }
             </select>
         </div>
-        @*<div class="field">
-            <label>Nhạc Sĩ <b class="text-danger">*</b></label>
-            <p style="font-size: medium">Có thể chọn nhiều nhạc sĩ</p>
-            <select name="author" multiple="" class="ui fluid dropdown">
-                <option value="">---Chọn Nhạc Sĩ---</option>
-                @foreach (var item in authors)
-                {
-                    <option value="@item.author_id">@item.author_name</option>
-                }
-            </select>
-        </div>*@
+        <div class="field">
+                <label>Nhạc Sĩ <b class="text-danger">*</b></label>
+                <p style="font-size: medium">Có thể chọn nhiều nhạc sĩ</p>
+                <select name="author" multiple="" class="ui fluid dropdown">
+                    <option value="">---Chọn Nhạc Sĩ---</option>
+                    @foreach (var item in authors)
+                    {
+                        <option value="@item.author_id">@item.author_name</option>
+                    }
+                </select>
+            </div>
         <div class="field">
             <label>Album <b class="text-danger">*</b></label>
             <p style="font-size: medium">Có thể chọn nhiều nhạc sĩ</p>
